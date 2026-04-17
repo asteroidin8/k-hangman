@@ -152,6 +152,7 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
 }
 
 .setting-item input {
@@ -630,7 +631,7 @@ input {
 .settings-panel {
   top: 60px;
   right: 16px;
-  width: min(150px, 28vw);
+  width: min(190px, 40vw);
 }
 
   .message-text,
@@ -686,7 +687,7 @@ input {
 .settings-panel {
   top: 56px;
   right: 14px;
-  width: min(116px, 24vw);
+  width: min(166px, 44vw);
 }
 
   .message-text,
