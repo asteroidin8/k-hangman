@@ -114,6 +114,8 @@ input {
 
 .message,
 .settings-panel {
+  --overlay-font-size: clamp(1.5rem, 2vw, 1.8rem);
+  --overlay-line-height: 1.05;
   position: absolute;
   top: 64px;
   right: 18px;
@@ -139,9 +141,9 @@ input {
   display: block;
   width: 100%;
   font-family: var(--title-font);
-  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  font-size: var(--overlay-font-size);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: var(--overlay-line-height);
   color: var(--ink);
   white-space: pre-line;
   word-break: keep-all;
@@ -633,15 +635,12 @@ input {
 
 .message,
 .settings-panel {
+  --overlay-font-size: clamp(1.12rem, 3.2vw, 1.28rem);
+  --overlay-line-height: 1.08;
   top: 60px;
   right: 16px;
   width: min(190px, 40vw);
 }
-
-  .message-text,
-  .setting-item {
-    font-size: clamp(1.3rem, 1.6vw, 1.35rem);
-  }
 
   .hangman-zone {
     --hangman-top-clearance: 44px;
@@ -695,16 +694,12 @@ input {
 
 .message,
 .settings-panel {
+  --overlay-font-size: clamp(0.92rem, 3.6vw, 1.02rem);
+  --overlay-line-height: 1.1;
   top: 56px;
   right: 14px;
   width: min(166px, 44vw);
 }
-
-  .message-text,
-  .setting-item {
-    font-size: clamp(1rem, 1.4vw, 1rem);
-    line-height: 1.02;
-  }
 
   .setting-item {
     gap: 6px;
