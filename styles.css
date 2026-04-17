@@ -388,7 +388,7 @@ input {
 .ad-sign {
   position: absolute;
   top: 4px;
-  left: 12px;
+  left: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -404,7 +404,8 @@ input {
   line-height: 1.05;
   text-align: center;
   white-space: pre-line;
-  transform: rotate(-1.5deg);
+  transform: translateX(-100%) rotate(-1.5deg);
+  transform-origin: top right;
 }
 
 .ad-sign::before,
@@ -752,7 +753,6 @@ input {
   }
 
   .ad-sign {
-    left: 8px;
     min-width: 86px;
     height: 62px;
     font-size: 1.08rem;
