@@ -381,15 +381,16 @@ input {
 }
 
 .ad-mascot-area {
+  --ad-mascot-shift: 90px;
   position: relative;
   min-height: 92px;
-  left: -90px;
+  left: calc(var(--ad-mascot-shift) * -1);
 }
 
 .ad-sign {
   position: absolute;
   top: 4px;
-  left: 100%;
+  left: calc(100% + var(--ad-mascot-shift));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -646,7 +647,7 @@ input {
   }
 
   .ad-mascot-area {
-    left: -85px;
+    --ad-mascot-shift: 85px;
   }
 
   .restman-wrap {
@@ -745,7 +746,7 @@ input {
   }
 
   .ad-mascot-area {
-    left: -75px;
+    --ad-mascot-shift: 75px;
   }
 
   .restman-wrap {
