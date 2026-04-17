@@ -1,0 +1,51 @@
+<svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- 교수대 줄 끝(203,88) 기준으로 행맨 중심을 맞춤 -->
+  <g transform="translate(58, 30)">
+    <path
+      id="part-head"
+      class="part"
+      d="M121 77
+         C 116 64, 129 55, 142 57
+         C 155 58, 161 69, 159 80
+         C 156 92, 145 99, 132 96
+         C 124 94, 118 87, 121 77 Z"
+    />
+    <path
+      id="part-body"
+      class="part"
+      d="M138 96
+         Q 142 116 143 138
+         Q 143 151 142 166"
+    />
+    <path
+      id="part-arm-left"
+      class="part"
+      d="M141 116
+         Q 123 126 108 138"
+    />
+    <path
+      id="part-arm-right"
+      class="part"
+      d="M143 120
+         Q 156 130 167 145"
+    />
+    <path
+      id="part-leg-left"
+      class="part"
+      d="M141 166
+         Q 127 185 116 205"
+    />
+    <path
+      id="part-leg-right"
+      class="part"
+      d="M141 166
+         Q 151 184 162 204"
+    />
+
+    <path id="dead-eye-l1" class="dead-face" d="M128 75 L136 82" />
+    <path id="dead-eye-l2" class="dead-face" d="M136 75 L128 82" />
+    <path id="dead-eye-r1" class="dead-face" d="M143 76 L151 82" />
+    <path id="dead-eye-r2" class="dead-face" d="M151 75 L143 83" />
+    <path id="dead-mouth" class="dead-face" d="M132 90 Q 139 92 147 90" />
+  </g>
+</svg>

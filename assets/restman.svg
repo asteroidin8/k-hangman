@@ -1,0 +1,32 @@
+<svg viewBox="0 0 120 90">
+  <g transform="translate(20,6)">
+    <!-- head -->
+<path class="scaffold"
+  d="M35 16
+     C 34 10, 39 5, 45 5
+     C 51 5, 55 10, 54 16
+     C 54 23, 50 27, 45 27
+     C 39 27, 35 23, 35 16 Z"/>
+
+    <!-- body -->
+    <path class="scaffold"
+      d="M40 26 Q 48 42 54 60"/>
+
+    <!-- arms -->
+    <path class="scaffold"
+      d="M38 36 Q 48 38 56 40"/>
+    <path class="scaffold"
+      d="M50 34 Q 44 40 36 42"/>
+
+    <!-- main leg -->
+    <path class="scaffold"
+      d="M54 60 Q 52 72 50 84"/>
+
+    <!-- crossed leg -->
+    <path class="scaffold"
+      d="M54 60 Q 64 64 58 72 Q 52 80 48 84"/>
+
+    <!-- feet -->
+    <path class="scaffold" d="M48 84 Q 53 85 57 84"/>
+  </g>
+</svg>
