@@ -271,6 +271,7 @@ input {
   line-height: 1;
   letter-spacing: 0.12em;
   text-align: right;
+  white-space: pre-wrap;
 }
 
 .input-row {

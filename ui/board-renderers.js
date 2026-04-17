@@ -1,4 +1,18 @@
+import { CHO, JONG, JUNG } from "../core/utils.js";
+
 export function createBoardRenderers(el, getParts, getDeadFace) {
+  const consonantOrder = [...new Set([...CHO, ...JONG.filter(Boolean)])];
+  const consonantOrderMap = new Map(consonantOrder.map((jamo, index) => [jamo, index]));
+  const vowelOrderMap = new Map(JUNG.map((jamo, index) => [jamo, index]));
+
+  function sortByOrder(items, orderMap) {
+    return [...items].sort(
+      (left, right) =>
+        (orderMap.get(left) ?? Number.MAX_SAFE_INTEGER) -
+        (orderMap.get(right) ?? Number.MAX_SAFE_INTEGER)
+    );
+  }
+
   function renderInputSlot({ liveDisplayChar, invalidChar, isEnded }) {
     el.inputSlot.classList.toggle("is-disabled", isEnded);
     el.sendBtn.disabled = isEnded;
@@ -40,7 +54,17 @@ export function createBoardRenderers(el, getParts, getDeadFace) {
       return;
     }
 
-    el.wrongJamoList.textContent = guessedWrong.join(" ");
+    const consonants = sortByOrder(
+      guessedWrong.filter((jamo) => !vowelOrderMap.has(jamo)),
+      consonantOrderMap
+    );
+    const vowels = sortByOrder(
+      guessedWrong.filter((jamo) => vowelOrderMap.has(jamo)),
+      vowelOrderMap
+    );
+    const groups = [consonants.join(" "), vowels.join(" ")].filter(Boolean);
+
+    el.wrongJamoList.textContent = groups.join("   ");
     el.wrongJamoList.classList.remove("hidden");
   }
 
