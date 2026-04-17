@@ -235,6 +235,9 @@ input {
 }
 
 .answer-slots {
+  --answer-slot-width: 38px;
+  --answer-slot-height: 52px;
+  --answer-slot-font-size: 2.2rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -242,15 +245,15 @@ input {
 }
 
 .answer-slot {
-  width: 38px;
-  height: 52px;
+  width: var(--answer-slot-width);
+  height: var(--answer-slot-height);
   border-bottom: 4px solid var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink);
   font-family: var(--title-font);
-  font-size: 2.2rem;
+  font-size: var(--answer-slot-font-size);
   font-weight: 700;
   line-height: 1;
 }
@@ -285,17 +288,20 @@ input {
 }
 
 .input-cluster {
+  --input-slot-size: 70px;
+  --send-btn-size: 58px;
+  --input-cluster-gap: 8px;
   position: relative;
   display: grid;
-  grid-template-columns: 70px 58px;
+  grid-template-columns: var(--input-slot-size) var(--send-btn-size);
   align-items: center;
-  gap: 8px;
+  gap: var(--input-cluster-gap);
 }
 
 .input-slot {
   position: relative;
-  width: 70px;
-  height: 70px;
+  width: var(--input-slot-size);
+  height: var(--input-slot-size);
   border: var(--line);
   border-radius: 18px;
   background: var(--paper);
@@ -351,8 +357,8 @@ input {
 }
 
 .send-btn {
-  width: 58px;
-  height: 58px;
+  width: var(--send-btn-size);
+  height: var(--send-btn-size);
   border-radius: 18px;
   display: grid;
   place-items: center;
@@ -651,6 +657,19 @@ input {
     min-height: 294px;
   }
 
+  .answer-slots {
+    --answer-slot-width: 36px;
+    --answer-slot-height: 50px;
+    --answer-slot-font-size: 2.08rem;
+    gap: 10px;
+  }
+
+  .input-cluster {
+    --input-slot-size: 66px;
+    --send-btn-size: 56px;
+    --input-cluster-gap: 7px;
+  }
+
   .ad-strip {
     grid-template-columns: 120px 1fr;
   }
@@ -721,10 +740,11 @@ input {
     height: 14px;
   }
 
-  .answer-slot {
-    width: 34px;
-    height: 46px;
-    font-size: 1.95rem;
+  .answer-slots {
+    --answer-slot-width: 34px;
+    --answer-slot-height: 46px;
+    --answer-slot-font-size: 1.95rem;
+    gap: 8px;
   }
 
   .wrong-jamo-list {
@@ -736,21 +756,13 @@ input {
   }
 
   .input-cluster {
-    grid-template-columns: 64px 54px;
-  }
-
-  .input-slot {
-    width: 64px;
-    height: 64px;
+    --input-slot-size: 64px;
+    --send-btn-size: 54px;
+    --input-cluster-gap: 6px;
   }
 
   .input-display {
     font-size: 2.1rem;
-  }
-
-  .send-btn {
-    width: 54px;
-    height: 54px;
   }
 
   .ad-strip {
