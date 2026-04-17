@@ -162,6 +162,7 @@ input {
 }
 
 .hangman-zone {
+  --hangman-top-clearance: 0px;
   position: relative;
   min-height: 250px;
   z-index: 1;
@@ -170,7 +171,7 @@ input {
 
 .svg-mount {
   position: absolute;
-  inset: 0;
+  inset: var(--hangman-top-clearance) 0 0;
 }
 
 .gallows-mount svg,
@@ -642,6 +643,11 @@ input {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
   }
 
+  .hangman-zone {
+    --hangman-top-clearance: 44px;
+    min-height: 294px;
+  }
+
   .ad-strip {
     grid-template-columns: 120px 1fr;
   }
@@ -683,7 +689,8 @@ input {
   }
 
   .hangman-zone {
-    min-height: 220px;
+    --hangman-top-clearance: 52px;
+    min-height: 272px;
   }
 
 .message,
