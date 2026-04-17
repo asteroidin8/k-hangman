@@ -391,6 +391,10 @@ input {
 }
 
 .ad-sign {
+  --ad-sign-hanger-top: -16px;
+  --ad-sign-hanger-width: 34px;
+  --ad-sign-hanger-inset: 8px;
+  --ad-sign-hanger-angle: 22deg;
   position: absolute;
   top: 4px;
   left: calc(100% + var(--ad-mascot-shift));
@@ -417,19 +421,19 @@ input {
 .ad-sign::after {
   content: "";
   position: absolute;
-  top: -16px;
-  width: 34px;
+  top: var(--ad-sign-hanger-top);
+  width: var(--ad-sign-hanger-width);
   border-top: 3px solid var(--ink);
 }
 
 .ad-sign::before {
-  left: 8px;
-  transform: rotate(22deg);
+  left: var(--ad-sign-hanger-inset);
+  transform: rotate(var(--ad-sign-hanger-angle));
 }
 
 .ad-sign::after {
-  right: 8px;
-  transform: rotate(-22deg);
+  right: var(--ad-sign-hanger-inset);
+  transform: rotate(calc(var(--ad-sign-hanger-angle) * -1));
 }
 
 .ad-sign.is-hidden {
@@ -655,6 +659,13 @@ input {
     --ad-mascot-shift: 85px;
   }
 
+  .ad-sign {
+    --ad-sign-hanger-top: -14px;
+    --ad-sign-hanger-width: 30px;
+    --ad-sign-hanger-inset: 9px;
+    --ad-sign-hanger-angle: 20deg;
+  }
+
   .restman-wrap {
     width: 86px;
     height: 74px;
@@ -757,6 +768,10 @@ input {
   }
 
   .ad-sign {
+    --ad-sign-hanger-top: -12px;
+    --ad-sign-hanger-width: 24px;
+    --ad-sign-hanger-inset: 10px;
+    --ad-sign-hanger-angle: 18deg;
     min-width: 86px;
     height: 62px;
     font-size: 1.08rem;
