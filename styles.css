@@ -134,6 +134,19 @@ input {
   text-align: left;
 }
 
+.settings-modal {
+  width: min(100%, 320px);
+}
+
+.settings-modal .modal-title {
+  margin-bottom: 18px;
+}
+
+.settings-modal .settings-panel {
+  position: static;
+  width: 100%;
+}
+
 .message-text,
 .setting-item {
   display: block;
