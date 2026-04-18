@@ -138,6 +138,11 @@ input {
   display: none;
 }
 
+.board.is-settings-modal-open .answer-row,
+.board.is-settings-modal-open .input-row {
+  visibility: hidden;
+}
+
 .message,
 .settings-panel {
   position: absolute;
@@ -181,11 +186,22 @@ input {
 
 .settings-modal .modal-title {
   margin-bottom: 18px;
+  font-size: clamp(1.9rem, 4vw, 2.1rem);
 }
 
 .settings-modal .settings-panel {
   position: static;
   width: 100%;
+}
+
+.settings-modal .setting-item {
+  font-size: clamp(1.15rem, 2.8vw, 1.35rem);
+  line-height: 1.2;
+}
+
+.settings-modal .setting-item input {
+  width: 18px;
+  height: 18px;
 }
 
 .message-text,
@@ -701,6 +717,10 @@ input {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
   }
 
+  .settings-modal .setting-item {
+    font-size: clamp(1.08rem, 2.8vw, 1.18rem);
+  }
+
   .ad-strip {
     grid-template-columns: 120px 1fr;
   }
@@ -762,6 +782,15 @@ input {
   .setting-item {
     font-size: clamp(1rem, 1.4vw, 1rem);
     line-height: 1.02;
+  }
+
+  .settings-modal .modal-title {
+    font-size: 1.7rem;
+  }
+
+  .settings-modal .setting-item {
+    font-size: 1rem;
+    line-height: 1.18;
   }
 
   .setting-item {
