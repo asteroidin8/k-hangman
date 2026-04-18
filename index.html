@@ -55,6 +55,10 @@
         <div class="message-text" id="messageText"></div>
       </div>
 
+      <div class="word-meaning hidden" id="wordMeaning" aria-live="polite">
+        <div class="message-text" id="wordMeaningText"></div>
+      </div>
+
       <div class="hangman-zone">
         <div id="gallowsMount" class="svg-mount gallows-mount" aria-hidden="true"></div>
         <div id="hangmanMount" class="svg-mount hangman-mount" aria-hidden="true"></div>
@@ -150,6 +154,10 @@
         <label class="setting-item">
           <input type="checkbox" id="wrongJamoToggle" />
           <span>틀린 자모 보기</span>
+        </label>
+        <label class="setting-item">
+          <input type="checkbox" id="wordMeaningToggle" />
+          <span>단어 뜻 보기</span>
         </label>
       </div>
     </div>

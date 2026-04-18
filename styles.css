@@ -126,12 +126,27 @@ input {
   text-align: left;
 }
 
+.word-meaning {
+  position: absolute;
+  top: 64px;
+  right: 18px;
+  z-index: 9;
+  width: min(190px, 32vw);
+  text-align: left;
+}
+
+.word-meaning .message-text {
+  color: rgba(17, 17, 17, 0.72);
+}
+
 .settings-panel {
   background: transparent;
   padding: 0;
   box-shadow: none;
   border: 0;
   text-align: left;
+  display: grid;
+  gap: 12px;
 }
 
 .settings-modal {
@@ -165,6 +180,7 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
 }
 
 .setting-item input {
@@ -646,6 +662,12 @@ input {
   width: min(150px, 28vw);
 }
 
+  .word-meaning {
+    top: 60px;
+    right: 16px;
+    width: min(150px, 28vw);
+  }
+
   .message-text,
   .setting-item {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
@@ -701,6 +723,12 @@ input {
   right: 14px;
   width: min(116px, 24vw);
 }
+
+  .word-meaning {
+    top: 56px;
+    right: 14px;
+    width: min(116px, 24vw);
+  }
 
   .message-text,
   .setting-item {

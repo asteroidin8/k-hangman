@@ -23,6 +23,7 @@ const ui = {
   bindInjectedParts: boardUI.bindInjectedParts,
   showMessage: messageUI.show,
   hideMessage: messageUI.hide,
+  syncMeaning: messageUI.syncMeaning,
   renderInputSlot: boardUI.renderInputSlot,
   renderAnswerSlots: boardUI.renderAnswerSlots,
   renderWrongJamo: boardUI.renderWrongJamo,
@@ -36,11 +37,13 @@ const ui = {
 
 const today = getTodayString();
 const puzzleNumber = daysFromBase(BASE_DATE, today) + 1;
-const answerWord = WORDS[((puzzleNumber - 1) % WORDS.length + WORDS.length) % WORDS.length];
+const answerEntry = WORDS[((puzzleNumber - 1) % WORDS.length + WORDS.length) % WORDS.length];
+const answerWord = typeof answerEntry === "string" ? answerEntry : answerEntry.word;
+const answerMeaning = typeof answerEntry === "string" ? "" : answerEntry.meaning;
 const answerJamo = splitHangulWord(answerWord);
 
 const state = createState(today, puzzleNumber);
-const game = createGame(state, ui, answerJamo);
+const game = createGame(state, ui, answerJamo, answerMeaning);
 const sharing = createSharing(ui, game);
 
 let isComposing = false;
@@ -127,7 +130,7 @@ function handleDocumentClick(event) {
 }
 
 function bindEvents() {
-  settingsUI.sync(state.settings.showWrongJamo);
+  settingsUI.sync(state.settings.showWrongJamo, state.settings.showWordMeaning);
 
   el.inputSlot.addEventListener("click", focusInput);
   el.sendBtn.addEventListener("click", () => game.submitGuess(el.jamoInput));
@@ -151,6 +154,10 @@ function bindEvents() {
 
   el.wrongJamoToggle.addEventListener("change", (event) => {
     game.setWrongJamoVisible(event.target.checked);
+  });
+
+  el.wordMeaningToggle.addEventListener("change", (event) => {
+    game.setWordMeaningVisible(event.target.checked);
   });
 
   el.closeSettingsBtn.addEventListener("click", closeSettings);
