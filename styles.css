@@ -112,6 +112,32 @@ input {
   pointer-events: none;
 }
 
+.board.is-ad-preview {
+  min-height: 132px;
+  padding: 16px 18px;
+}
+
+.board.is-ad-preview::before {
+  display: none;
+}
+
+.board.is-ad-preview::after {
+  content: "광고 자리";
+  position: absolute;
+  inset: 16px 18px;
+  border: 2px dashed rgba(17, 17, 17, 0.35);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(17, 17, 17, 0.68);
+  font-size: 0.95rem;
+}
+
+.board.is-ad-preview > * {
+  display: none;
+}
+
 .message,
 .settings-panel {
   position: absolute;
