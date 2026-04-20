@@ -115,10 +115,10 @@ input {
 .message,
 .settings-panel {
   position: absolute;
-  top: 64px;
-  right: 18px;
+  top: clamp(56px, 10vw, 64px);
+  right: clamp(14px, 3vw, 18px);
   z-index: 10;
-  width: min(190px, 32vw);
+  width: clamp(118px, 28vw, 190px);
   text-align: left;
 }
 
@@ -671,13 +671,6 @@ input {
     width: min(100%, 520px);
   }
 
-.message,
-.settings-panel {
-  top: 60px;
-  right: 16px;
-  width: min(190px, 40vw);
-}
-
   .message-text,
   .setting-item {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
@@ -730,13 +723,6 @@ input {
   .hangman-zone {
     min-height: 220px;
   }
-
-.message,
-.settings-panel {
-  top: 56px;
-  right: 14px;
-  width: min(166px, 44vw);
-}
 
   .message-text,
   .setting-item {
