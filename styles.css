@@ -96,7 +96,7 @@ input {
   background: var(--paper);
   border: var(--line);
   border-radius: 30px;
-  padding: 18px 18px 28px;
+  padding: 18px;
   box-shadow: var(--soft-shadow);
   overflow: hidden;
 }
@@ -270,7 +270,7 @@ input {
   position: relative;
   z-index: 1;
   margin-top: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 .answer-slots {
@@ -317,14 +317,10 @@ input {
 
 .wrong-jamo-group {
   display: grid;
-  grid-template-columns: 16px 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 6px;
+  gap: 0;
   min-width: 0;
-}
-
-.wrong-jamo-label {
-  color: rgba(17, 17, 17, 0.62);
 }
 
 .wrong-jamo-values {
@@ -338,7 +334,7 @@ input {
   position: relative;
   z-index: 1;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .input-cluster {
@@ -727,7 +723,7 @@ input {
   }
 
   .board {
-    padding: 16px 14px 24px;
+    padding: 16px 14px;
   }
 
   .hangman-zone {
