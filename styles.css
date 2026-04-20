@@ -424,7 +424,6 @@ input {
 .ad-mascot-area {
   position: relative;
   min-height: 92px;
-  left: -90px;
 }
 
 .ad-sign {
@@ -690,7 +689,7 @@ input {
   }
 
   .ad-mascot-area {
-    left: -85px;
+    left: 0;
   }
 
   .restman-wrap {
@@ -794,7 +793,7 @@ input {
   }
 
   .ad-mascot-area {
-    left: -75px;
+    left: 0;
   }
 
   .restman-wrap {
