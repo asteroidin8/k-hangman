@@ -400,14 +400,14 @@ input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 108px;
-  height: 72px;
-  padding: 8px 10px;
+  min-width: clamp(86px, 22vw, 108px);
+  height: clamp(62px, 16vw, 72px);
+  padding: clamp(6px, 1.8vw, 8px) clamp(8px, 2.2vw, 10px);
   border: 3px solid var(--ink);
   border-radius: 10px;
   background: var(--paper);
   font-family: var(--title-font);
-  font-size: 1.35rem;
+  font-size: clamp(1.08rem, 3vw, 1.35rem);
   font-weight: 700;
   line-height: 1.05;
   text-align: center;
@@ -420,7 +420,7 @@ input {
   content: "";
   position: absolute;
   top: -16px;
-  width: 34px;
+  width: clamp(28px, 7vw, 34px);
   border-top: 3px solid var(--ink);
 }
 
@@ -757,9 +757,6 @@ input {
 
   .ad-sign {
     left: 8px;
-    min-width: 86px;
-    height: 62px;
-    font-size: 1.08rem;
   }
 
   .modal {
