@@ -158,16 +158,19 @@ input {
 }
 
 .word-meaning {
-  position: absolute;
-  top: 64px;
-  right: 18px;
-  z-index: 9;
-  width: min(190px, 32vw);
-  text-align: left;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0 0 10px;
+  text-align: center;
 }
 
 .word-meaning .message-text {
   color: rgba(17, 17, 17, 0.72);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 
 .settings-panel {
@@ -706,12 +709,6 @@ input {
   width: min(150px, 28vw);
 }
 
-  .word-meaning {
-    top: 60px;
-    right: 16px;
-    width: min(150px, 28vw);
-  }
-
   .message-text,
   .setting-item {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
@@ -771,12 +768,6 @@ input {
   right: 14px;
   width: min(116px, 24vw);
 }
-
-  .word-meaning {
-    top: 56px;
-    right: 14px;
-    width: min(116px, 24vw);
-  }
 
   .message-text,
   .setting-item {
