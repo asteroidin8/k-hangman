@@ -1,6 +1,6 @@
 import { MAX_WRONG, TEXT } from "./config.js";
 
-export function createGame(state, ui, answerJamo) {
+export function createGame(state, ui, answerJamo, answerMeaning) {
   let typedChar = "";
   let liveDisplayChar = "";
   let invalidChar = "";
@@ -63,6 +63,7 @@ export function createGame(state, ui, answerJamo) {
     ui.renderAnswerSlots(answerJamo, state.progress.guessedCorrect);
     ui.renderWrongJamo(state.settings.showWrongJamo, state.progress.guessedWrong);
     ui.renderHangman(state.progress.wrongCount, state.progress.status === "lost");
+    ui.syncMeaning(answerMeaning, state.settings.showWordMeaning);
     syncInputUI();
     syncAdState();
   }
@@ -305,6 +306,12 @@ export function createGame(state, ui, answerJamo) {
     syncUI();
   }
 
+  function setWordMeaningVisible(value) {
+    state.settings.showWordMeaning = value;
+    state.saveSettings();
+    syncUI();
+  }
+
   return {
     syncUI,
     buildShareText,
@@ -314,6 +321,7 @@ export function createGame(state, ui, answerJamo) {
     useBonusHint,
     acceptLastChar,
     handleCompositionEnd,
-    setWrongJamoVisible
+    setWrongJamoVisible,
+    setWordMeaningVisible
   };
 }

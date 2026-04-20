@@ -19,9 +19,12 @@ export function getDOM() {
     closeSettingsBtn: document.getElementById("closeSettingsBtn"),
     message: document.getElementById("message"),
     messageText: document.getElementById("messageText"),
+    wordMeaning: document.getElementById("wordMeaning"),
+    wordMeaningText: document.getElementById("wordMeaningText"),
 
     settingsPanel: document.getElementById("settingsPanel"),
     wrongJamoToggle: document.getElementById("wrongJamoToggle"),
+    wordMeaningToggle: document.getElementById("wordMeaningToggle"),
 
     answerSlots: document.getElementById("answerSlots"),
     wrongJamoList: document.getElementById("wrongJamoList"),
