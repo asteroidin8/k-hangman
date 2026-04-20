@@ -143,6 +143,10 @@ input {
   visibility: hidden;
 }
 
+.board.is-stats-modal-open .input-row {
+  visibility: hidden;
+}
+
 .message,
 .settings-panel {
   position: absolute;

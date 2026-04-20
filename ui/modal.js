@@ -10,6 +10,7 @@ export function createModalUI(el) {
 
   function open() {
     el.toolbar.classList.add("hidden");
+    el.board.classList.add("is-stats-modal-open");
     el.statsModal.classList.remove("hidden");
     el.statsModal.setAttribute("aria-hidden", "false");
   }
@@ -17,6 +18,7 @@ export function createModalUI(el) {
   function close() {
     el.statsModal.classList.add("hidden");
     el.statsModal.setAttribute("aria-hidden", "true");
+    el.board.classList.remove("is-stats-modal-open");
     el.toolbar.classList.remove("hidden");
   }
 
