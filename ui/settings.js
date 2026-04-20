@@ -4,8 +4,9 @@ export function createSettingsUI(el) {
     el.settingsModal.setAttribute("aria-hidden", visible ? "false" : "true");
   }
 
-  function sync(showWrongJamo) {
+  function sync(showWrongJamo, showWordMeaning) {
     el.wrongJamoToggle.checked = showWrongJamo;
+    el.wordMeaningToggle.checked = showWordMeaning;
   }
 
   return {

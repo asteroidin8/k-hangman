@@ -24,7 +24,8 @@ export function createState(today, puzzleNumber) {
   });
 
   const settings = loadJSON(STORAGE_SETTINGS, {
-    showWrongJamo: false
+    showWrongJamo: false,
+    showWordMeaning: false
   });
 
   let progress = loadJSON(STORAGE_PROGRESS, null);
@@ -35,6 +36,11 @@ export function createState(today, puzzleNumber) {
   } else if (typeof progress.bonusHintUsed !== "boolean") {
     progress.bonusHintUsed = false;
     saveJSON(STORAGE_PROGRESS, progress);
+  }
+
+  if (typeof settings.showWordMeaning !== "boolean") {
+    settings.showWordMeaning = false;
+    saveJSON(STORAGE_SETTINGS, settings);
   }
 
   return {
