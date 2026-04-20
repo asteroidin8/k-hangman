@@ -15,6 +15,8 @@ export function getDOM() {
     shareBtn: document.getElementById("shareBtn"),
     settingsBtn: document.getElementById("settingsBtn"),
 
+    settingsModal: document.getElementById("settingsModal"),
+    closeSettingsBtn: document.getElementById("closeSettingsBtn"),
     message: document.getElementById("message"),
     messageText: document.getElementById("messageText"),
 

@@ -1,6 +1,7 @@
 export function createSettingsUI(el) {
   function setVisible(visible) {
-    el.settingsPanel.classList.toggle("hidden", !visible);
+    el.settingsModal.classList.toggle("hidden", !visible);
+    el.settingsModal.setAttribute("aria-hidden", visible ? "false" : "true");
   }
 
   function sync(showWrongJamo) {
