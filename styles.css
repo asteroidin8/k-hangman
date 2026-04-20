@@ -800,3 +800,10 @@ input {
     width: min(100%, 350px);
   }
 }
+
+@media (max-width: 400px) {
+  .message,
+  .settings-panel {
+    top: 64px;
+  }
+}
