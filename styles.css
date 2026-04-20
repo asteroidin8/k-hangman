@@ -299,14 +299,40 @@ input {
 }
 
 .wrong-jamo-list {
-  min-height: 28px;
+  min-height: 58px;
+  padding: 8px 10px;
+  border: var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 4px;
   color: var(--red);
   font-family: var(--title-font);
-  font-size: 1.45rem;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.12em;
-  text-align: right;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+.wrong-jamo-group {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.wrong-jamo-label {
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.wrong-jamo-values {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-row {
@@ -319,9 +345,10 @@ input {
 .input-cluster {
   position: relative;
   display: grid;
-  grid-template-columns: 70px 58px;
-  align-items: center;
+  grid-template-columns: 70px minmax(132px, 1fr);
+  align-items: stretch;
   gap: 8px;
+  width: min(100%, 250px);
 }
 
 .input-slot {
@@ -380,26 +407,6 @@ input {
   caret-color: transparent;
   outline: none;
   z-index: 1;
-}
-
-.send-btn {
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  display: grid;
-  place-items: center;
-  background: var(--paper);
-  align-self: center;
-}
-
-.send-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.send-btn svg {
-  width: 22px;
-  height: 22px;
 }
 
 .ad-strip {
@@ -761,11 +768,13 @@ input {
   }
 
   .wrong-jamo-list {
-    font-size: 1.28rem;
+    min-height: 54px;
+    font-size: 0.92rem;
   }
 
   .input-cluster {
-    grid-template-columns: 64px 54px;
+    grid-template-columns: 64px minmax(112px, 1fr);
+    width: min(100%, 232px);
   }
 
   .input-slot {
@@ -777,9 +786,9 @@ input {
     font-size: 2.1rem;
   }
 
-  .send-btn {
-    width: 54px;
-    height: 54px;
+  .wrong-jamo-group {
+    grid-template-columns: 14px 1fr;
+    gap: 4px;
   }
 
   .ad-strip {
