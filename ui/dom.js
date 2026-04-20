@@ -32,7 +32,6 @@ export function getDOM() {
     inputSlot: document.getElementById("inputSlot"),
     inputDisplay: document.getElementById("inputDisplay"),
     jamoInput: document.getElementById("jamoInput"),
-    sendBtn: document.getElementById("sendBtn"),
 
     statsModal: document.getElementById("statsModal"),
     modalTitle: document.getElementById("modalTitle"),

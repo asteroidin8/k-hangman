@@ -129,7 +129,6 @@ function bindEvents() {
   settingsUI.sync(state.settings.showWrongJamo, state.settings.showWordMeaning);
 
   el.inputSlot.addEventListener("click", focusInput);
-  el.sendBtn.addEventListener("click", () => game.submitGuess(el.jamoInput));
 
   el.helpBtn.addEventListener("click", () => {
     closeSettings();

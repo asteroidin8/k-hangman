@@ -1,3 +1,7 @@
+import { CHO, JONG, JUNG } from "../core/utils.js";
+
+const CONSONANT_ORDER = [...new Set([...CHO, ...JONG.filter(Boolean)])];
+
 export function createBoardUI(el) {
   let parts = [];
   let deadFace = [];
@@ -23,7 +27,6 @@ export function createBoardUI(el) {
 
   function renderInputSlot({ liveDisplayChar, invalidChar, isEnded }) {
     el.inputSlot.classList.toggle("is-disabled", isEnded);
-    el.sendBtn.disabled = isEnded;
     el.jamoInput.disabled = isEnded;
 
     if (invalidChar) {
@@ -57,11 +60,36 @@ export function createBoardUI(el) {
 
   function renderWrongJamo(show, guessedWrong) {
     if (!show || guessedWrong.length === 0) {
-      el.wrongJamoList.textContent = "";
+      el.wrongJamoList.innerHTML = `
+        <div class="wrong-jamo-group">
+          <span class="wrong-jamo-label">자</span>
+          <span class="wrong-jamo-values"></span>
+        </div>
+        <div class="wrong-jamo-group">
+          <span class="wrong-jamo-label">모</span>
+          <span class="wrong-jamo-values"></span>
+        </div>
+      `;
       return;
     }
 
-    el.wrongJamoList.textContent = guessedWrong.join(" ");
+    const consonants = guessedWrong
+      .filter((jamo) => !JUNG.includes(jamo))
+      .sort((a, b) => CONSONANT_ORDER.indexOf(a) - CONSONANT_ORDER.indexOf(b));
+    const vowels = guessedWrong
+      .filter((jamo) => JUNG.includes(jamo))
+      .sort((a, b) => JUNG.indexOf(a) - JUNG.indexOf(b));
+
+    el.wrongJamoList.innerHTML = `
+      <div class="wrong-jamo-group">
+        <span class="wrong-jamo-label">자</span>
+        <span class="wrong-jamo-values">${consonants.join(" ")}</span>
+      </div>
+      <div class="wrong-jamo-group">
+        <span class="wrong-jamo-label">모</span>
+        <span class="wrong-jamo-values">${vowels.join(" ")}</span>
+      </div>
+    `;
   }
 
   function renderHangman(wrongCount, isDead) {
