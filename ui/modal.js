@@ -10,7 +10,6 @@ export function createModalUI(el) {
 
   function open() {
     el.toolbar.classList.add("hidden");
-    el.board.classList.add("hidden");
     el.statsModal.classList.remove("hidden");
     el.statsModal.setAttribute("aria-hidden", "false");
   }
@@ -19,7 +18,6 @@ export function createModalUI(el) {
     el.statsModal.classList.add("hidden");
     el.statsModal.setAttribute("aria-hidden", "true");
     el.toolbar.classList.remove("hidden");
-    el.board.classList.remove("hidden");
   }
 
   function setCopyButtonCopied(copied) {
