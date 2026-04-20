@@ -226,10 +226,20 @@ input {
 }
 
 .gallows-mount {
+  left: 50%;
+  bottom: 0;
+  width: min(100%, 320px);
+  height: 250px;
+  transform: translateX(-50%);
   z-index: 1;
 }
 
 .hangman-mount {
+  left: 50%;
+  bottom: 0;
+  width: min(100%, 320px);
+  height: 250px;
+  transform: translateX(-50%);
   z-index: 2;
 }
 
@@ -684,6 +694,16 @@ input {
     grid-template-columns: 120px 1fr;
   }
 
+  .hangman-zone {
+    min-height: 236px;
+  }
+
+  .gallows-mount,
+  .hangman-mount {
+    width: min(100%, 300px);
+    height: 236px;
+  }
+
   .ad-mascot-area {
     left: 0;
   }
@@ -722,6 +742,12 @@ input {
 
   .hangman-zone {
     min-height: 220px;
+  }
+
+  .gallows-mount,
+  .hangman-mount {
+    width: min(100%, 276px);
+    height: 220px;
   }
 
   .message-text,
