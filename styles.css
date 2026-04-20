@@ -270,7 +270,7 @@ input {
   position: relative;
   z-index: 1;
   margin-top: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 }
 
 .answer-slots {
@@ -300,10 +300,7 @@ input {
 
 .wrong-jamo-list {
   min-height: 58px;
-  padding: 8px 10px;
-  border: var(--line);
-  border-radius: 18px;
-  background: var(--paper);
+  padding: 0;
   display: grid;
   grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 4px;
@@ -313,7 +310,9 @@ input {
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.04em;
-  text-align: left;
+  text-align: right;
+  justify-self: end;
+  width: min(100%, 148px);
 }
 
 .wrong-jamo-group {
@@ -338,21 +337,22 @@ input {
 .input-row {
   position: relative;
   z-index: 1;
-  display: flex;
-  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .input-cluster {
   position: relative;
   display: grid;
-  grid-template-columns: 70px minmax(132px, 1fr);
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+  align-items: center;
   gap: 8px;
-  width: min(100%, 250px);
+  width: 100%;
 }
 
 .input-slot {
   position: relative;
+  grid-column: 2;
   width: 70px;
   height: 70px;
   border: var(--line);
@@ -362,6 +362,10 @@ input {
   align-items: center;
   justify-content: center;
   cursor: text;
+}
+
+.wrong-jamo-list {
+  grid-column: 3;
 }
 
 .input-slot.is-focused {
@@ -770,11 +774,11 @@ input {
   .wrong-jamo-list {
     min-height: 54px;
     font-size: 0.92rem;
+    width: min(100%, 132px);
   }
 
   .input-cluster {
-    grid-template-columns: 64px minmax(112px, 1fr);
-    width: min(100%, 232px);
+    grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
   }
 
   .input-slot {
