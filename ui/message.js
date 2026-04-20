@@ -11,8 +11,7 @@ export function createMessageUI(el) {
       Boolean(meaningText) &&
       el.message.classList.contains("hidden");
 
-    el.wordMeaningText.textContent = meaningText;
-    el.wordMeaning.classList.toggle("hidden", !shouldShow);
+    el.wordMeaningText.textContent = shouldShow ? meaningText : "";
   }
 
   function show(text, autoHide = true) {
