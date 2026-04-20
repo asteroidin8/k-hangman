@@ -114,14 +114,11 @@ function handleDocumentClick(event) {
   const target = event.target;
   if (!(target instanceof Element)) return;
 
-  if (!target.closest(".settings-panel") && !target.closest("#settingsBtn")) {
-    closeSettings();
-  }
-
   if (
     target.closest(".message") ||
     target.closest(".icon-btn") ||
-    target.closest(".modal")
+    target.closest(".modal") ||
+    target.closest(".settings-modal")
   ) {
     return;
   }
@@ -149,11 +146,19 @@ function bindEvents() {
 
   el.settingsBtn.addEventListener("click", () => {
     ui.hideMessage();
-    toggleSettings();
+    settingsUI.setVisible(true);
   });
 
   el.wrongJamoToggle.addEventListener("change", (event) => {
     game.setWrongJamoVisible(event.target.checked);
+  });
+
+  el.closeSettingsBtn.addEventListener("click", closeSettings);
+
+  el.settingsModal.addEventListener("click", (event) => {
+    if (event.target === el.settingsModal) {
+      closeSettings();
+    }
   });
 
   el.copyBtn.addEventListener("click", async () => {
