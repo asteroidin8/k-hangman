@@ -62,11 +62,9 @@ export function createBoardUI(el) {
     if (!show || guessedWrong.length === 0) {
       el.wrongJamoList.innerHTML = `
         <div class="wrong-jamo-group">
-          <span class="wrong-jamo-label">자</span>
           <span class="wrong-jamo-values"></span>
         </div>
         <div class="wrong-jamo-group">
-          <span class="wrong-jamo-label">모</span>
           <span class="wrong-jamo-values"></span>
         </div>
       `;
@@ -82,11 +80,9 @@ export function createBoardUI(el) {
 
     el.wrongJamoList.innerHTML = `
       <div class="wrong-jamo-group">
-        <span class="wrong-jamo-label">자</span>
         <span class="wrong-jamo-values">${consonants.join(" ")}</span>
       </div>
       <div class="wrong-jamo-group">
-        <span class="wrong-jamo-label">모</span>
         <span class="wrong-jamo-values">${vowels.join(" ")}</span>
       </div>
     `;
