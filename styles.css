@@ -112,11 +112,6 @@ input {
   pointer-events: none;
 }
 
-.board.is-settings-modal-open .answer-row,
-.board.is-settings-modal-open .input-row {
-  visibility: hidden;
-}
-
 .message,
 .settings-panel {
   position: absolute;
@@ -504,6 +499,7 @@ input {
 .modal-backdrop {
   position: fixed;
   inset: 0;
+  z-index: 100;
   background: rgba(0, 0, 0, 0.28);
   display: flex;
   align-items: center;
