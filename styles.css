@@ -112,6 +112,11 @@ input {
   pointer-events: none;
 }
 
+.board.is-settings-modal-open .answer-row,
+.board.is-settings-modal-open .input-row {
+  visibility: hidden;
+}
+
 .message,
 .settings-panel {
   position: absolute;
