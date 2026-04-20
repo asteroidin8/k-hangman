@@ -57,13 +57,11 @@ export function createBoardUI(el) {
 
   function renderWrongJamo(show, guessedWrong) {
     if (!show || guessedWrong.length === 0) {
-      el.wrongJamoList.classList.add("hidden");
       el.wrongJamoList.textContent = "";
       return;
     }
 
     el.wrongJamoList.textContent = guessedWrong.join(" ");
-    el.wrongJamoList.classList.remove("hidden");
   }
 
   function renderHangman(wrongCount, isDead) {
