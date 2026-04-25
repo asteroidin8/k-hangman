@@ -6,6 +6,14 @@ export function createBoardUI(el) {
   let parts = [];
   let deadFace = [];
 
+  function renderWrongJamoGroup(values = "") {
+    return `
+      <div class="wrong-jamo-group">
+        <span class="wrong-jamo-values">${values}</span>
+      </div>
+    `;
+  }
+
   function bindInjectedParts() {
     parts = [
       document.getElementById("part-head"),
@@ -60,14 +68,7 @@ export function createBoardUI(el) {
 
   function renderWrongJamo(show, guessedWrong) {
     if (!show || guessedWrong.length === 0) {
-      el.wrongJamoList.innerHTML = `
-        <div class="wrong-jamo-group">
-          <span class="wrong-jamo-values"></span>
-        </div>
-        <div class="wrong-jamo-group">
-          <span class="wrong-jamo-values"></span>
-        </div>
-      `;
+      el.wrongJamoList.innerHTML = `${renderWrongJamoGroup()}${renderWrongJamoGroup()}`;
       return;
     }
 
@@ -78,14 +79,10 @@ export function createBoardUI(el) {
       .filter((jamo) => JUNG.includes(jamo))
       .sort((a, b) => JUNG.indexOf(a) - JUNG.indexOf(b));
 
-    el.wrongJamoList.innerHTML = `
-      <div class="wrong-jamo-group">
-        <span class="wrong-jamo-values">${consonants.join(" ")}</span>
-      </div>
-      <div class="wrong-jamo-group">
-        <span class="wrong-jamo-values">${vowels.join(" ")}</span>
-      </div>
-    `;
+    el.wrongJamoList.innerHTML = [
+      renderWrongJamoGroup(consonants.join(" ")),
+      renderWrongJamoGroup(vowels.join(" "))
+    ].join("");
   }
 
   function renderHangman(wrongCount, isDead) {

@@ -1,5 +1,5 @@
 import { STORAGE_PROGRESS, STORAGE_SETTINGS, STORAGE_STATS } from "./config.js";
-import { loadJSON, saveJSON } from "./utils.js";
+import { loadJSON, saveJSON } from "./storage.js";
 
 function createDefaultProgress(today, puzzleNumber) {
   return {

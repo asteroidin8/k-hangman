@@ -7,6 +7,17 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   let invalidTimer = null;
   let gameOverLocked = false;
 
+  function resetTypedState() {
+    typedChar = "";
+    liveDisplayChar = "";
+  }
+
+  function setTypedState(nextChar) {
+    typedChar = nextChar;
+    liveDisplayChar = nextChar;
+    invalidChar = "";
+  }
+
   function getStatusTitle() {
     return state.progress.status === "won" ? TEXT.aliveTitle : TEXT.deadTitle;
   }
@@ -55,7 +66,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     ui.renderInputSlot({
       liveDisplayChar,
       invalidChar,
-      isEnded: state.progress.status !== "playing"
+      isEnded: !isPlaying()
     });
   }
 
@@ -156,8 +167,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     if (!isPlaying() || !typedChar) return;
 
     const jamo = typedChar;
-    typedChar = "";
-    liveDisplayChar = "";
+    resetTypedState();
     inputEl.value = "";
     state.progress.attempts += 1;
 
@@ -223,8 +233,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   }
 
   function clearInput(inputEl) {
-    typedChar = "";
-    liveDisplayChar = "";
+    resetTypedState();
     invalidChar = "";
     inputEl.value = "";
     syncInputUI();
@@ -239,8 +248,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   }
 
   function triggerInvalidFeedback(char, inputSlotEl, inputEl) {
-    typedChar = "";
-    liveDisplayChar = "";
+    resetTypedState();
     invalidChar = char || "?";
     inputEl.value = "";
     ui.showMessage(TEXT.invalid);
@@ -265,11 +273,9 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     }
 
     const last = chars[chars.length - 1];
-    liveDisplayChar = last;
 
     if (validJamo.has(last)) {
-      invalidChar = "";
-      typedChar = last;
+      setTypedState(last);
       inputEl.value = last;
       syncInputUI();
       return;
@@ -287,11 +293,9 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     }
 
     const last = chars[chars.length - 1];
-    liveDisplayChar = last;
 
     if (validJamo.has(last)) {
-      typedChar = last;
-      invalidChar = "";
+      setTypedState(last);
       inputEl.value = last;
       syncInputUI();
       return;
@@ -300,14 +304,8 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     triggerInvalidFeedback(last, inputSlotEl, inputEl);
   }
 
-  function setWrongJamoVisible(value) {
-    state.settings.showWrongJamo = value;
-    state.saveSettings();
-    syncUI();
-  }
-
-  function setWordMeaningVisible(value) {
-    state.settings.showWordMeaning = value;
+  function setSettingVisibility(key, value) {
+    state.settings[key] = value;
     state.saveSettings();
     syncUI();
   }
@@ -321,7 +319,11 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     useBonusHint,
     acceptLastChar,
     handleCompositionEnd,
-    setWrongJamoVisible,
-    setWordMeaningVisible
+    setWrongJamoVisible(value) {
+      setSettingVisibility("showWrongJamo", value);
+    },
+    setWordMeaningVisible(value) {
+      setSettingVisibility("showWordMeaning", value);
+    }
   };
 }

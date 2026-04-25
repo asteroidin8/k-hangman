@@ -1,5 +1,5 @@
 import { SVG_PATHS } from "./config.js";
-import { injectSVG } from "./utils.js";
+import { injectSVG } from "./svg.js";
 
 export async function loadGameSVGs(ui) {
   await Promise.all([
