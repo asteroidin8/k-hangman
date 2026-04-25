@@ -422,7 +422,7 @@ input {
 
 .ad-strip {
   --ad-strip-pad-x: 14px;
-  --restman-head-offset: 44px;
+  --restman-head-offset: -8px;
   margin-top: 14px;
   position: relative;
   border: var(--line);
@@ -809,7 +809,7 @@ input {
 
   .ad-strip {
     --ad-strip-pad-x: 12px;
-    --restman-head-offset: 36px;
+    --restman-head-offset: -6px;
     grid-template-columns: 106px 1fr;
     padding: 10px var(--ad-strip-pad-x);
   }
