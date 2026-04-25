@@ -742,8 +742,16 @@ input {
     padding: 16px 14px;
   }
 
+  .message,
+  .settings-panel {
+    top: 58px;
+    right: 12px;
+    width: 112px;
+  }
+
   .hangman-zone {
-    min-height: 220px;
+    min-height: 216px;
+    margin-top: 10px;
   }
 
   .gallows-mount,
@@ -754,8 +762,8 @@ input {
 
   .message-text,
   .setting-item {
-    font-size: clamp(1rem, 1.4vw, 1rem);
-    line-height: 1.02;
+    font-size: 0.98rem;
+    line-height: 1.08;
   }
 
   .settings-modal .modal-title {
@@ -782,6 +790,11 @@ input {
     font-size: 1.95rem;
   }
 
+  .answer-row {
+    margin-top: 16px;
+    margin-bottom: 20px;
+  }
+
   .wrong-jamo-list {
     min-height: 54px;
     font-size: 0.92rem;
@@ -801,6 +814,10 @@ input {
     font-size: 2.1rem;
   }
 
+  .input-row {
+    margin-bottom: 12px;
+  }
+
   .wrong-jamo-group {
     grid-template-columns: 14px 1fr;
     gap: 4px;
@@ -809,6 +826,7 @@ input {
   .ad-strip {
     --ad-strip-pad-x: 12px;
     grid-template-columns: 106px 1fr;
+    gap: 10px;
     padding: 10px var(--ad-strip-pad-x);
   }
 
@@ -834,6 +852,110 @@ input {
 @media (max-width: 400px) {
   .message,
   .settings-panel {
-    top: 64px;
+    top: 56px;
+  }
+}
+
+@media (max-width: 375px) {
+  body {
+    padding: 12px;
+  }
+
+  .brand {
+    font-size: 1.65rem;
+  }
+
+  .toolbar {
+    gap: 4px;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .board {
+    padding: 14px 12px;
+  }
+
+  .message,
+  .settings-panel {
+    top: 52px;
+    right: 10px;
+    width: 96px;
+  }
+
+  .message-text,
+  .setting-item {
+    font-size: 0.92rem;
+    line-height: 1.1;
+  }
+
+  .word-meaning {
+    margin-bottom: 12px;
+  }
+
+  .hangman-zone {
+    min-height: 202px;
+    margin-top: 18px;
+  }
+
+  .gallows-mount,
+  .hangman-mount {
+    width: min(100%, 252px);
+    height: 202px;
+  }
+
+  .answer-slots {
+    gap: 10px;
+  }
+
+  .answer-slot {
+    width: 32px;
+    height: 44px;
+    font-size: 1.8rem;
+  }
+
+  .answer-row {
+    margin-top: 14px;
+    margin-bottom: 18px;
+  }
+
+  .wrong-jamo-list {
+    width: min(100%, 118px);
+    font-size: 0.88rem;
+  }
+
+  .input-cluster {
+    grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .input-slot {
+    width: 60px;
+    height: 60px;
+  }
+
+  .input-display {
+    font-size: 1.9rem;
+  }
+
+  .input-row {
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
+
+  .ad-strip {
+    grid-template-columns: 96px 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .ad-slot {
+    min-height: 86px;
+  }
+
+  .ad-slot-inner {
+    font-size: 0.88rem;
   }
 }
