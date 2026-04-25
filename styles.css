@@ -833,3 +833,75 @@ input {
     top: 64px;
   }
 }
+
+@media (max-width: 375px) {
+  body {
+    padding: 12px;
+  }
+
+  .brand {
+    font-size: 1.65rem;
+  }
+
+  .toolbar {
+    gap: 4px;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .board {
+    padding: 14px 12px;
+  }
+
+  .hangman-zone {
+    min-height: 208px;
+  }
+
+  .gallows-mount,
+  .hangman-mount {
+    width: min(100%, 258px);
+    height: 208px;
+  }
+
+  .answer-slots {
+    gap: 10px;
+  }
+
+  .answer-slot {
+    width: 32px;
+    height: 44px;
+    font-size: 1.8rem;
+  }
+
+  .wrong-jamo-list {
+    width: min(100%, 118px);
+    font-size: 0.88rem;
+  }
+
+  .input-cluster {
+    grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .input-slot {
+    width: 60px;
+    height: 60px;
+  }
+
+  .input-display {
+    font-size: 1.9rem;
+  }
+
+  .ad-strip {
+    grid-template-columns: 96px 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .ad-slot {
+    min-height: 86px;
+  }
+}
