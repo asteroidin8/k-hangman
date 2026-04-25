@@ -683,6 +683,18 @@ input {
     width: min(100%, 520px);
   }
 
+  body {
+    padding: 14px 16px 18px;
+  }
+
+  .topbar {
+    margin-bottom: 8px;
+  }
+
+  .board {
+    padding: 16px 14px;
+  }
+
   .message-text,
   .setting-item {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
@@ -694,16 +706,19 @@ input {
 
   .ad-strip {
     grid-template-columns: 120px 1fr;
+    gap: 10px;
+    padding: 10px 12px;
   }
 
   .hangman-zone {
-    min-height: 236px;
+    min-height: 224px;
+    margin-top: 8px;
   }
 
   .gallows-mount,
   .hangman-mount {
-    width: min(100%, 300px);
-    height: 236px;
+    width: min(100%, 286px);
+    height: 224px;
   }
 
   .ad-mascot-area {
@@ -712,7 +727,16 @@ input {
 
   .restman-wrap {
     width: 31px;
-    height: 74px;
+    height: 70px;
+  }
+
+  .answer-row {
+    margin-top: 16px;
+    margin-bottom: 20px;
+  }
+
+  .input-row {
+    margin-bottom: 12px;
   }
 }
 
