@@ -50,6 +50,14 @@ let isComposing = false;
 let hintRapidClickCount = 0;
 let hintRapidClickTimer = null;
 
+function renderInputPreview(liveDisplayChar = "") {
+  boardUI.renderInputSlot({
+    liveDisplayChar,
+    invalidChar: "",
+    isEnded: state.progress.status !== "playing"
+  });
+}
+
 function focusInput() {
   if (state.progress.status !== "playing") return;
   el.jamoInput.focus();
@@ -102,11 +110,7 @@ function handleCompositionUpdate(event) {
   const chars = Array.from(value);
   const liveDisplayChar = chars.length ? chars[chars.length - 1] : "";
 
-  boardUI.renderInputSlot({
-    liveDisplayChar,
-    invalidChar: "",
-    isEnded: state.progress.status !== "playing"
-  });
+  renderInputPreview(liveDisplayChar);
 }
 
 function handleDocumentClick(event) {
@@ -215,11 +219,7 @@ function bindEvents() {
     }
 
     if (event.key === "Backspace" && !isComposing) {
-      boardUI.renderInputSlot({
-        liveDisplayChar: "",
-        invalidChar: "",
-        isEnded: state.progress.status !== "playing"
-      });
+      renderInputPreview();
     }
   });
 
