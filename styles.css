@@ -422,7 +422,6 @@ input {
 
 .ad-strip {
   --ad-strip-pad-x: 14px;
-  --restman-head-offset: -8px;
   margin-top: 14px;
   position: relative;
   border: var(--line);
@@ -488,12 +487,12 @@ input {
 
 .restman-wrap {
   position: absolute;
-  left: calc((var(--ad-strip-pad-x) * -1) - var(--restman-head-offset));
-  bottom: -2px;
-  width: 96px;
+  left: calc((var(--ad-strip-pad-x) * -1) + 1px);
+  bottom: -1px;
+  width: 38px;
   height: 82px;
-  transform: rotate(4deg);
-  transform-origin: 64px 100%;
+  transform: rotate(2deg);
+  transform-origin: left bottom;
   opacity: 1;
   transition: opacity 220ms ease, transform 220ms ease;
 }
@@ -809,7 +808,6 @@ input {
 
   .ad-strip {
     --ad-strip-pad-x: 12px;
-    --restman-head-offset: -6px;
     grid-template-columns: 106px 1fr;
     padding: 10px var(--ad-strip-pad-x);
   }
@@ -819,8 +817,8 @@ input {
   }
 
   .restman-wrap {
-    left: calc((var(--ad-strip-pad-x) * -1) - var(--restman-head-offset));
-    width: 78px;
+    left: calc((var(--ad-strip-pad-x) * -1) + 1px);
+    width: 31px;
     height: 66px;
   }
 
