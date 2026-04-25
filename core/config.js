@@ -25,7 +25,7 @@ export const TEXT = {
 };
 
 export const SVG_PATHS = {
-  gallows: "./assets/gallows.svg",
-  hangman: "./assets/hangman.svg",
-  restman: "./assets/restman.svg"
+  gallows: "./assets/svg/gallows.svg",
+  hangman: "./assets/svg/hangman.svg",
+  restman: "./assets/svg/restman.svg"
 };
