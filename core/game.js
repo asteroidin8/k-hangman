@@ -1,4 +1,4 @@
-import { MAX_WRONG, TEXT } from "./config.js";
+import { MAX_WRONG, TEXT, pickText } from "./config.js";
 
 export function createGame(state, ui, answerJamo, answerMeaning) {
   let typedChar = "";
@@ -141,7 +141,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     solveWithJamo(jamo);
 
     if (!isHint) {
-      ui.showMessage(TEXT.hit);
+      ui.showMessage(pickText(TEXT.hit));
     }
 
     if (isSolved()) {
@@ -153,7 +153,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     state.progress.wrongCount += 1;
 
     if (!isRepeatedWrong) {
-      ui.showMessage(TEXT.miss);
+      ui.showMessage(pickText(TEXT.miss));
     }
 
     syncUI();
@@ -172,13 +172,13 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     state.progress.attempts += 1;
 
     if (state.progress.guessedCorrect.includes(jamo)) {
-      ui.showMessage(TEXT.duplicateCorrect);
+      ui.showMessage(pickText(TEXT.duplicateCorrect));
       saveAndSync();
       return;
     }
 
     if (state.progress.guessedWrong.includes(jamo)) {
-      ui.showMessage(TEXT.duplicateWrong);
+      ui.showMessage(pickText(TEXT.duplicateWrong));
       handleWrong(true);
       state.saveProgress();
       return;
@@ -199,7 +199,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   function useHint() {
     if (state.progress.status !== "playing") return;
     if (state.progress.hintUsed) {
-      ui.showMessage(TEXT.hintBlocked);
+      ui.showMessage(pickText(TEXT.hintBlocked));
       return;
     }
 
@@ -208,7 +208,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     state.progress.hintUsed = true;
     saveAndSync();
-    ui.showMessage(TEXT.hint);
+    ui.showMessage(pickText(TEXT.hint));
 
     if (isSolved()) {
       beginGameOverFlow("won");
@@ -225,7 +225,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     state.progress.bonusHintUsed = true;
     saveAndSync();
-    ui.showMessage(TEXT.bonusHint);
+    ui.showMessage(pickText(TEXT.bonusHint));
 
     if (isSolved()) {
       beginGameOverFlow("won");
@@ -251,7 +251,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     resetTypedState();
     invalidChar = char || "?";
     inputEl.value = "";
-    ui.showMessage(TEXT.invalid);
+    ui.showMessage(pickText(TEXT.invalid));
     syncInputUI();
 
     inputSlotEl.classList.remove("shake");
