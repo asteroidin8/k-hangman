@@ -549,12 +549,21 @@ input {
 }
 
 .ad-slot {
+  position: relative;
   min-height: 92px;
   border: 2px dashed rgba(17, 17, 17, 0.35);
   border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ad-label {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 0.72rem;
+  color: rgba(17, 17, 17, 0.56);
 }
 
 .ad-slot-inner {
