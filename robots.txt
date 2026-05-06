@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://asteroidin8.github.io/k-hangman/sitemap.xml
