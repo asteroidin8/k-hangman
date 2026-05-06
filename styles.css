@@ -126,8 +126,7 @@ input {
 .site-footer a,
 .info-card a {
   color: var(--ink);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  text-decoration: none;
 }
 
 .info-page {
