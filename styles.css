@@ -58,6 +58,11 @@ input {
   line-height: 1;
 }
 
+.brand-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .toolbar {
   display: flex;
   justify-content: flex-end;
@@ -110,6 +115,40 @@ input {
   background-size: 100% 32px;
   opacity: 0.3;
   pointer-events: none;
+}
+
+.site-footer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.site-footer a,
+.info-card a {
+  color: var(--ink);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.info-page {
+  align-self: flex-start;
+}
+
+.info-card {
+  display: grid;
+  gap: 14px;
+  line-height: 1.7;
+}
+
+.info-card > * {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.info-title {
+  font-size: 2.4rem;
+  line-height: 1;
 }
 
 .message,
