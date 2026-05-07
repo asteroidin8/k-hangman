@@ -579,19 +579,6 @@ input {
   justify-content: center;
 }
 
-.ad-label {
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  font-size: 0.72rem;
-  color: rgba(17, 17, 17, 0.56);
-}
-
-.ad-slot-inner {
-  font-size: 0.95rem;
-  color: rgba(17, 17, 17, 0.68);
-}
-
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1054,9 +1041,5 @@ input {
 
   .ad-slot {
     min-height: 86px;
-  }
-
-  .ad-slot-inner {
-    font-size: 0.88rem;
   }
 }
