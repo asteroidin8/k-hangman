@@ -26,7 +26,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 78px 16px 28px;
+  padding: 20px 16px 28px;
 }
 
 button,
@@ -47,15 +47,10 @@ input {
 }
 
 .topbar {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  z-index: 50;
-  width: min(calc(100% - 32px), 620px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transform: translateX(-50%);
+  margin-bottom: 10px;
 }
 
 .brand {
@@ -147,7 +142,7 @@ input {
   display: grid;
   align-content: start;
   gap: 14px;
-  max-height: calc(100vh - 106px);
+  max-height: calc(100vh - 112px);
   line-height: 1.7;
   overflow-y: auto;
 }
@@ -170,7 +165,7 @@ input {
 
 @supports (height: 100dvh) {
   .info-card {
-    max-height: calc(100dvh - 106px);
+    max-height: calc(100dvh - 112px);
   }
 }
 
@@ -755,11 +750,11 @@ input {
   }
 
   body {
-    padding: 68px 16px 18px;
+    padding: 14px 16px 18px;
   }
 
   .topbar {
-    top: 14px;
+    margin-bottom: 8px;
   }
 
   .board {
@@ -813,12 +808,11 @@ input {
 
 @media (max-width: 480px) {
   body {
-    padding: 66px 14px 14px;
+    padding: 14px;
   }
 
   .topbar {
-    top: 14px;
-    width: calc(100% - 28px);
+    margin-bottom: 8px;
   }
 
   .brand {
@@ -954,12 +948,7 @@ input {
 
 @media (max-width: 375px) {
   body {
-    padding: 60px 12px 12px;
-  }
-
-  .topbar {
-    top: 12px;
-    width: calc(100% - 24px);
+    padding: 12px;
   }
 
   .brand {
