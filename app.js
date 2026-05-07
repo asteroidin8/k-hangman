@@ -6,35 +6,9 @@ import { createState } from "./core/state.js";
 import { loadGameSVGs } from "./core/svg-loader.js";
 import { createGame } from "./core/game.js";
 import { createSharing } from "./core/sharing.js";
+import { createUI } from "./ui/index.js";
 
-import { getDOM } from "./ui/dom.js";
-import { createMessageUI } from "./ui/message.js";
-import { createBoardUI } from "./ui/board.js";
-import { createModalUI } from "./ui/modal.js";
-import { createSettingsUI } from "./ui/settings.js";
-
-const el = getDOM();
-const messageUI = createMessageUI(el);
-const boardUI = createBoardUI(el);
-const modalUI = createModalUI(el);
-const settingsUI = createSettingsUI(el);
-
-const ui = {
-  el,
-  bindInjectedParts: boardUI.bindInjectedParts,
-  showMessage: messageUI.show,
-  hideMessage: messageUI.hide,
-  syncMeaning: messageUI.syncMeaning,
-  renderInputSlot: boardUI.renderInputSlot,
-  renderAnswerSlots: boardUI.renderAnswerSlots,
-  renderWrongJamo: boardUI.renderWrongJamo,
-  renderHangman: boardUI.renderHangman,
-  setRestMode: boardUI.setRestMode,
-  updateModal: modalUI.update,
-  openModal: modalUI.open,
-  closeModal: modalUI.close,
-  setCopyButtonCopied: modalUI.setCopyButtonCopied
-};
+const { el, boardUI, settingsUI, ui } = createUI();
 
 const { today, puzzleNumber, answerMeaning, answerJamo } = createDailyPuzzle(
   WORDS,
