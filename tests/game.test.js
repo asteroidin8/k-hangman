@@ -23,7 +23,7 @@ function createHarness(answerJamo = ["ㅎ", "ㅐ", "ㅇ"]) {
     modalOpened: 0,
     progressSaved: 0,
     statsSaved: 0,
-    inputRenders: []
+    keyboardRenders: []
   };
 
   const state = {
@@ -62,17 +62,11 @@ function createHarness(answerJamo = ["ㅎ", "ㅐ", "ㅇ"]) {
     renderWrongJamo() {},
     renderHangman() {},
     syncMeaning() {},
-    renderInputSlot(data) {
-      calls.inputRenders.push(data);
+    renderJamoKeyboard(data) {
+      calls.keyboardRenders.push(data);
     },
-    clearInputValue() {
-      inputEl.value = "";
-    },
-    setInputValue(value) {
-      inputEl.value = value;
-    },
-    shakeInput() {
-      calls.inputShaken = true;
+    shakeKeyboard() {
+      calls.keyboardShaken = true;
     },
     setRestMode() {},
     showMessage(message) {
@@ -88,15 +82,14 @@ function createHarness(answerJamo = ["ㅎ", "ㅐ", "ㅇ"]) {
   };
 
   const game = createGame(state, ui, answerJamo, "생활에서 충분한 만족과 기쁨을 느끼는 상태");
-  const inputEl = { value: "" };
 
-  return { calls, game, inputEl, state };
+  return { calls, game, state };
 }
 
 test("submitGuess records a correct jamo and wins when solved", () => {
   const { calls, game, state } = createHarness(["ㅎ"]);
 
-  game.acceptLastChar("ㅎ", new Set(["ㅎ"]));
+  game.guessJamo("ㅎ", new Set(["ㅎ"]));
   game.submitGuess();
 
   assert.equal(state.progress.attempts, 1);
@@ -112,7 +105,7 @@ test("submitGuess records a wrong jamo and loses after max wrong guesses", () =>
   const validJamo = new Set(["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ"]);
 
   for (const jamo of validJamo) {
-    game.acceptLastChar(jamo, validJamo);
+    game.guessJamo(jamo, validJamo);
     game.submitGuess();
   }
 
@@ -129,9 +122,9 @@ test("duplicate wrong guesses count as another wrong attempt", () => {
   const { game, state } = createHarness(["ㅎ"]);
   const validJamo = new Set(["ㄱ"]);
 
-  game.acceptLastChar("ㄱ", validJamo);
+  game.guessJamo("ㄱ", validJamo);
   game.submitGuess();
-  game.acceptLastChar("ㄱ", validJamo);
+  game.guessJamo("ㄱ", validJamo);
   game.submitGuess();
 
   assert.equal(state.progress.attempts, 2);
@@ -139,14 +132,24 @@ test("duplicate wrong guesses count as another wrong attempt", () => {
   assert.equal(state.progress.wrongCount, 2);
 });
 
-test("invalid input clears the real input and renders invalid feedback", () => {
-  const { calls, game, inputEl } = createHarness(["ㅎ"]);
+test("invalid input renders invalid keyboard feedback", () => {
+  const { calls, game } = createHarness(["ㅎ"]);
 
-  game.acceptLastChar("A", new Set(["ㅎ"]));
+  game.guessJamo("A", new Set(["ㅎ"]));
 
-  assert.equal(inputEl.value, "");
-  assert.equal(calls.inputRenders.some((data) => data.invalidChar === "A"), true);
-  assert.equal(calls.inputShaken, true);
+  assert.equal(calls.keyboardRenders.some((data) => data.invalidChar === "A"), true);
+  assert.equal(calls.keyboardShaken, true);
+});
+
+test("deleteTypedJamo clears the pending jamo before submit", () => {
+  const { game, state } = createHarness(["ㅎ"]);
+
+  game.guessJamo("ㅎ", new Set(["ㅎ"]));
+  game.deleteTypedJamo();
+  game.submitGuess();
+
+  assert.equal(state.progress.attempts, 0);
+  assert.deepEqual(state.progress.guessedCorrect, []);
 });
 
 test("buildShareText includes status, progress, attempts, and URL", () => {

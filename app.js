@@ -8,7 +8,7 @@ import { createGame } from "./core/game.js";
 import { createSharing } from "./core/sharing.js";
 import { createUI } from "./ui/index.js";
 
-const { el, boardUI, settingsUI, ui } = createUI();
+const { el, settingsUI, ui } = createUI();
 
 const { today, puzzleNumber, answerMeaning, answerJamo } = createDailyPuzzle(
   WORDS,
@@ -20,22 +20,8 @@ const state = createState(today, puzzleNumber);
 const game = createGame(state, ui, answerJamo, answerMeaning);
 const sharing = createSharing(ui, game);
 
-let isComposing = false;
 let hintRapidClickCount = 0;
 let hintRapidClickTimer = null;
-
-function renderInputPreview(liveDisplayChar = "") {
-  boardUI.renderInputSlot({
-    liveDisplayChar,
-    invalidChar: "",
-    isEnded: state.progress.status !== "playing"
-  });
-}
-
-function focusInput() {
-  if (state.progress.status !== "playing") return;
-  el.jamoInput.focus();
-}
 
 function closeSettings() {
   settingsUI.setVisible(false);
@@ -79,14 +65,6 @@ function handleHintClick() {
   }, 900);
 }
 
-function handleCompositionUpdate(event) {
-  const value = event.data || el.jamoInput.value || "";
-  const chars = Array.from(value);
-  const liveDisplayChar = chars.length ? chars[chars.length - 1] : "";
-
-  renderInputPreview(liveDisplayChar);
-}
-
 function handleDocumentClick(event) {
   const target = event.target;
   if (!(target instanceof Element)) return;
@@ -94,6 +72,7 @@ function handleDocumentClick(event) {
   if (
     target.closest(".message") ||
     target.closest(".icon-btn") ||
+    target.closest(".jamo-keyboard") ||
     target.closest(".modal") ||
     target.closest(".settings-modal")
   ) {
@@ -103,10 +82,45 @@ function handleDocumentClick(event) {
   ui.hideMessage();
 }
 
+function handleJamoGuess(jamo) {
+  closeSettings();
+  game.guessJamo(jamo, VALID_JAMO);
+}
+
+function submitJamoGuess() {
+  closeSettings();
+  game.submitGuess();
+}
+
+function deleteJamoGuess() {
+  closeSettings();
+  game.deleteTypedJamo();
+}
+
+function handlePhysicalKeyboard(event) {
+  if (event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.target instanceof HTMLElement && event.target.closest("button")) return;
+
+  if (event.key === "Enter") {
+    event.preventDefault();
+    submitJamoGuess();
+    return;
+  }
+
+  if (event.key === "Backspace" || event.key === "Delete") {
+    event.preventDefault();
+    deleteJamoGuess();
+    return;
+  }
+
+  if (!VALID_JAMO.has(event.key)) return;
+
+  event.preventDefault();
+  handleJamoGuess(event.key);
+}
+
 function bindEvents() {
   settingsUI.sync(state.settings.showWrongJamo, state.settings.showWordMeaning);
-
-  el.inputSlot.addEventListener("click", focusInput);
 
   el.helpBtn.addEventListener("click", () => {
     closeSettings();
@@ -159,46 +173,23 @@ function bindEvents() {
     }
   });
 
-  el.jamoInput.addEventListener("focus", () => {
-    el.inputSlot.classList.add("is-focused");
-  });
+  el.jamoKeyboard.addEventListener("click", (event) => {
+    const target = event.target instanceof HTMLElement ? event.target : null;
+    const key = target?.closest(".jamo-key");
+    const action = target?.closest(".jamo-action");
 
-  el.jamoInput.addEventListener("blur", () => {
-    el.inputSlot.classList.remove("is-focused");
-  });
-
-  el.jamoInput.addEventListener("compositionstart", () => {
-    isComposing = true;
-  });
-
-  el.jamoInput.addEventListener("compositionupdate", handleCompositionUpdate);
-
-  el.jamoInput.addEventListener("compositionend", (event) => {
-    isComposing = false;
-    game.handleCompositionEnd(event.target.value, VALID_JAMO);
-  });
-
-  el.jamoInput.addEventListener("input", (event) => {
-    if (state.progress.status !== "playing" || isComposing) return;
-    game.acceptLastChar(event.target.value.trim(), VALID_JAMO);
-  });
-
-  el.jamoInput.addEventListener("keydown", (event) => {
-    if (state.progress.status !== "playing") return;
-
-    if (event.key === "Enter") {
-      event.preventDefault();
-      game.submitGuess();
+    if (key instanceof HTMLButtonElement && !key.disabled) {
+      handleJamoGuess(key.dataset.jamo || "");
       return;
     }
 
-    if (event.key === "Backspace" && !isComposing) {
-      renderInputPreview();
-    }
+    if (!(action instanceof HTMLButtonElement) || action.disabled) return;
+    if (action.dataset.action === "submit") submitJamoGuess();
+    if (action.dataset.action === "delete") deleteJamoGuess();
   });
 
   document.addEventListener("click", handleDocumentClick);
-  window.addEventListener("load", focusInput);
+  document.addEventListener("keydown", handlePhysicalKeyboard);
 }
 
 async function init() {

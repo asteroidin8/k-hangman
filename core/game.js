@@ -2,19 +2,16 @@ import { MAX_WRONG, TEXT } from "./config.js";
 
 export function createGame(state, ui, answerJamo, answerMeaning) {
   let typedChar = "";
-  let liveDisplayChar = "";
   let invalidChar = "";
   let invalidTimer = null;
   let gameOverLocked = false;
 
   function resetTypedState() {
     typedChar = "";
-    liveDisplayChar = "";
   }
 
   function setTypedState(nextChar) {
     typedChar = nextChar;
-    liveDisplayChar = nextChar;
     invalidChar = "";
   }
 
@@ -63,8 +60,8 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   }
 
   function syncInputUI() {
-    ui.renderInputSlot({
-      liveDisplayChar,
+    ui.renderJamoKeyboard({
+      liveDisplayChar: typedChar,
       invalidChar,
       isEnded: !isPlaying()
     });
@@ -168,7 +165,6 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     const jamo = typedChar;
     resetTypedState();
-    ui.clearInputValue();
     state.progress.attempts += 1;
 
     if (state.progress.guessedCorrect.includes(jamo)) {
@@ -232,13 +228,6 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     }
   }
 
-  function clearInput() {
-    resetTypedState();
-    invalidChar = "";
-    ui.clearInputValue();
-    syncInputUI();
-  }
-
   function clearInvalidFeedbackLater() {
     clearTimeout(invalidTimer);
     invalidTimer = window.setTimeout(() => {
@@ -250,10 +239,9 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   function triggerInvalidFeedback(char) {
     resetTypedState();
     invalidChar = char || "?";
-    ui.clearInputValue();
     ui.showMessage(TEXT.invalid);
     syncInputUI();
-    ui.shakeInput();
+    ui.shakeKeyboard();
 
     clearInvalidFeedbackLater();
   }
@@ -263,7 +251,6 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     if (!chars.length) {
       typedChar = "";
-      liveDisplayChar = "";
       syncInputUI();
       return;
     }
@@ -272,7 +259,6 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     if (validJamo.has(last)) {
       setTypedState(last);
-      ui.setInputValue(last);
       syncInputUI();
       return;
     }
@@ -280,24 +266,10 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     triggerInvalidFeedback(last);
   }
 
-  function handleCompositionEnd(value, validJamo) {
-    const chars = Array.from(value.trim());
-
-    if (!chars.length) {
-      clearInput();
-      return;
-    }
-
-    const last = chars[chars.length - 1];
-
-    if (validJamo.has(last)) {
-      setTypedState(last);
-      ui.setInputValue(last);
-      syncInputUI();
-      return;
-    }
-
-    triggerInvalidFeedback(last);
+  function deleteTypedJamo() {
+    resetTypedState();
+    invalidChar = "";
+    syncInputUI();
   }
 
   function setSettingVisibility(key, value) {
@@ -311,10 +283,12 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     buildShareText,
     getModalData,
     submitGuess,
+    guessJamo(value, validJamo) {
+      acceptLastChar(value, validJamo);
+    },
+    deleteTypedJamo,
     useHint,
     useBonusHint,
-    acceptLastChar,
-    handleCompositionEnd,
     setWrongJamoVisible(value) {
       setSettingVisibility("showWrongJamo", value);
     },
