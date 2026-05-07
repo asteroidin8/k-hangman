@@ -381,11 +381,10 @@ input {
 }
 
 .wrong-jamo-list {
-  min-height: 58px;
   padding: 0;
   display: grid;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
   color: var(--red);
   font-family: var(--title-font);
   font-size: 1rem;
@@ -399,10 +398,14 @@ input {
 
 .wrong-jamo-group {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 0;
+  gap: 4px;
   min-width: 0;
+}
+
+.wrong-jamo-label {
+  color: rgba(17, 17, 17, 0.52);
 }
 
 .wrong-jamo-values {
@@ -898,9 +901,8 @@ input {
   }
 
   .wrong-jamo-list {
-    min-height: 54px;
     font-size: 0.92rem;
-    width: min(100%, 132px);
+    width: min(100%, 300px);
   }
 
   .jamo-key {
@@ -916,11 +918,6 @@ input {
 
   .input-row {
     margin-bottom: 12px;
-  }
-
-  .wrong-jamo-group {
-    grid-template-columns: 14px 1fr;
-    gap: 4px;
   }
 
   .ad-strip {
@@ -992,18 +989,18 @@ input {
   }
 
   .word-meaning {
-    margin-bottom: 12px;
+    margin: 6px 0;
   }
 
   .hangman-zone {
-    min-height: 202px;
-    margin-top: 18px;
+    min-height: 178px;
+    margin-top: 8px;
   }
 
   .gallows-mount,
   .hangman-mount {
-    width: min(100%, 252px);
-    height: 202px;
+    width: min(100%, 226px);
+    height: 178px;
   }
 
   .answer-slots {
@@ -1017,12 +1014,12 @@ input {
   }
 
   .answer-row {
-    margin-top: 14px;
-    margin-bottom: 18px;
+    margin-top: 10px;
+    margin-bottom: 12px;
   }
 
   .wrong-jamo-list {
-    width: min(100%, 118px);
+    width: min(100%, 280px);
     font-size: 0.88rem;
   }
 
@@ -1050,8 +1047,9 @@ input {
   }
 
   .input-row {
-    margin-top: 8px;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
   }
 
   .ad-strip {
