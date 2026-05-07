@@ -163,12 +163,12 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     }
   }
 
-  function submitGuess(inputEl) {
+  function submitGuess() {
     if (!isPlaying() || !typedChar) return;
 
     const jamo = typedChar;
     resetTypedState();
-    inputEl.value = "";
+    ui.clearInputValue();
     state.progress.attempts += 1;
 
     if (state.progress.guessedCorrect.includes(jamo)) {
@@ -232,10 +232,10 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     }
   }
 
-  function clearInput(inputEl) {
+  function clearInput() {
     resetTypedState();
     invalidChar = "";
-    inputEl.value = "";
+    ui.clearInputValue();
     syncInputUI();
   }
 
@@ -247,22 +247,18 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     }, 420);
   }
 
-  function triggerInvalidFeedback(char, inputSlotEl, inputEl) {
+  function triggerInvalidFeedback(char) {
     resetTypedState();
     invalidChar = char || "?";
-    inputEl.value = "";
+    ui.clearInputValue();
     ui.showMessage(TEXT.invalid);
     syncInputUI();
-
-    inputSlotEl.classList.remove("shake");
-    requestAnimationFrame(() => {
-      inputSlotEl.classList.add("shake");
-    });
+    ui.shakeInput();
 
     clearInvalidFeedbackLater();
   }
 
-  function acceptLastChar(value, inputSlotEl, inputEl, validJamo) {
+  function acceptLastChar(value, validJamo) {
     const chars = Array.from(value);
 
     if (!chars.length) {
@@ -276,19 +272,19 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     if (validJamo.has(last)) {
       setTypedState(last);
-      inputEl.value = last;
+      ui.setInputValue(last);
       syncInputUI();
       return;
     }
 
-    triggerInvalidFeedback(last, inputSlotEl, inputEl);
+    triggerInvalidFeedback(last);
   }
 
-  function handleCompositionEnd(value, inputSlotEl, inputEl, validJamo) {
+  function handleCompositionEnd(value, validJamo) {
     const chars = Array.from(value.trim());
 
     if (!chars.length) {
-      clearInput(inputEl);
+      clearInput();
       return;
     }
 
@@ -296,12 +292,12 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     if (validJamo.has(last)) {
       setTypedState(last);
-      inputEl.value = last;
+      ui.setInputValue(last);
       syncInputUI();
       return;
     }
 
-    triggerInvalidFeedback(last, inputSlotEl, inputEl);
+    triggerInvalidFeedback(last);
   }
 
   function setSettingVisibility(key, value) {
