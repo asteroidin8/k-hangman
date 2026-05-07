@@ -27,3 +27,14 @@ test("opens and closes settings", async ({ page }) => {
 
   await expect(page.locator("#settingsModal")).toHaveAttribute("aria-hidden", "true");
 });
+
+test("returns from a direct info page entry with browser back", async ({ page }) => {
+  await page.goto("/privacy.html");
+
+  await expect(page.getByRole("link", { name: "행맨" })).toBeVisible();
+
+  await page.goBack();
+
+  await expect(page).toHaveURL(/\/index\.html$/);
+  await expect(page.getByRole("button", { name: "도움말" })).toBeVisible();
+});
