@@ -996,12 +996,12 @@ input {
   }
 
   .word-meaning {
-    margin-bottom: 12px;
+    margin: 8px 0;
   }
 
   .hangman-zone {
     min-height: 202px;
-    margin-top: 18px;
+    margin-top: 10px;
   }
 
   .gallows-mount,
