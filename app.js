@@ -1,6 +1,7 @@
 import { WORDS } from "./core/words.js";
 import { BASE_DATE, TEXT } from "./core/config.js";
-import { VALID_JAMO, getTodayString, daysFromBase, splitHangulWord } from "./core/utils.js";
+import { VALID_JAMO, getTodayString } from "./core/utils.js";
+import { createDailyPuzzle } from "./core/puzzle.js";
 import { createState } from "./core/state.js";
 import { loadGameSVGs } from "./core/svg-loader.js";
 import { createGame } from "./core/game.js";
@@ -35,12 +36,11 @@ const ui = {
   setCopyButtonCopied: modalUI.setCopyButtonCopied
 };
 
-const today = getTodayString();
-const puzzleNumber = daysFromBase(BASE_DATE, today) + 1;
-const answerEntry = WORDS[((puzzleNumber - 1) % WORDS.length + WORDS.length) % WORDS.length];
-const answerWord = typeof answerEntry === "string" ? answerEntry : answerEntry.word;
-const answerMeaning = typeof answerEntry === "string" ? "" : answerEntry.meaning;
-const answerJamo = splitHangulWord(answerWord);
+const { today, puzzleNumber, answerMeaning, answerJamo } = createDailyPuzzle(
+  WORDS,
+  BASE_DATE,
+  getTodayString()
+);
 
 const state = createState(today, puzzleNumber);
 const game = createGame(state, ui, answerJamo, answerMeaning);
