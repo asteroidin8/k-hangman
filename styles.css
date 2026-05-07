@@ -134,13 +134,17 @@ input {
 }
 
 .info-page {
-  align-self: flex-start;
+  display: grid;
+  gap: 10px;
 }
 
 .info-card {
   display: grid;
+  align-content: start;
   gap: 14px;
+  max-height: calc(100vh - 48px);
   line-height: 1.7;
+  overflow-y: auto;
 }
 
 .info-card > * {
@@ -157,6 +161,12 @@ input {
 .info-card h2 {
   margin: 0 0 6px;
   font-size: 1.05rem;
+}
+
+@supports (height: 100dvh) {
+  .info-card {
+    max-height: calc(100dvh - 48px);
+  }
 }
 
 .message,
