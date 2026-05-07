@@ -175,12 +175,12 @@ function bindEvents() {
 
   el.jamoInput.addEventListener("compositionend", (event) => {
     isComposing = false;
-    game.handleCompositionEnd(event.target.value, el.inputSlot, el.jamoInput, VALID_JAMO);
+    game.handleCompositionEnd(event.target.value, VALID_JAMO);
   });
 
   el.jamoInput.addEventListener("input", (event) => {
     if (state.progress.status !== "playing" || isComposing) return;
-    game.acceptLastChar(event.target.value.trim(), el.inputSlot, el.jamoInput, VALID_JAMO);
+    game.acceptLastChar(event.target.value.trim(), VALID_JAMO);
   });
 
   el.jamoInput.addEventListener("keydown", (event) => {
@@ -188,7 +188,7 @@ function bindEvents() {
 
     if (event.key === "Enter") {
       event.preventDefault();
-      game.submitGuess(el.jamoInput);
+      game.submitGuess();
       return;
     }
 

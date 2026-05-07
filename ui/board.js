@@ -50,6 +50,21 @@ export function createBoardUI(el) {
     el.inputDisplay.innerHTML = "";
   }
 
+  function clearInputValue() {
+    el.jamoInput.value = "";
+  }
+
+  function setInputValue(value) {
+    el.jamoInput.value = value;
+  }
+
+  function shakeInput() {
+    el.inputSlot.classList.remove("shake");
+    requestAnimationFrame(() => {
+      el.inputSlot.classList.add("shake");
+    });
+  }
+
   function renderAnswerSlots(answerJamo, guessedCorrect) {
     el.answerSlots.innerHTML = "";
 
@@ -108,6 +123,9 @@ export function createBoardUI(el) {
   return {
     bindInjectedParts,
     renderInputSlot,
+    clearInputValue,
+    setInputValue,
+    shakeInput,
     renderAnswerSlots,
     renderWrongJamo,
     renderHangman,
