@@ -1,4 +1,4 @@
-import { CHO, JONG, JUNG } from "../core/utils.js";
+import { CHO, JONG, JUNG, KEYBOARD_JAMO_ROWS } from "../core/utils.js";
 
 const CONSONANT_ORDER = [...new Set([...CHO, ...JONG.filter(Boolean)])];
 
@@ -33,35 +33,42 @@ export function createBoardUI(el) {
     ].filter(Boolean);
   }
 
-  function renderInputSlot({ liveDisplayChar, invalidChar, isEnded }) {
-    el.inputSlot.classList.toggle("is-disabled", isEnded);
-    el.jamoInput.disabled = isEnded;
+  function renderJamoKeyboard({ liveDisplayChar, invalidChar, isEnded }) {
+    el.jamoKeyboard.innerHTML = "";
 
-    if (invalidChar) {
-      el.inputDisplay.innerHTML = `<span class="typed invalid">${invalidChar}</span>`;
-      return;
-    }
+    KEYBOARD_JAMO_ROWS.forEach((row) => {
+      const rowEl = document.createElement("div");
+      rowEl.className = "jamo-key-row";
 
-    if (liveDisplayChar) {
-      el.inputDisplay.innerHTML = `<span class="typed">${liveDisplayChar}</span>`;
-      return;
-    }
+      row.forEach((jamo) => {
+        const button = document.createElement("button");
+        button.className = "jamo-key";
+        button.type = "button";
+        button.dataset.jamo = jamo;
+        button.textContent = jamo;
+        button.disabled = isEnded;
+        button.classList.toggle("is-invalid", invalidChar === jamo);
+        rowEl.appendChild(button);
+      });
 
-    el.inputDisplay.innerHTML = "";
+      el.jamoKeyboard.appendChild(rowEl);
+    });
+
+    const controlRow = document.createElement("div");
+    controlRow.className = "jamo-control-row";
+    controlRow.innerHTML = `
+      <button class="jamo-action" type="button" data-action="delete" ${isEnded ? "disabled" : ""}>삭제</button>
+      <div class="selected-jamo" aria-live="polite">${invalidChar || liveDisplayChar || ""}</div>
+      <button class="jamo-action" type="button" data-action="submit" ${isEnded ? "disabled" : ""}>입력</button>
+    `;
+    controlRow.querySelector(".selected-jamo").classList.toggle("is-invalid", Boolean(invalidChar));
+    el.jamoKeyboard.appendChild(controlRow);
   }
 
-  function clearInputValue() {
-    el.jamoInput.value = "";
-  }
-
-  function setInputValue(value) {
-    el.jamoInput.value = value;
-  }
-
-  function shakeInput() {
-    el.inputSlot.classList.remove("shake");
+  function shakeKeyboard() {
+    el.jamoKeyboard.classList.remove("shake");
     requestAnimationFrame(() => {
-      el.inputSlot.classList.add("shake");
+      el.jamoKeyboard.classList.add("shake");
     });
   }
 
@@ -122,10 +129,8 @@ export function createBoardUI(el) {
 
   return {
     bindInjectedParts,
-    renderInputSlot,
-    clearInputValue,
-    setInputValue,
-    shakeInput,
+    renderJamoKeyboard,
+    shakeKeyboard,
     renderAnswerSlots,
     renderWrongJamo,
     renderHangman,

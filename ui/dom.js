@@ -28,10 +28,7 @@ export function getDOM() {
 
     answerSlots: document.getElementById("answerSlots"),
     wrongJamoList: document.getElementById("wrongJamoList"),
-
-    inputSlot: document.getElementById("inputSlot"),
-    inputDisplay: document.getElementById("inputDisplay"),
-    jamoInput: document.getElementById("jamoInput"),
+    jamoKeyboard: document.getElementById("jamoKeyboard"),
 
     statsModal: document.getElementById("statsModal"),
     modalTitle: document.getElementById("modalTitle"),

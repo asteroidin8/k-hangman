@@ -2,7 +2,45 @@ export const CHO = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ",
 export const JUNG = ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"];
 export const JONG = ["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 
-export const VALID_JAMO = new Set([...CHO, ...JUNG, ...JONG.filter(Boolean)]);
+export const KEYBOARD_JAMO_ROWS = [
+  ["ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ"],
+  ["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ"],
+  ["ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ"],
+];
+
+export const VALID_JAMO = new Set(KEYBOARD_JAMO_ROWS.flat());
+
+const JAMO_PARTS = {
+  ㄲ: ["ㄱ", "ㄱ"],
+  ㄳ: ["ㄱ", "ㅅ"],
+  ㄵ: ["ㄴ", "ㅈ"],
+  ㄶ: ["ㄴ", "ㅎ"],
+  ㄸ: ["ㄷ", "ㄷ"],
+  ㄺ: ["ㄹ", "ㄱ"],
+  ㄻ: ["ㄹ", "ㅁ"],
+  ㄼ: ["ㄹ", "ㅂ"],
+  ㄽ: ["ㄹ", "ㅅ"],
+  ㄾ: ["ㄹ", "ㅌ"],
+  ㄿ: ["ㄹ", "ㅍ"],
+  ㅀ: ["ㄹ", "ㅎ"],
+  ㅃ: ["ㅂ", "ㅂ"],
+  ㅄ: ["ㅂ", "ㅅ"],
+  ㅆ: ["ㅅ", "ㅅ"],
+  ㅉ: ["ㅈ", "ㅈ"],
+  ㅒ: ["ㅑ", "ㅣ"],
+  ㅖ: ["ㅕ", "ㅣ"],
+  ㅘ: ["ㅗ", "ㅏ"],
+  ㅙ: ["ㅗ", "ㅐ"],
+  ㅚ: ["ㅗ", "ㅣ"],
+  ㅝ: ["ㅜ", "ㅓ"],
+  ㅞ: ["ㅜ", "ㅔ"],
+  ㅟ: ["ㅜ", "ㅣ"],
+  ㅢ: ["ㅡ", "ㅣ"],
+};
+
+function pushKeyboardJamo(out, jamo) {
+  out.push(...(JAMO_PARTS[jamo] || [jamo]));
+}
 
 export function getTodayString() {
   const now = new Date();
@@ -34,8 +72,9 @@ export function splitHangulWord(word) {
     const jung = Math.floor((offset % 588) / 28);
     const jong = offset % 28;
 
-    out.push(CHO[cho], JUNG[jung]);
-    if (JONG[jong]) out.push(JONG[jong]);
+    pushKeyboardJamo(out, CHO[cho]);
+    pushKeyboardJamo(out, JUNG[jung]);
+    if (JONG[jong]) pushKeyboardJamo(out, JONG[jong]);
   }
 
   return out;

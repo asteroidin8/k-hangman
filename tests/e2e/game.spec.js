@@ -8,10 +8,19 @@ test("loads the game board and accepts a jamo guess", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.getByRole("button", { name: "도움말" })).toBeVisible();
-  await expect(page.getByLabel("자모 입력 필드")).toBeEnabled();
+  await expect(page.getByLabel("자모 키보드")).toBeVisible();
 
-  await page.getByLabel("자모 입력 필드").fill("ㅎ");
-  await page.keyboard.press("Enter");
+  await page.getByRole("button", { name: "ㅎ" }).click();
+  await page.getByRole("button", { name: "입력" }).click();
+
+  await expect(page.locator("#answerSlots")).toBeVisible();
+});
+
+test("accepts a desktop physical keyboard jamo", async ({ page }) => {
+  await page.goto("/");
+
+  await page.dispatchEvent("body", "keydown", { key: "ㅎ" });
+  await page.dispatchEvent("body", "keydown", { key: "Enter" });
 
   await expect(page.locator("#answerSlots")).toBeVisible();
 });

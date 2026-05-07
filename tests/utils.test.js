@@ -6,6 +6,7 @@ import { daysFromBase, splitHangulWord, VALID_JAMO } from "../core/utils.js";
 test("splitHangulWord decomposes Hangul syllables into jamo", () => {
   assert.deepEqual(splitHangulWord("행맨"), ["ㅎ", "ㅐ", "ㅇ", "ㅁ", "ㅐ", "ㄴ"]);
   assert.deepEqual(splitHangulWord("자전거"), ["ㅈ", "ㅏ", "ㅈ", "ㅓ", "ㄴ", "ㄱ", "ㅓ"]);
+  assert.deepEqual(splitHangulWord("의사"), ["ㅇ", "ㅡ", "ㅣ", "ㅅ", "ㅏ"]);
 });
 
 test("splitHangulWord keeps non-Hangul characters as-is", () => {
@@ -21,5 +22,7 @@ test("daysFromBase returns the puzzle offset from the base date", () => {
 test("VALID_JAMO accepts Korean consonant and vowel jamo", () => {
   assert.equal(VALID_JAMO.has("ㅎ"), true);
   assert.equal(VALID_JAMO.has("ㅐ"), true);
+  assert.equal(VALID_JAMO.has("ㄲ"), false);
+  assert.equal(VALID_JAMO.has("ㅘ"), false);
   assert.equal(VALID_JAMO.has("A"), false);
 });

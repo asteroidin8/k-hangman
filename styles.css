@@ -392,9 +392,9 @@ input {
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.04em;
-  text-align: right;
-  justify-self: end;
-  width: min(100%, 148px);
+  text-align: center;
+  justify-self: center;
+  width: min(100%, 320px);
 }
 
 .wrong-jamo-group {
@@ -415,80 +415,91 @@ input {
 .input-row {
   position: relative;
   z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
   margin-top: 10px;
   margin-bottom: 16px;
 }
 
-.input-cluster {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
+.jamo-keyboard {
   width: 100%;
+  display: grid;
+  gap: 6px;
 }
 
-.input-slot {
-  position: relative;
-  grid-column: 2;
-  width: 70px;
-  height: 70px;
-  border: var(--line);
-  border-radius: 18px;
-  background: var(--paper);
+.jamo-key-row {
   display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: text;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-.wrong-jamo-list {
-  grid-column: 3;
+.jamo-key {
+  width: 32px;
+  height: 34px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--title-font);
+  font-size: 1.22rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.input-slot.is-focused {
-  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.05);
+.jamo-action {
+  width: 64px;
+  height: 34px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--title-font);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.input-slot.is-disabled {
-  opacity: 0.5;
+.jamo-key:disabled,
+.jamo-action:disabled {
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
-.input-slot.shake {
-  animation: shake 0.22s ease-in-out 1;
+.jamo-key.is-invalid {
+  color: var(--red);
 }
 
-.input-display {
-  position: relative;
-  z-index: 2;
-  pointer-events: none;
+.jamo-control-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-jamo {
+  width: 44px;
+  height: 34px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
   font-family: var(--title-font);
-  font-size: 2.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.input-display .typed {
-  color: var(--ink);
-}
-
-.input-display .typed.invalid {
+.selected-jamo.is-invalid {
   color: var(--red);
-  animation: fadeOut 0.42s ease forwards;
 }
 
-.real-input {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: transparent;
-  color: transparent;
-  caret-color: transparent;
-  outline: none;
-  z-index: 1;
+.jamo-keyboard.shake {
+  animation: shake 0.22s ease-in-out 1;
 }
 
 .ad-strip {
@@ -892,17 +903,15 @@ input {
     width: min(100%, 132px);
   }
 
-  .input-cluster {
-    grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+  .jamo-key {
+    width: 30px;
+    height: 32px;
+    font-size: 1.12rem;
   }
 
-  .input-slot {
-    width: 64px;
-    height: 64px;
-  }
-
-  .input-display {
-    font-size: 2.1rem;
+  .jamo-action,
+  .selected-jamo {
+    height: 32px;
   }
 
   .input-row {
@@ -1017,18 +1026,27 @@ input {
     font-size: 0.88rem;
   }
 
-  .input-cluster {
-    grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr);
-    gap: 6px;
+  .jamo-keyboard,
+  .jamo-key-row {
+    gap: 5px;
   }
 
-  .input-slot {
-    width: 60px;
-    height: 60px;
+  .jamo-key {
+    width: 28px;
+    height: 30px;
+    font-size: 1.04rem;
   }
 
-  .input-display {
-    font-size: 1.9rem;
+  .jamo-action {
+    width: 58px;
+    height: 30px;
+    font-size: 0.96rem;
+  }
+
+  .selected-jamo {
+    width: 40px;
+    height: 30px;
+    font-size: 1.16rem;
   }
 
   .input-row {
