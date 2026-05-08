@@ -965,6 +965,9 @@ input {
   }
 
   .board {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    row-gap: 8px;
     height: calc(100vh - 68px);
   }
 
@@ -988,18 +991,19 @@ input {
   }
 
   .word-meaning {
-    margin: 6px 0;
+    margin: 0;
   }
 
   .hangman-zone {
-    min-height: 178px;
-    margin-top: 8px;
+    min-height: 0;
+    height: 100%;
+    margin-top: 0;
   }
 
   .gallows-mount,
   .hangman-mount {
-    width: min(100%, 226px);
-    height: 178px;
+    width: min(100%, 260px);
+    height: min(100%, 220px);
   }
 
   .answer-slots {
@@ -1013,8 +1017,8 @@ input {
   }
 
   .answer-row {
-    margin-top: 10px;
-    margin-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .wrong-jamo-list {
@@ -1047,8 +1051,8 @@ input {
 
   .input-row {
     gap: 8px;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .ad-strip {
