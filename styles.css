@@ -100,7 +100,7 @@ input {
 .board {
   position: relative;
   background: var(--paper);
-  border: var(--line);
+  border: 0;
   border-radius: 30px;
   padding: 18px;
   box-shadow: var(--soft-shadow);
@@ -972,14 +972,13 @@ input {
   }
 
   .board {
-    border: 0;
-    height: calc(100vh - 24px);
+    height: calc(100vh - 68px);
     padding: 14px 12px;
   }
 
   @supports (height: 100dvh) {
     .board {
-      height: calc(100dvh - 24px);
+      height: calc(100dvh - 68px);
     }
   }
 

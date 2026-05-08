@@ -27,6 +27,16 @@ test("keeps the first keyboard row on one line at 375px", async ({ page }) => {
   expect(new Set(tops).size).toBe(1);
 });
 
+test("keeps the board within the viewport at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const boardBox = await page.locator("#board").boundingBox();
+
+  expect(boardBox.y).toBeGreaterThanOrEqual(0);
+  expect(boardBox.y + boardBox.height).toBeLessThanOrEqual(812);
+});
+
 test("accepts a desktop physical keyboard jamo", async ({ page }) => {
   await page.goto("/");
 
