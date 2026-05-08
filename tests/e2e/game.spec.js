@@ -58,6 +58,23 @@ test("opens and closes settings", async ({ page }) => {
   await expect(page.locator("#settingsModal")).toHaveAttribute("aria-hidden", "true");
 });
 
+test("hides wrong jamo labels but keeps the area until the setting is enabled", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator("#wrongJamoList")).not.toContainText("자");
+  await expect(page.locator("#wrongJamoList")).not.toContainText("모");
+
+  const hiddenBox = await page.locator("#wrongJamoList").boundingBox();
+  expect(hiddenBox.height).toBeGreaterThan(0);
+
+  await page.getByRole("button", { name: "설정" }).click();
+  await page.getByLabel("틀린 자모 보기").check();
+  await page.getByRole("button", { name: "닫기" }).click();
+
+  await expect(page.locator("#wrongJamoList")).toContainText("자");
+  await expect(page.locator("#wrongJamoList")).toContainText("모");
+});
+
 test("returns from a direct info page entry with browser back", async ({ page }) => {
   await page.goto("/privacy.html");
 

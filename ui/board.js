@@ -90,7 +90,12 @@ export function createBoardUI(el) {
   }
 
   function renderWrongJamo(show, guessedWrong) {
-    if (!show || guessedWrong.length === 0) {
+    if (!show) {
+      el.wrongJamoList.innerHTML = `${renderWrongJamoGroup()}${renderWrongJamoGroup()}`;
+      return;
+    }
+
+    if (guessedWrong.length === 0) {
       el.wrongJamoList.innerHTML = `${renderWrongJamoGroup("자")}${renderWrongJamoGroup("모")}`;
       return;
     }
