@@ -86,6 +86,55 @@ test("keeps compact board content inside the board at 375px", async ({ page }) =
   expect(boxes.input.bottom).toBeLessThanOrEqual(boxes.board.bottom);
 });
 
+test("places mirrored l-shaped action keys beside the keyboard rows", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const layout = await page.evaluate(() => {
+    const rows = Array.from(document.querySelectorAll(".jamo-key-row"));
+    const read = (element) => {
+      const rect = element.getBoundingClientRect();
+      return {
+        top: Math.round(rect.top),
+        bottom: Math.round(rect.bottom),
+        left: Math.round(rect.left),
+        right: Math.round(rect.right),
+      };
+    };
+    const deleteButton = document.querySelector("[data-action='delete']");
+    const submitButton = document.querySelector("[data-action='submit']");
+
+    return {
+      row2: read(rows[1]),
+      row3: read(rows[2]),
+      deleteButton: read(deleteButton),
+      submitButton: read(submitButton),
+      deleteClipPath: window.getComputedStyle(deleteButton).clipPath,
+      submitClipPath: window.getComputedStyle(submitButton).clipPath,
+      row2FirstKey: document.elementFromPoint(...center(rows[1].querySelector(".jamo-key"))).textContent,
+      row2LastKey: document.elementFromPoint(...center(rows[1].querySelector(".jamo-key:last-child"))).textContent,
+      row3FirstKey: document.elementFromPoint(...center(rows[2].querySelector(".jamo-key"))).textContent,
+      row3LastKey: document.elementFromPoint(...center(rows[2].querySelector(".jamo-key:last-child"))).textContent,
+    };
+
+    function center(element) {
+      const rect = element.getBoundingClientRect();
+      return [rect.left + rect.width / 2, rect.top + rect.height / 2];
+    }
+  });
+
+  expect(layout.deleteButton.top).toBe(layout.row2.top);
+  expect(layout.submitButton.top).toBe(layout.row2.top);
+  expect(layout.deleteButton.bottom).toBe(layout.row3.bottom);
+  expect(layout.submitButton.bottom).toBe(layout.row3.bottom);
+  expect(layout.deleteClipPath).toContain("polygon");
+  expect(layout.submitClipPath).toContain("polygon");
+  expect(layout.row2FirstKey).toBe("ㅁ");
+  expect(layout.row2LastKey).toBe("ㅣ");
+  expect(layout.row3FirstKey).toBe("ㅋ");
+  expect(layout.row3LastKey).toBe("ㅡ");
+});
+
 test("accepts a desktop physical keyboard jamo", async ({ page }) => {
   await page.goto("/");
 

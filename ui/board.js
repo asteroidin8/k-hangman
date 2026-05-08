@@ -55,12 +55,26 @@ export function createBoardUI(el) {
       el.jamoKeyboard.appendChild(rowEl);
     });
 
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "jamo-action jamo-action-delete";
+    deleteButton.type = "button";
+    deleteButton.dataset.action = "delete";
+    deleteButton.textContent = "삭제";
+    deleteButton.disabled = isEnded;
+    el.jamoKeyboard.appendChild(deleteButton);
+
+    const submitButton = document.createElement("button");
+    submitButton.className = "jamo-action jamo-action-submit";
+    submitButton.type = "button";
+    submitButton.dataset.action = "submit";
+    submitButton.textContent = "입력";
+    submitButton.disabled = isEnded;
+    el.jamoKeyboard.appendChild(submitButton);
+
     const controlRow = document.createElement("div");
     controlRow.className = "jamo-control-row";
     controlRow.innerHTML = `
-      <button class="jamo-action" type="button" data-action="delete" ${isEnded ? "disabled" : ""}>삭제</button>
       <div class="selected-jamo" aria-live="polite">${invalidChar || liveDisplayChar || ""}</div>
-      <button class="jamo-action" type="button" data-action="submit" ${isEnded ? "disabled" : ""}>입력</button>
     `;
     controlRow.querySelector(".selected-jamo").classList.toggle("is-invalid", Boolean(invalidChar));
     el.jamoKeyboard.appendChild(controlRow);
