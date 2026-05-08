@@ -178,14 +178,15 @@ function bindEvents() {
     const key = target?.closest(".jamo-key");
     const action = target?.closest(".jamo-action");
 
-    if (key instanceof HTMLButtonElement && !key.disabled) {
-      handleJamoGuess(key.dataset.jamo || "");
+    if (action instanceof HTMLButtonElement && !action.disabled) {
+      if (action.dataset.action === "submit") submitJamoGuess();
+      if (action.dataset.action === "delete") deleteJamoGuess();
       return;
     }
 
-    if (!(action instanceof HTMLButtonElement) || action.disabled) return;
-    if (action.dataset.action === "submit") submitJamoGuess();
-    if (action.dataset.action === "delete") deleteJamoGuess();
+    if (key instanceof HTMLButtonElement && !key.disabled) {
+      handleJamoGuess(key.dataset.jamo || "");
+    }
   });
 
   document.addEventListener("click", handleDocumentClick);

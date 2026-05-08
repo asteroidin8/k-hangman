@@ -37,7 +37,7 @@ export function createBoardUI(el) {
   function renderJamoKeyboard({ liveDisplayChar, invalidChar, isEnded }) {
     el.jamoKeyboard.innerHTML = "";
 
-    KEYBOARD_JAMO_ROWS.forEach((row) => {
+    KEYBOARD_JAMO_ROWS.forEach((row, rowIndex) => {
       const rowEl = document.createElement("div");
       rowEl.className = "jamo-key-row";
 
@@ -52,18 +52,42 @@ export function createBoardUI(el) {
         rowEl.appendChild(button);
       });
 
+      if (rowIndex === 1) {
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "jamo-key jamo-action";
+        deleteButton.type = "button";
+        deleteButton.dataset.action = "delete";
+        deleteButton.textContent = "⌫";
+        deleteButton.setAttribute("aria-label", "삭제");
+        deleteButton.disabled = isEnded;
+        rowEl.appendChild(deleteButton);
+      }
+
+      if (rowIndex === 2) {
+        const selected = document.createElement("div");
+        selected.className = "selected-jamo";
+        selected.setAttribute("aria-live", "polite");
+        selected.textContent = invalidChar || liveDisplayChar || "";
+        selected.classList.toggle("is-invalid", Boolean(invalidChar));
+        rowEl.appendChild(selected);
+
+        const spacer = document.createElement("div");
+        spacer.className = "jamo-spacer";
+        spacer.setAttribute("aria-hidden", "true");
+        rowEl.appendChild(spacer);
+
+        const submitButton = document.createElement("button");
+        submitButton.className = "jamo-key jamo-action";
+        submitButton.type = "button";
+        submitButton.dataset.action = "submit";
+        submitButton.textContent = "↵";
+        submitButton.setAttribute("aria-label", "입력");
+        submitButton.disabled = isEnded;
+        rowEl.appendChild(submitButton);
+      }
+
       el.jamoKeyboard.appendChild(rowEl);
     });
-
-    const controlRow = document.createElement("div");
-    controlRow.className = "jamo-control-row";
-    controlRow.innerHTML = `
-      <button class="jamo-action" type="button" data-action="delete" ${isEnded ? "disabled" : ""}>삭제</button>
-      <div class="selected-jamo" aria-live="polite">${invalidChar || liveDisplayChar || ""}</div>
-      <button class="jamo-action" type="button" data-action="submit" ${isEnded ? "disabled" : ""}>입력</button>
-    `;
-    controlRow.querySelector(".selected-jamo").classList.toggle("is-invalid", Boolean(invalidChar));
-    el.jamoKeyboard.appendChild(controlRow);
   }
 
   function shakeKeyboard() {

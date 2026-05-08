@@ -427,21 +427,25 @@ input {
 }
 
 .jamo-keyboard {
+  --jamo-key-width: 32px;
+  --jamo-key-height: 34px;
+  --jamo-key-gap: 6px;
   width: 100%;
   display: grid;
-  gap: 6px;
+  gap: var(--jamo-key-gap);
 }
 
 .jamo-key-row {
-  display: flex;
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(10, var(--jamo-key-width));
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--jamo-key-gap);
 }
 
 .jamo-key {
-  width: 32px;
-  height: 34px;
+  width: var(--jamo-key-width);
+  height: var(--jamo-key-height);
   border: 2px solid var(--ink);
   border-radius: 8px;
   background: var(--paper);
@@ -454,17 +458,7 @@ input {
 }
 
 .jamo-action {
-  width: 64px;
-  height: 34px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--title-font);
   font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
 }
 
 .jamo-key:disabled,
@@ -485,8 +479,8 @@ input {
 }
 
 .selected-jamo {
-  width: 44px;
-  height: 34px;
+  width: var(--jamo-key-width);
+  height: var(--jamo-key-height);
   border: 2px solid var(--ink);
   border-radius: 8px;
   display: grid;
@@ -496,6 +490,11 @@ input {
   font-size: 1.3rem;
   font-weight: 700;
   line-height: 1;
+}
+
+.jamo-spacer {
+  width: var(--jamo-key-width);
+  height: var(--jamo-key-height);
 }
 
 .selected-jamo.is-invalid {
@@ -899,14 +898,12 @@ input {
   }
 
   .jamo-key {
-    width: 30px;
-    height: 32px;
     font-size: 1.12rem;
   }
 
-  .jamo-action,
-  .selected-jamo {
-    height: 32px;
+  .jamo-keyboard {
+    --jamo-key-width: 30px;
+    --jamo-key-height: 32px;
   }
 
   .input-row {
@@ -1028,25 +1025,24 @@ input {
 
   .jamo-keyboard,
   .jamo-key-row {
-    gap: 4px;
+    --jamo-key-gap: 4px;
   }
 
   .jamo-key {
-    width: 28px;
-    height: 30px;
     font-size: 1.04rem;
   }
 
   .jamo-action {
-    width: 58px;
-    height: 30px;
     font-size: 0.96rem;
   }
 
   .selected-jamo {
-    width: 40px;
-    height: 30px;
     font-size: 1.16rem;
+  }
+
+  .jamo-keyboard {
+    --jamo-key-width: 28px;
+    --jamo-key-height: 30px;
   }
 
   .input-row {

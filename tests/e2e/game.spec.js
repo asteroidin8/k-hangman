@@ -86,6 +86,34 @@ test("keeps compact board content inside the board at 375px", async ({ page }) =
   expect(boxes.input.bottom).toBeLessThanOrEqual(boxes.board.bottom);
 });
 
+test("places keyboard action buttons inside the second and third rows", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const positions = await page.evaluate(() => {
+    const rows = Array.from(document.querySelectorAll(".jamo-key-row"));
+    const read = (element) => {
+      const rect = element.getBoundingClientRect();
+      return {
+        top: Math.round(rect.top),
+        right: Math.round(rect.right),
+      };
+    };
+
+    return {
+      row2: read(rows[1]),
+      row3: read(rows[2]),
+      deleteButton: read(document.querySelector("[data-action='delete']")),
+      submitButton: read(document.querySelector("[data-action='submit']")),
+    };
+  });
+
+  expect(positions.deleteButton.top).toBe(positions.row2.top);
+  expect(positions.submitButton.top).toBe(positions.row3.top);
+  expect(positions.deleteButton.right).toBe(positions.row2.right);
+  expect(positions.submitButton.right).toBe(positions.row3.right);
+});
+
 test("accepts a desktop physical keyboard jamo", async ({ page }) => {
   await page.goto("/");
 
