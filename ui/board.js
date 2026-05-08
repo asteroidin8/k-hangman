@@ -37,39 +37,45 @@ export function createBoardUI(el) {
   function renderJamoKeyboard({ liveDisplayChar, invalidChar, isEnded }) {
     el.jamoKeyboard.innerHTML = "";
 
-    KEYBOARD_JAMO_ROWS.forEach((row) => {
+    KEYBOARD_JAMO_ROWS.forEach((row, rowIndex) => {
       const rowEl = document.createElement("div");
       rowEl.className = "jamo-key-row";
+      rowEl.dataset.row = String(rowIndex + 1);
 
-      row.forEach((jamo) => {
+      if (rowIndex === 2) {
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "jamo-action jamo-action-delete";
+        deleteButton.type = "button";
+        deleteButton.dataset.action = "delete";
+        deleteButton.textContent = "삭제";
+        deleteButton.disabled = isEnded;
+        rowEl.appendChild(deleteButton);
+      }
+
+      row.forEach((jamo, keyIndex) => {
         const button = document.createElement("button");
         button.className = "jamo-key";
         button.type = "button";
         button.dataset.jamo = jamo;
+        button.dataset.row = String(rowIndex + 1);
         button.textContent = jamo;
         button.disabled = isEnded;
         button.classList.toggle("is-invalid", invalidChar === jamo);
         rowEl.appendChild(button);
       });
 
+      if (rowIndex === 1) {
+        const submitButton = document.createElement("button");
+        submitButton.className = "jamo-action jamo-action-submit";
+        submitButton.type = "button";
+        submitButton.dataset.action = "submit";
+        submitButton.textContent = "입력";
+        submitButton.disabled = isEnded;
+        rowEl.appendChild(submitButton);
+      }
+
       el.jamoKeyboard.appendChild(rowEl);
     });
-
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "jamo-action jamo-action-delete";
-    deleteButton.type = "button";
-    deleteButton.dataset.action = "delete";
-    deleteButton.textContent = "삭제";
-    deleteButton.disabled = isEnded;
-    el.jamoKeyboard.appendChild(deleteButton);
-
-    const submitButton = document.createElement("button");
-    submitButton.className = "jamo-action jamo-action-submit";
-    submitButton.type = "button";
-    submitButton.dataset.action = "submit";
-    submitButton.textContent = "입력";
-    submitButton.disabled = isEnded;
-    el.jamoKeyboard.appendChild(submitButton);
 
     const controlRow = document.createElement("div");
     controlRow.className = "jamo-control-row";

@@ -430,16 +430,14 @@ input {
   --jamo-key-width: 32px;
   --jamo-key-height: 34px;
   --jamo-key-gap: 6px;
-  --jamo-row-width: calc((var(--jamo-key-width) * 10) + (var(--jamo-key-gap) * 9));
-  --jamo-row-middle-width: calc((var(--jamo-key-width) * 9) + (var(--jamo-key-gap) * 8));
-  --jamo-action-width: 56px;
+  --jamo-action-width: calc((var(--jamo-key-width) * 2) + var(--jamo-key-gap));
   width: 100%;
-  position: relative;
   display: grid;
   gap: var(--jamo-key-gap);
 }
 
 .jamo-key-row {
+  width: max-content;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -461,12 +459,10 @@ input {
 }
 
 .jamo-action {
-  position: absolute;
-  top: calc(var(--jamo-key-height) + var(--jamo-key-gap));
-  z-index: 2;
   width: var(--jamo-action-width);
-  height: calc((var(--jamo-key-height) * 2) + var(--jamo-key-gap));
+  height: var(--jamo-key-height);
   border: 2px solid var(--ink);
+  border-radius: 8px;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--title-font);
@@ -477,15 +473,14 @@ input {
 }
 
 .jamo-action-delete {
-  left: calc(50% - (var(--jamo-row-middle-width) / 2) - var(--jamo-action-width));
-  border-radius: 8px 8px 8px 14px;
-  clip-path: polygon(0 0, 42% 0, 42% 48%, 100% 48%, 100% 100%, 0 100%);
+  border-radius: 10px 8px 8px 14px;
 }
 
 .jamo-action-submit {
-  right: calc(50% - (var(--jamo-row-middle-width) / 2) - var(--jamo-action-width));
-  border-radius: 8px 8px 14px 8px;
-  clip-path: polygon(58% 0, 100% 0, 100% 100%, 0 100%, 0 48%, 58% 48%);
+  width: var(--jamo-key-width);
+  height: calc((var(--jamo-key-height) * 2) + var(--jamo-key-gap));
+  margin-bottom: calc((var(--jamo-key-height) + var(--jamo-key-gap)) * -1);
+  border-radius: 8px 14px 14px 8px;
 }
 
 .jamo-key:disabled,
@@ -1056,7 +1051,6 @@ input {
   .jamo-keyboard {
     --jamo-key-width: 28px;
     --jamo-key-height: 30px;
-    --jamo-action-width: 48px;
   }
 
   .jamo-action {

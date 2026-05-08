@@ -20,7 +20,7 @@ test("keeps the first keyboard row on one line at 375px", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
 
-  const tops = await page.locator(".jamo-key-row").first().locator(".jamo-key").evaluateAll((keys) =>
+  const tops = await page.locator(".jamo-key-row[data-row='1'] .jamo-key").evaluateAll((keys) =>
     keys.map((key) => Math.round(key.getBoundingClientRect().top))
   );
 
@@ -86,12 +86,11 @@ test("keeps compact board content inside the board at 375px", async ({ page }) =
   expect(boxes.input.bottom).toBeLessThanOrEqual(boxes.board.bottom);
 });
 
-test("places mirrored l-shaped action keys beside the keyboard rows", async ({ page }) => {
+test("fills keyboard empty spaces with action keys without covering jamo", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
 
   const layout = await page.evaluate(() => {
-    const rows = Array.from(document.querySelectorAll(".jamo-key-row"));
     const read = (element) => {
       const rect = element.getBoundingClientRect();
       return {
@@ -103,20 +102,25 @@ test("places mirrored l-shaped action keys beside the keyboard rows", async ({ p
     };
     const deleteButton = document.querySelector("[data-action='delete']");
     const submitButton = document.querySelector("[data-action='submit']");
+    const row2 = document.querySelector(".jamo-key-row[data-row='2']");
+    const row3 = document.querySelector(".jamo-key-row[data-row='3']");
+    const row2Keys = Array.from(row2.querySelectorAll(".jamo-key"));
+    const row3Keys = Array.from(row3.querySelectorAll(".jamo-key"));
 
     return {
-      row2: read(rows[1]),
-      row3: read(rows[2]),
-      row2FirstKeyBox: read(rows[1].querySelector(".jamo-key")),
-      row2LastKeyBox: read(rows[1].querySelector(".jamo-key:last-child")),
+      row2: read(row2),
+      row3: read(row3),
+      row2FirstKeyBox: read(row2Keys[0]),
+      row2LastKeyBox: read(row2Keys[row2Keys.length - 1]),
+      row3FirstKeyBox: read(row3Keys[0]),
+      row3LastKeyBox: read(row3Keys[row3Keys.length - 1]),
       deleteButton: read(deleteButton),
       submitButton: read(submitButton),
-      deleteClipPath: window.getComputedStyle(deleteButton).clipPath,
-      submitClipPath: window.getComputedStyle(submitButton).clipPath,
-      row2FirstKey: document.elementFromPoint(...center(rows[1].querySelector(".jamo-key"))).textContent,
-      row2LastKey: document.elementFromPoint(...center(rows[1].querySelector(".jamo-key:last-child"))).textContent,
-      row3FirstKey: document.elementFromPoint(...center(rows[2].querySelector(".jamo-key"))).textContent,
-      row3LastKey: document.elementFromPoint(...center(rows[2].querySelector(".jamo-key:last-child"))).textContent,
+      gap: Number.parseFloat(window.getComputedStyle(document.querySelector(".jamo-keyboard")).gap),
+      row2FirstKey: document.elementFromPoint(...center(row2Keys[0])).textContent,
+      row2LastKey: document.elementFromPoint(...center(row2Keys[row2Keys.length - 1])).textContent,
+      row3FirstKey: document.elementFromPoint(...center(row3Keys[0])).textContent,
+      row3LastKey: document.elementFromPoint(...center(row3Keys[row3Keys.length - 1])).textContent,
     };
 
     function center(element) {
@@ -125,14 +129,13 @@ test("places mirrored l-shaped action keys beside the keyboard rows", async ({ p
     }
   });
 
-  expect(layout.deleteButton.top).toBe(layout.row2.top);
-  expect(layout.submitButton.top).toBe(layout.row2.top);
-  expect(layout.deleteButton.bottom).toBe(layout.row3.bottom);
-  expect(layout.submitButton.bottom).toBe(layout.row3.bottom);
-  expect(layout.deleteButton.right).toBe(layout.row2FirstKeyBox.left);
-  expect(layout.submitButton.left).toBe(layout.row2LastKeyBox.right);
-  expect(layout.deleteClipPath).toContain("polygon");
-  expect(layout.submitClipPath).toContain("polygon");
+  expect(layout.submitButton.top).toBe(layout.row2LastKeyBox.top);
+  expect(layout.submitButton.bottom).toBe(layout.row3LastKeyBox.bottom);
+  expect(layout.submitButton.left).toBeGreaterThan(layout.row2LastKeyBox.right);
+  expect(layout.submitButton.right).toBe(layout.row2.right);
+  expect(layout.deleteButton.top).toBe(layout.row3FirstKeyBox.top);
+  expect(layout.row3FirstKeyBox.left - layout.deleteButton.right).toBe(layout.gap);
+  expect(layout.deleteButton.left).toBe(layout.row3.left);
   expect(layout.row2FirstKey).toBe("ㅁ");
   expect(layout.row2LastKey).toBe("ㅣ");
   expect(layout.row3FirstKey).toBe("ㅋ");
