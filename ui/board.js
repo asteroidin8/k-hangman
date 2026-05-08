@@ -6,7 +6,7 @@ export function createBoardUI(el) {
   let parts = [];
   let deadFace = [];
 
-  function renderWrongJamoGroup(label, values = "") {
+  function renderWrongJamoGroup(label = "", values = "") {
     return `
       <div class="wrong-jamo-group">
         <span class="wrong-jamo-label">${label}</span>
@@ -90,7 +90,12 @@ export function createBoardUI(el) {
   }
 
   function renderWrongJamo(show, guessedWrong) {
-    if (!show || guessedWrong.length === 0) {
+    if (!show) {
+      el.wrongJamoList.innerHTML = `${renderWrongJamoGroup()}${renderWrongJamoGroup()}`;
+      return;
+    }
+
+    if (guessedWrong.length === 0) {
       el.wrongJamoList.innerHTML = `${renderWrongJamoGroup("자")}${renderWrongJamoGroup("모")}`;
       return;
     }
