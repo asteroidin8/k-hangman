@@ -60,6 +60,32 @@ test("keeps board chrome consistent across responsive widths", async ({ page }) 
   expect(new Set(snapshots.map((snapshot) => JSON.stringify(snapshot))).size).toBe(1);
 });
 
+test("keeps compact board content inside the board at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const boxes = await page.evaluate(() => {
+    const read = (selector) => {
+      const rect = document.querySelector(selector).getBoundingClientRect();
+      return { top: rect.top, bottom: rect.bottom };
+    };
+
+    return {
+      board: read("#board"),
+      meaning: read("#wordMeaning"),
+      hangman: read(".hangman-zone"),
+      answer: read(".answer-row"),
+      input: read(".input-row"),
+    };
+  });
+
+  expect(boxes.meaning.top).toBeGreaterThanOrEqual(boxes.board.top);
+  expect(boxes.hangman.top).toBeGreaterThanOrEqual(boxes.meaning.bottom);
+  expect(boxes.answer.top).toBeGreaterThanOrEqual(boxes.hangman.bottom);
+  expect(boxes.input.top).toBeGreaterThanOrEqual(boxes.answer.bottom);
+  expect(boxes.input.bottom).toBeLessThanOrEqual(boxes.board.bottom);
+});
+
 test("accepts a desktop physical keyboard jamo", async ({ page }) => {
   await page.goto("/");
 
