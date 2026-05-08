@@ -6,7 +6,7 @@ export function createBoardUI(el) {
   let parts = [];
   let deadFace = [];
 
-  function renderWrongJamoGroup(label, values = "") {
+  function renderWrongJamoGroup(label = "", values = "") {
     return `
       <div class="wrong-jamo-group">
         <span class="wrong-jamo-label">${label}</span>

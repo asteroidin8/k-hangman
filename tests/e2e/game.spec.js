@@ -63,6 +63,7 @@ test("hides wrong jamo labels but keeps the area until the setting is enabled", 
 
   await expect(page.locator("#wrongJamoList")).not.toContainText("자");
   await expect(page.locator("#wrongJamoList")).not.toContainText("모");
+  await expect(page.locator("#wrongJamoList")).not.toContainText("undefined");
 
   const hiddenBox = await page.locator("#wrongJamoList").boundingBox();
   expect(hiddenBox.height).toBeGreaterThan(0);
