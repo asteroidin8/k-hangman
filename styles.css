@@ -972,7 +972,15 @@ input {
   }
 
   .board {
+    border: 0;
+    height: calc(100vh - 24px);
     padding: 14px 12px;
+  }
+
+  @supports (height: 100dvh) {
+    .board {
+      height: calc(100dvh - 24px);
+    }
   }
 
   .message,
