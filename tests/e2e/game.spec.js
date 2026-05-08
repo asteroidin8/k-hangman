@@ -107,6 +107,8 @@ test("places mirrored l-shaped action keys beside the keyboard rows", async ({ p
     return {
       row2: read(rows[1]),
       row3: read(rows[2]),
+      row2FirstKeyBox: read(rows[1].querySelector(".jamo-key")),
+      row2LastKeyBox: read(rows[1].querySelector(".jamo-key:last-child")),
       deleteButton: read(deleteButton),
       submitButton: read(submitButton),
       deleteClipPath: window.getComputedStyle(deleteButton).clipPath,
@@ -127,6 +129,8 @@ test("places mirrored l-shaped action keys beside the keyboard rows", async ({ p
   expect(layout.submitButton.top).toBe(layout.row2.top);
   expect(layout.deleteButton.bottom).toBe(layout.row3.bottom);
   expect(layout.submitButton.bottom).toBe(layout.row3.bottom);
+  expect(layout.deleteButton.right).toBe(layout.row2FirstKeyBox.left);
+  expect(layout.submitButton.left).toBe(layout.row2LastKeyBox.right);
   expect(layout.deleteClipPath).toContain("polygon");
   expect(layout.submitClipPath).toContain("polygon");
   expect(layout.row2FirstKey).toBe("ㅁ");
