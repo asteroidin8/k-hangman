@@ -16,6 +16,17 @@ test("loads the game board and accepts a jamo guess", async ({ page }) => {
   await expect(page.locator("#answerSlots")).toBeVisible();
 });
 
+test("keeps the first keyboard row on one line at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const tops = await page.locator(".jamo-key-row").first().locator(".jamo-key").evaluateAll((keys) =>
+    keys.map((key) => Math.round(key.getBoundingClientRect().top))
+  );
+
+  expect(new Set(tops).size).toBe(1);
+});
+
 test("accepts a desktop physical keyboard jamo", async ({ page }) => {
   await page.goto("/");
 
