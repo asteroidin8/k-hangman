@@ -1025,7 +1025,7 @@ input {
 
   .jamo-keyboard,
   .jamo-key-row {
-    gap: 5px;
+    gap: 4px;
   }
 
   .jamo-key {
