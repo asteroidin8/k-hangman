@@ -102,7 +102,7 @@ input {
   background: var(--paper);
   border: 0;
   border-radius: 30px;
-  padding: 18px;
+  padding: 14px 12px;
   box-shadow: var(--soft-shadow);
   overflow: hidden;
 }
@@ -773,10 +773,6 @@ input {
     margin-bottom: 8px;
   }
 
-  .board {
-    padding: 16px 14px;
-  }
-
   .message-text,
   .setting-item {
     font-size: clamp(1.3rem, 1.6vw, 1.35rem);
@@ -842,10 +838,6 @@ input {
   .icon-btn {
     width: 38px;
     height: 38px;
-  }
-
-  .board {
-    padding: 16px 14px;
   }
 
   .message,
@@ -974,7 +966,6 @@ input {
 
   .board {
     height: calc(100vh - 68px);
-    padding: 14px 12px;
   }
 
   @supports (height: 100dvh) {

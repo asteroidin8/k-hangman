@@ -37,6 +37,29 @@ test("keeps the board within the viewport at 375px", async ({ page }) => {
   expect(boardBox.y + boardBox.height).toBeLessThanOrEqual(812);
 });
 
+test("keeps board chrome consistent across responsive widths", async ({ page }) => {
+  const snapshots = [];
+
+  for (const width of [375, 480, 641]) {
+    await page.setViewportSize({ width, height: 812 });
+    await page.goto("/");
+
+    snapshots.push(await page.locator("#board").evaluate((board) => {
+      const style = window.getComputedStyle(board);
+      return {
+        borderTopWidth: style.borderTopWidth,
+        borderRadius: style.borderRadius,
+        paddingTop: style.paddingTop,
+        paddingRight: style.paddingRight,
+        paddingBottom: style.paddingBottom,
+        paddingLeft: style.paddingLeft,
+      };
+    }));
+  }
+
+  expect(new Set(snapshots.map((snapshot) => JSON.stringify(snapshot))).size).toBe(1);
+});
+
 test("accepts a desktop physical keyboard jamo", async ({ page }) => {
   await page.goto("/");
 
