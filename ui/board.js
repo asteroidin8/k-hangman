@@ -1,6 +1,25 @@
 import { CHO, JONG, JUNG, KEYBOARD_JAMO_ROWS } from "../core/utils.js";
 
 const CONSONANT_ORDER = [...new Set([...CHO, ...JONG.filter(Boolean)])];
+const HANGMAN_PART_IDS = [
+  "part-head",
+  "part-body",
+  "part-arm-left",
+  "part-arm-right",
+  "part-leg-left",
+  "part-leg-right"
+];
+const DEAD_FACE_IDS = [
+  "dead-eye-l1",
+  "dead-eye-l2",
+  "dead-eye-r1",
+  "dead-eye-r2",
+  "dead-mouth"
+];
+
+function getExistingElements(ids) {
+  return ids.map((id) => document.getElementById(id)).filter(Boolean);
+}
 
 export function createBoardUI(el) {
   let parts = [];
@@ -15,23 +34,26 @@ export function createBoardUI(el) {
     `;
   }
 
-  function bindInjectedParts() {
-    parts = [
-      document.getElementById("part-head"),
-      document.getElementById("part-body"),
-      document.getElementById("part-arm-left"),
-      document.getElementById("part-arm-right"),
-      document.getElementById("part-leg-left"),
-      document.getElementById("part-leg-right")
-    ].filter(Boolean);
+  function sortJamoBy(order, guessedWrong) {
+    return guessedWrong
+      .filter((jamo) => order.includes(jamo))
+      .sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  }
 
-    deadFace = [
-      document.getElementById("dead-eye-l1"),
-      document.getElementById("dead-eye-l2"),
-      document.getElementById("dead-eye-r1"),
-      document.getElementById("dead-eye-r2"),
-      document.getElementById("dead-mouth")
-    ].filter(Boolean);
+  function createJamoButton(jamo, invalidChar, isEnded) {
+    const button = document.createElement("button");
+    button.className = "jamo-key";
+    button.type = "button";
+    button.dataset.jamo = jamo;
+    button.textContent = jamo;
+    button.disabled = isEnded;
+    button.classList.toggle("is-invalid", invalidChar === jamo);
+    return button;
+  }
+
+  function bindInjectedParts() {
+    parts = getExistingElements(HANGMAN_PART_IDS);
+    deadFace = getExistingElements(DEAD_FACE_IDS);
   }
 
   function renderJamoKeyboard({ invalidChar, isEnded }) {
@@ -42,14 +64,7 @@ export function createBoardUI(el) {
       rowEl.className = "jamo-key-row";
 
       row.forEach((jamo) => {
-        const button = document.createElement("button");
-        button.className = "jamo-key";
-        button.type = "button";
-        button.dataset.jamo = jamo;
-        button.textContent = jamo;
-        button.disabled = isEnded;
-        button.classList.toggle("is-invalid", invalidChar === jamo);
-        rowEl.appendChild(button);
+        rowEl.appendChild(createJamoButton(jamo, invalidChar, isEnded));
       });
 
       el.jamoKeyboard.appendChild(rowEl);
@@ -90,12 +105,8 @@ export function createBoardUI(el) {
       return;
     }
 
-    const consonants = guessedWrong
-      .filter((jamo) => !JUNG.includes(jamo))
-      .sort((a, b) => CONSONANT_ORDER.indexOf(a) - CONSONANT_ORDER.indexOf(b));
-    const vowels = guessedWrong
-      .filter((jamo) => JUNG.includes(jamo))
-      .sort((a, b) => JUNG.indexOf(a) - JUNG.indexOf(b));
+    const consonants = sortJamoBy(CONSONANT_ORDER, guessedWrong);
+    const vowels = sortJamoBy(JUNG, guessedWrong);
 
     el.wrongJamoList.innerHTML = [
       renderWrongJamoGroup("자", consonants.join(" ")),

@@ -1,5 +1,9 @@
 import { MAX_WRONG, TEXT } from "./config.js";
 
+const GAME_OVER_REVEAL_DELAY_MS = 300;
+const RESULT_MODAL_DELAY_MS = 600;
+const INVALID_FEEDBACK_MS = 420;
+
 export function createGame(state, ui, answerJamo, answerMeaning) {
   let invalidChar = "";
   let invalidTimer = null;
@@ -14,12 +18,24 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   }
 
   function isSolved() {
-    return answerJamo.every((jamo) => state.progress.guessedCorrect.includes(jamo));
+    return answerJamo.every(hasCorrectGuess);
+  }
+
+  function hasCorrectGuess(jamo) {
+    return state.progress.guessedCorrect.includes(jamo);
+  }
+
+  function hasWrongGuess(jamo) {
+    return state.progress.guessedWrong.includes(jamo);
+  }
+
+  function isAnswerJamo(jamo) {
+    return answerJamo.includes(jamo);
   }
 
   function buildProgressSquares() {
     return answerJamo
-      .map((jamo) => (state.progress.guessedCorrect.includes(jamo) ? "■" : "□"))
+      .map((jamo) => (hasCorrectGuess(jamo) ? "■" : "□"))
       .join("");
   }
 
@@ -87,13 +103,13 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   }
 
   function solveWithJamo(jamo) {
-    if (!state.progress.guessedCorrect.includes(jamo)) {
+    if (!hasCorrectGuess(jamo)) {
       state.progress.guessedCorrect.push(jamo);
     }
   }
 
   function getHintCandidates() {
-    return answerJamo.filter((jamo) => !state.progress.guessedCorrect.includes(jamo));
+    return answerJamo.filter((jamo) => !hasCorrectGuess(jamo));
   }
 
   function revealRandomHintJamo() {
@@ -119,8 +135,8 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
       window.setTimeout(() => {
         openResultModal();
-      }, 600);
-    }, 300);
+      }, RESULT_MODAL_DELAY_MS);
+    }, GAME_OVER_REVEAL_DELAY_MS);
   }
 
   function handleCorrect(jamo, isHint = false) {
@@ -155,13 +171,13 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     invalidChar = "";
     state.progress.attempts += 1;
 
-    if (state.progress.guessedCorrect.includes(jamo)) {
+    if (hasCorrectGuess(jamo)) {
       ui.showMessage(TEXT.duplicateCorrect);
       saveAndSync();
       return;
     }
 
-    if (state.progress.guessedWrong.includes(jamo)) {
+    if (hasWrongGuess(jamo)) {
       ui.showMessage(TEXT.duplicateWrong);
       handleWrong(true);
       state.saveProgress();
@@ -170,7 +186,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
     state.progress.guessedAll.push(jamo);
 
-    if (answerJamo.includes(jamo)) {
+    if (isAnswerJamo(jamo)) {
       handleCorrect(jamo);
     } else {
       state.progress.guessedWrong.push(jamo);
@@ -221,7 +237,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
     invalidTimer = window.setTimeout(() => {
       invalidChar = "";
       syncInputUI();
-    }, 420);
+    }, INVALID_FEEDBACK_MS);
   }
 
   function triggerInvalidFeedback(char) {

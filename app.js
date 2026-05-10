@@ -8,6 +8,9 @@ import { createGame } from "./core/game.js";
 import { createSharing } from "./core/sharing.js";
 import { createUI } from "./ui/index.js";
 
+const BONUS_HINT_CLICK_TARGET = 3;
+const BONUS_HINT_WINDOW_MS = 900;
+
 const { el, settingsUI, ui } = createUI();
 
 const { today, puzzleNumber, answerMeaning, answerJamo } = createDailyPuzzle(
@@ -25,6 +28,14 @@ let hintRapidClickTimer = null;
 
 function closeSettings() {
   settingsUI.setVisible(false);
+}
+
+function isBackdropClick(event, backdrop) {
+  return event.target === backdrop;
+}
+
+function bindClick(node, handler) {
+  node.addEventListener("click", handler);
 }
 
 function resetHintRapidClicks() {
@@ -51,7 +62,7 @@ function handleHintClick() {
 
   if (hintRapidClickCount === 1) {
     game.useHint();
-  } else if (hintRapidClickCount === 3) {
+  } else if (hintRapidClickCount === BONUS_HINT_CLICK_TARGET) {
     game.useBonusHint();
     resetHintRapidClicks();
     return;
@@ -62,7 +73,7 @@ function handleHintClick() {
   clearTimeout(hintRapidClickTimer);
   hintRapidClickTimer = window.setTimeout(() => {
     resetHintRapidClicks();
-  }, 900);
+  }, BONUS_HINT_WINDOW_MS);
 }
 
 function handleDocumentClick(event) {
@@ -100,19 +111,19 @@ function handlePhysicalKeyboard(event) {
 function bindEvents() {
   settingsUI.sync(state.settings.showWrongJamo, state.settings.showWordMeaning);
 
-  el.helpBtn.addEventListener("click", () => {
+  bindClick(el.helpBtn, () => {
     closeSettings();
     ui.showMessage(TEXT.help);
   });
 
-  el.hintBtn.addEventListener("click", handleHintClick);
+  bindClick(el.hintBtn, handleHintClick);
 
-  el.shareBtn.addEventListener("click", async () => {
+  bindClick(el.shareBtn, async () => {
     closeSettings();
     await sharing.shareNative();
   });
 
-  el.settingsBtn.addEventListener("click", () => {
+  bindClick(el.settingsBtn, () => {
     ui.hideMessage();
     settingsUI.setVisible(true);
   });
@@ -125,28 +136,28 @@ function bindEvents() {
     game.setWordMeaningVisible(event.target.checked);
   });
 
-  el.closeSettingsBtn.addEventListener("click", closeSettings);
+  bindClick(el.closeSettingsBtn, closeSettings);
 
   el.settingsModal.addEventListener("click", (event) => {
-    if (event.target === el.settingsModal) {
+    if (isBackdropClick(event, el.settingsModal)) {
       closeSettings();
     }
   });
 
-  el.copyBtn.addEventListener("click", async () => {
+  bindClick(el.copyBtn, async () => {
     await sharing.copy();
   });
 
-  el.shareModalBtn.addEventListener("click", async () => {
+  bindClick(el.shareModalBtn, async () => {
     await sharing.shareNative();
   });
 
-  el.closeModalBtn.addEventListener("click", () => {
+  bindClick(el.closeModalBtn, () => {
     ui.closeModal();
   });
 
   el.statsModal.addEventListener("click", (event) => {
-    if (event.target === el.statsModal) {
+    if (isBackdropClick(event, el.statsModal)) {
       ui.closeModal();
     }
   });
