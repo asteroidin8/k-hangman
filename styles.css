@@ -900,8 +900,6 @@ input {
   .board {
     display: grid;
     grid-template-rows: auto auto auto auto;
-    align-content: center;
-    row-gap: 6px;
     padding: 0;
     height: calc(100vh - 68px);
   }
