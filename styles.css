@@ -42,13 +42,14 @@ input {
 }
 
 .app {
-  width: min(100%, 620px);
+  width: min(100%, 760px);
 }
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 14px 16px 0;
   margin-bottom: 10px;
 }
 
@@ -428,7 +429,7 @@ input {
 .jamo-keyboard {
   width: 100%;
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
 
 .jamo-key-row {
@@ -439,14 +440,14 @@ input {
 }
 
 .jamo-key {
-  width: 32px;
-  height: 34px;
+  width: clamp(34px, 5.6vw, 44px);
+  height: clamp(38px, 6vw, 46px);
   border: 2px solid var(--ink);
   border-radius: 8px;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--title-font);
-  font-size: 1.22rem;
+  font-size: clamp(1.3rem, 2.4vw, 1.55rem);
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -720,14 +721,6 @@ input {
 }
 
 @media (max-width: 640px) {
-  .app {
-    width: min(100%, 520px);
-  }
-
-  body {
-    padding: 14px 16px 18px;
-  }
-
   .topbar {
     margin-bottom: 8px;
   }
@@ -778,10 +771,6 @@ input {
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 14px;
-  }
-
   .topbar {
     margin-bottom: 8px;
   }
@@ -857,12 +846,6 @@ input {
     width: min(100%, 300px);
   }
 
-  .jamo-key {
-    width: 30px;
-    height: 32px;
-    font-size: 1.12rem;
-  }
-
   .input-row {
     margin-bottom: 12px;
   }
@@ -901,10 +884,6 @@ input {
 }
 
 @media (max-width: 375px) {
-  body {
-    padding: 12px;
-  }
-
   .brand {
     font-size: 1.65rem;
   }
@@ -983,12 +962,6 @@ input {
   .jamo-keyboard,
   .jamo-key-row {
     gap: 4px;
-  }
-
-  .jamo-key {
-    width: 28px;
-    height: 30px;
-    font-size: 1.04rem;
   }
 
   .input-row {
