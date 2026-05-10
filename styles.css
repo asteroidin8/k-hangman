@@ -899,8 +899,9 @@ input {
 
   .board {
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr) auto auto;
-    row-gap: 8px;
+    grid-template-rows: auto auto auto auto;
+    align-content: center;
+    row-gap: 6px;
     padding: 0;
     height: calc(100vh - 68px);
   }
@@ -930,7 +931,7 @@ input {
 
   .hangman-zone {
     min-height: 0;
-    height: 100%;
+    height: clamp(170px, 32vh, 204px);
     margin-top: 0;
   }
 
