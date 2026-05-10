@@ -1,0 +1,121 @@
+:root {
+  --board-height: calc(100vh - 68px);
+  --bg: #fafcff;
+  --paper: #ffffff;
+  --ink: #111111;
+  --red: #cc2f2f;
+  --line: 3px solid var(--ink);
+  --soft-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+  --ui-font: "Noto Sans KR", system-ui, sans-serif;
+  --title-font: "Gaegu", "Noto Sans KR", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--ui-font);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.title-font {
+  font-family: var(--title-font);
+}
+
+.app {
+  width: min(100%, 760px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 0;
+  margin-bottom: 10px;
+}
+
+.brand {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brand-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.icon-btn,
+.send-btn,
+.mini-btn {
+  border: var(--line);
+  background: var(--paper);
+  cursor: pointer;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+}
+
+.icon-btn svg,
+.send-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--ink);
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.site-footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.site-footer a,
+.info-card a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --board-height: calc(100dvh - 68px);
+  }
+}

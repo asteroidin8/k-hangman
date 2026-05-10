@@ -1,0 +1,90 @@
+.ad-strip {
+  --ad-strip-pad-x: 14px;
+  margin-top: 14px;
+  position: relative;
+  border: var(--line);
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: var(--soft-shadow);
+  padding: 12px var(--ad-strip-pad-x);
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.ad-mascot-area {
+  position: relative;
+  min-height: 92px;
+}
+
+.ad-sign {
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(86px, 22vw, 108px);
+  height: clamp(62px, 16vw, 72px);
+  padding: clamp(6px, 1.8vw, 8px) clamp(8px, 2.2vw, 10px);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+  font-family: var(--title-font);
+  font-size: clamp(1.08rem, 3vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.05;
+  text-align: center;
+  white-space: pre-line;
+  transform: rotate(-1.5deg);
+}
+
+.ad-sign::before,
+.ad-sign::after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  width: clamp(28px, 7vw, 34px);
+  border-top: 3px solid var(--ink);
+}
+
+.ad-sign::before {
+  left: 8px;
+  transform: rotate(22deg);
+}
+
+.ad-sign::after {
+  right: 8px;
+  transform: rotate(-22deg);
+}
+
+.ad-sign.is-hidden {
+  display: none;
+}
+
+.restman-wrap {
+  position: absolute;
+  left: calc((var(--ad-strip-pad-x) * -1) + 1px);
+  bottom: -1px;
+  width: 38px;
+  height: 82px;
+  transform: rotate(2deg);
+  transform-origin: left bottom;
+  opacity: 1;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.restman-wrap.is-hidden {
+  opacity: 0;
+}
+
+.ad-slot {
+  position: relative;
+  min-height: 92px;
+  border: 2px dashed rgba(17, 17, 17, 0.35);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
