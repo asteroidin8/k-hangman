@@ -725,176 +725,17 @@ input {
     margin-bottom: 8px;
   }
 
-  .message-text,
-  .setting-item {
-    font-size: clamp(1.3rem, 1.6vw, 1.35rem);
-  }
-
-  .settings-modal .setting-item {
-    font-size: clamp(1.08rem, 2.8vw, 1.18rem);
-  }
-
-  .ad-strip {
-    grid-template-columns: 120px 1fr;
-    gap: 10px;
-    padding: 10px 12px;
-  }
-
-  .hangman-zone {
-    min-height: 224px;
-    margin-top: 8px;
-  }
-
-  .gallows-mount,
-  .hangman-mount {
-    width: min(100%, 286px);
-    height: 224px;
-  }
-
-  .ad-mascot-area {
-    left: 0;
-  }
-
-  .restman-wrap {
-    width: 31px;
-    height: 70px;
-  }
-
-  .answer-row {
-    margin-top: 16px;
-    margin-bottom: 20px;
-  }
-
-  .input-row {
-    margin-bottom: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .topbar {
-    margin-bottom: 8px;
-  }
-
   .brand {
-    font-size: 1.8rem;
+    font-size: clamp(1.65rem, 4.8vw, 1.9rem);
   }
 
   .toolbar {
-    gap: 6px;
+    gap: clamp(4px, 1.4vw, 8px);
   }
 
   .icon-btn {
-    width: 38px;
-    height: 38px;
-  }
-
-  .message,
-  .settings-panel {
-    top: 58px;
-    right: 12px;
-    width: 112px;
-  }
-
-  .hangman-zone {
-    min-height: 216px;
-    margin-top: 10px;
-  }
-
-  .gallows-mount,
-  .hangman-mount {
-    width: min(100%, 276px);
-    height: 220px;
-  }
-
-  .message-text,
-  .setting-item {
-    font-size: 0.98rem;
-    line-height: 1.08;
-  }
-
-  .settings-modal .modal-title {
-    font-size: 1.7rem;
-  }
-
-  .settings-modal .setting-item {
-    font-size: 1rem;
-    line-height: 1.18;
-  }
-
-  .setting-item {
-    gap: 6px;
-  }
-
-  .setting-item input {
-    width: 14px;
-    height: 14px;
-  }
-
-  .answer-slot {
-    width: 34px;
-    height: 46px;
-    font-size: 1.95rem;
-  }
-
-  .answer-row {
-    margin-top: 16px;
-    margin-bottom: 20px;
-  }
-
-  .wrong-jamo-list {
-    font-size: 0.92rem;
-    width: min(100%, 300px);
-  }
-
-  .input-row {
-    margin-bottom: 12px;
-  }
-
-  .ad-strip {
-    --ad-strip-pad-x: 12px;
-    grid-template-columns: 106px 1fr;
-    gap: 10px;
-    padding: 10px var(--ad-strip-pad-x);
-  }
-
-  .ad-mascot-area {
-    left: 0;
-  }
-
-  .restman-wrap {
-    left: calc((var(--ad-strip-pad-x) * -1) + 1px);
-    width: 31px;
-    height: 66px;
-  }
-
-  .ad-sign {
-    left: 8px;
-  }
-
-  .modal {
-    width: min(100%, 350px);
-  }
-}
-
-@media (max-width: 400px) {
-  .message,
-  .settings-panel {
-    top: 56px;
-  }
-}
-
-@media (max-width: 375px) {
-  .brand {
-    font-size: 1.65rem;
-  }
-
-  .toolbar {
-    gap: 4px;
-  }
-
-  .icon-btn {
-    width: 36px;
-    height: 36px;
+    width: clamp(36px, 10.2vw, 42px);
+    height: clamp(36px, 10.2vw, 42px);
   }
 
   .board {
@@ -912,41 +753,59 @@ input {
 
   .message,
   .settings-panel {
-    top: 52px;
-    right: 10px;
-    width: 96px;
+    top: clamp(52px, 14vw, 58px);
+    right: clamp(10px, 3.2vw, 14px);
+    width: clamp(96px, 29vw, 128px);
+  }
+
+  .hangman-zone {
+    min-height: 0;
+    height: clamp(170px, 35vw, 224px);
+    margin-top: 0;
+  }
+
+  .gallows-mount,
+  .hangman-mount {
+    width: min(100%, clamp(260px, 68vw, 286px));
+    height: min(100%, clamp(204px, 35vw, 224px));
   }
 
   .message-text,
   .setting-item {
-    font-size: 0.92rem;
+    font-size: clamp(0.92rem, 2.8vw, 1.12rem);
     line-height: 1.1;
+  }
+
+  .settings-modal .modal-title {
+    font-size: clamp(1.7rem, 5vw, 1.9rem);
+  }
+
+  .settings-modal .setting-item {
+    font-size: clamp(1rem, 3vw, 1.12rem);
+    line-height: 1.18;
+  }
+
+  .setting-item {
+    gap: 6px;
+  }
+
+  .setting-item input {
+    width: 14px;
+    height: 14px;
   }
 
   .word-meaning {
     margin: 0;
   }
 
-  .hangman-zone {
-    min-height: 0;
-    height: clamp(170px, 32vh, 204px);
-    margin-top: 0;
-  }
-
-  .gallows-mount,
-  .hangman-mount {
-    width: min(100%, 260px);
-    height: min(100%, 220px);
-  }
-
   .answer-slots {
-    gap: 10px;
+    gap: clamp(10px, 3.2vw, 12px);
   }
 
   .answer-slot {
-    width: 32px;
-    height: 44px;
-    font-size: 1.8rem;
+    width: clamp(32px, 9.2vw, 36px);
+    height: clamp(44px, 12.4vw, 50px);
+    font-size: clamp(1.8rem, 5.6vw, 2.08rem);
   }
 
   .answer-row {
@@ -955,8 +814,8 @@ input {
   }
 
   .wrong-jamo-list {
-    width: min(100%, 280px);
-    font-size: 0.88rem;
+    width: min(100%, clamp(280px, 82vw, 320px));
+    font-size: clamp(0.88rem, 2.6vw, 1rem);
   }
 
   .jamo-keyboard,
@@ -965,19 +824,40 @@ input {
   }
 
   .jamo-key {
-    width: 36px;
+    width: min(42px, calc((100vw - 15px) / 10));
+    height: clamp(38px, 10.6vw, 44px);
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
   }
 
   .input-row {
-    gap: 8px;
+    gap: clamp(8px, 2.4vw, 10px);
     margin-top: 0;
     margin-bottom: 0;
   }
 
   .ad-strip {
-    grid-template-columns: 96px 1fr;
-    gap: 8px;
+    --ad-strip-pad-x: 12px;
+    grid-template-columns: clamp(96px, 26vw, 120px) 1fr;
+    gap: clamp(8px, 2.4vw, 10px);
     padding: 10px;
+  }
+
+  .ad-mascot-area {
+    left: 0;
+  }
+
+  .restman-wrap {
+    left: calc((var(--ad-strip-pad-x) * -1) + 1px);
+    width: clamp(31px, 8.4vw, 36px);
+    height: clamp(66px, 18vw, 76px);
+  }
+
+  .ad-sign {
+    left: 8px;
+  }
+
+  .modal {
+    width: min(100%, 350px);
   }
 
   .ad-slot {
