@@ -45,9 +45,14 @@
 
 .info-back-btn {
   flex: 0 0 auto;
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 12px;
   color: var(--ink);
   font-family: var(--title-font);
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1;
   text-align: center;
