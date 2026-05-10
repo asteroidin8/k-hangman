@@ -31,7 +31,7 @@
   top: 20px;
   z-index: 2;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   min-width: 0;
@@ -45,18 +45,13 @@
 
 .info-back-btn {
   flex: 0 0 auto;
-  min-width: 74px;
-  border: var(--line);
-  border-radius: 999px;
-  padding: 8px 12px;
-  background: var(--paper);
   color: var(--ink);
-  font-size: 0.9rem;
+  font-family: var(--title-font);
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1;
   text-align: center;
   text-decoration: none;
-  box-shadow: var(--soft-shadow);
 }
 
 .info-card h2 {
