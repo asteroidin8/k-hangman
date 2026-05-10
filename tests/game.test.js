@@ -86,11 +86,10 @@ function createHarness(answerJamo = ["ㅎ", "ㅐ", "ㅇ"]) {
   return { calls, game, state };
 }
 
-test("submitGuess records a correct jamo and wins when solved", () => {
+test("guessJamo records a correct jamo immediately and wins when solved", () => {
   const { calls, game, state } = createHarness(["ㅎ"]);
 
   game.guessJamo("ㅎ", new Set(["ㅎ"]));
-  game.submitGuess();
 
   assert.equal(state.progress.attempts, 1);
   assert.deepEqual(state.progress.guessedCorrect, ["ㅎ"]);
@@ -100,13 +99,12 @@ test("submitGuess records a correct jamo and wins when solved", () => {
   assert.equal(calls.modalOpened, 1);
 });
 
-test("submitGuess records a wrong jamo and loses after max wrong guesses", () => {
+test("guessJamo records a wrong jamo immediately and loses after max wrong guesses", () => {
   const { calls, game, state } = createHarness(["ㅎ"]);
   const validJamo = new Set(["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ"]);
 
   for (const jamo of validJamo) {
     game.guessJamo(jamo, validJamo);
-    game.submitGuess();
   }
 
   assert.equal(state.progress.attempts, 6);
@@ -123,9 +121,7 @@ test("duplicate wrong guesses count as another wrong attempt", () => {
   const validJamo = new Set(["ㄱ"]);
 
   game.guessJamo("ㄱ", validJamo);
-  game.submitGuess();
   game.guessJamo("ㄱ", validJamo);
-  game.submitGuess();
 
   assert.equal(state.progress.attempts, 2);
   assert.deepEqual(state.progress.guessedWrong, ["ㄱ"]);
@@ -139,17 +135,6 @@ test("invalid input renders invalid keyboard feedback", () => {
 
   assert.equal(calls.keyboardRenders.some((data) => data.invalidChar === "A"), true);
   assert.equal(calls.keyboardShaken, true);
-});
-
-test("deleteTypedJamo clears the pending jamo before submit", () => {
-  const { game, state } = createHarness(["ㅎ"]);
-
-  game.guessJamo("ㅎ", new Set(["ㅎ"]));
-  game.deleteTypedJamo();
-  game.submitGuess();
-
-  assert.equal(state.progress.attempts, 0);
-  assert.deepEqual(state.progress.guessedCorrect, []);
 });
 
 test("buildShareText includes status, progress, attempts, and URL", () => {

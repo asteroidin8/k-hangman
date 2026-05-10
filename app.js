@@ -87,31 +87,9 @@ function handleJamoGuess(jamo) {
   game.guessJamo(jamo, VALID_JAMO);
 }
 
-function submitJamoGuess() {
-  closeSettings();
-  game.submitGuess();
-}
-
-function deleteJamoGuess() {
-  closeSettings();
-  game.deleteTypedJamo();
-}
-
 function handlePhysicalKeyboard(event) {
   if (event.ctrlKey || event.metaKey || event.altKey) return;
   if (event.target instanceof HTMLElement && event.target.closest("button")) return;
-
-  if (event.key === "Enter") {
-    event.preventDefault();
-    submitJamoGuess();
-    return;
-  }
-
-  if (event.key === "Backspace" || event.key === "Delete") {
-    event.preventDefault();
-    deleteJamoGuess();
-    return;
-  }
 
   if (!VALID_JAMO.has(event.key)) return;
 
@@ -176,16 +154,10 @@ function bindEvents() {
   el.jamoKeyboard.addEventListener("click", (event) => {
     const target = event.target instanceof HTMLElement ? event.target : null;
     const key = target?.closest(".jamo-key");
-    const action = target?.closest(".jamo-action");
 
     if (key instanceof HTMLButtonElement && !key.disabled) {
       handleJamoGuess(key.dataset.jamo || "");
-      return;
     }
-
-    if (!(action instanceof HTMLButtonElement) || action.disabled) return;
-    if (action.dataset.action === "submit") submitJamoGuess();
-    if (action.dataset.action === "delete") deleteJamoGuess();
   });
 
   document.addEventListener("click", handleDocumentClick);
