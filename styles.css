@@ -453,52 +453,12 @@ input {
   cursor: pointer;
 }
 
-.jamo-action {
-  width: 64px;
-  height: 34px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--title-font);
-  font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.jamo-key:disabled,
-.jamo-action:disabled {
+.jamo-key:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
 .jamo-key.is-invalid {
-  color: var(--red);
-}
-
-.jamo-control-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.selected-jamo {
-  width: 44px;
-  height: 34px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  display: grid;
-  place-items: center;
-  color: var(--ink);
-  font-family: var(--title-font);
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.selected-jamo.is-invalid {
   color: var(--red);
 }
 
@@ -904,11 +864,6 @@ input {
     font-size: 1.12rem;
   }
 
-  .jamo-action,
-  .selected-jamo {
-    height: 32px;
-  }
-
   .input-row {
     margin-bottom: 12px;
   }
@@ -1035,18 +990,6 @@ input {
     width: 28px;
     height: 30px;
     font-size: 1.04rem;
-  }
-
-  .jamo-action {
-    width: 58px;
-    height: 30px;
-    font-size: 0.96rem;
-  }
-
-  .selected-jamo {
-    width: 40px;
-    height: 30px;
-    font-size: 1.16rem;
   }
 
   .input-row {

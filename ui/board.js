@@ -34,7 +34,7 @@ export function createBoardUI(el) {
     ].filter(Boolean);
   }
 
-  function renderJamoKeyboard({ liveDisplayChar, invalidChar, isEnded }) {
+  function renderJamoKeyboard({ invalidChar, isEnded }) {
     el.jamoKeyboard.innerHTML = "";
 
     KEYBOARD_JAMO_ROWS.forEach((row) => {
@@ -54,16 +54,6 @@ export function createBoardUI(el) {
 
       el.jamoKeyboard.appendChild(rowEl);
     });
-
-    const controlRow = document.createElement("div");
-    controlRow.className = "jamo-control-row";
-    controlRow.innerHTML = `
-      <button class="jamo-action" type="button" data-action="delete" ${isEnded ? "disabled" : ""}>삭제</button>
-      <div class="selected-jamo" aria-live="polite">${invalidChar || liveDisplayChar || ""}</div>
-      <button class="jamo-action" type="button" data-action="submit" ${isEnded ? "disabled" : ""}>입력</button>
-    `;
-    controlRow.querySelector(".selected-jamo").classList.toggle("is-invalid", Boolean(invalidChar));
-    el.jamoKeyboard.appendChild(controlRow);
   }
 
   function shakeKeyboard() {
