@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "GabiaSolmi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GabiaSolmee.woff") format("woff");
+  font-weight: normal;
+  font-display: swap;
+}
+
 :root {
   --board-height: calc(100vh - 68px);
   --bg: #fafcff;
@@ -6,8 +13,8 @@
   --red: #cc2f2f;
   --line: 3px solid var(--ink);
   --soft-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-  --ui-font: "Noto Sans KR", system-ui, sans-serif;
-  --title-font: "Gaegu", "Noto Sans KR", sans-serif;
+  --ui-font: "GabiaSolmi", system-ui, sans-serif;
+  --title-font: "GabiaSolmi", system-ui, sans-serif;
 }
 
 * {
