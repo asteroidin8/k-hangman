@@ -26,13 +26,37 @@
   margin: 0;
 }
 
-.info-title {
+.info-header {
   position: sticky;
   top: 20px;
   z-index: 2;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.info-title {
   margin: 0;
   font-size: clamp(2.25rem, 7vw, 2.7rem);
   line-height: 1;
+}
+
+.info-back-btn {
+  flex: 0 0 auto;
+  min-width: 74px;
+  border: var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: var(--soft-shadow);
 }
 
 .info-card h2 {
