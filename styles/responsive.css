@@ -30,7 +30,7 @@
 
   .message-text,
   .setting-item {
-    font-size: clamp(0.92rem, 2.8vw, 1.12rem);
+    font-size: clamp(1.05rem, 3.4vw, 1.28rem);
     line-height: 1.1;
   }
 
@@ -57,7 +57,7 @@
   }
 
   .word-meaning .message-text {
-    font-size: clamp(1.28rem, 5vw, 1.7rem);
+    font-size: clamp(1.42rem, 5.5vw, 1.86rem);
   }
 
   .answer-slots {
