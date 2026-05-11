@@ -262,11 +262,13 @@ test("keeps footer page article content in natural rows", async ({ page }) => {
 
       return {
         gridTemplateRows: style.gridTemplateRows,
+        hasInternalScroll: article.scrollHeight > article.clientHeight,
         children,
       };
     });
 
     expect(layout.gridTemplateRows.split(" ").length).toBe(layout.children.length);
+    expect(layout.hasInternalScroll).toBe(false);
     expect(layout.children.every((height) => height > 0)).toBe(true);
 
     if (path === "/terms.html") {
