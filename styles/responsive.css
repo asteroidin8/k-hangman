@@ -92,8 +92,8 @@
     gap: 1px;
   }
 
-  .jamo-key-row {
-    height: clamp(42px, 11.6vw, 48px);
+  .jamo-keyboard {
+    grid-auto-rows: clamp(42px, 11.6vw, 48px);
   }
 
   .jamo-key {

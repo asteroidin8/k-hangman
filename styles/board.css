@@ -272,7 +272,8 @@
 .jamo-keyboard {
   width: 100%;
   display: grid;
-  align-items: center;
+  align-items: stretch;
+  grid-auto-rows: clamp(48px, 6.4vw, 54px);
   gap: 8px;
 }
 
@@ -281,7 +282,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 6px;
-  height: clamp(48px, 6.4vw, 54px);
+  height: 100%;
 }
 
 .jamo-key {
