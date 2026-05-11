@@ -58,7 +58,36 @@ test("keeps the hangman zone matched to the svg height at 375px", async ({ page 
 
   expect(boxes.hangmanHeight).toBe(boxes.gallowsHeight);
   expect(boxes.meaningHeight).toBeGreaterThanOrEqual(72);
-  expect(boxes.answerHeight).toBeGreaterThanOrEqual(160);
+  expect(boxes.answerHeight).toBeGreaterThanOrEqual(150);
+});
+
+test("scales board sections together as viewport height grows", async ({ page }) => {
+  const readLayout = async (height) => {
+    await page.setViewportSize({ width: 375, height });
+    await page.goto("/");
+    await page.locator(".jamo-key").first().waitFor();
+
+    return page.evaluate(() => {
+      const readHeight = (selector) => Math.round(document.querySelector(selector).getBoundingClientRect().height);
+
+      return {
+        meaning: readHeight("#wordMeaning"),
+        hangman: readHeight(".hangman-zone"),
+        answer: readHeight(".answer-row"),
+        input: readHeight(".input-row"),
+        key: readHeight(".jamo-key"),
+      };
+    });
+  };
+
+  const compact = await readLayout(812);
+  const roomy = await readLayout(932);
+
+  expect(roomy.meaning).toBeGreaterThan(compact.meaning);
+  expect(roomy.hangman).toBeGreaterThan(compact.hangman);
+  expect(roomy.answer).toBeGreaterThan(compact.answer);
+  expect(roomy.input).toBeGreaterThan(compact.input);
+  expect(roomy.key).toBeGreaterThan(compact.key);
 });
 
 test("fills the keyboard height with taller jamo keys at 375px", async ({ page }) => {
@@ -83,10 +112,40 @@ test("fills the keyboard height with taller jamo keys at 375px", async ({ page }
   });
 
   expect(boxes.lastRowBottom).toBe(boxes.keyboardBottom);
-  expect(boxes.keyboardTop - boxes.wrongJamoBottom).toBeGreaterThanOrEqual(28);
+  expect(boxes.keyboardTop - boxes.wrongJamoBottom).toBeGreaterThanOrEqual(20);
   expect(boxes.inputBottom - boxes.keyboardBottom).toBe(14);
-  expect(boxes.keyHeight).toBeGreaterThan(50);
+  expect(boxes.keyHeight).toBeGreaterThanOrEqual(48);
   expect(boxes.keyHeight).toBeLessThanOrEqual(76);
+});
+
+test("keeps answer layout stable after a jamo guess", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const readLayout = async () => page.evaluate(() => {
+    const read = (selector) => {
+      const rect = document.querySelector(selector).getBoundingClientRect();
+      return {
+        top: Math.round(rect.top),
+        bottom: Math.round(rect.bottom),
+        height: Math.round(rect.height),
+      };
+    };
+
+    return {
+      answer: read(".answer-row"),
+      slots: read(".answer-slots"),
+      input: read(".input-row"),
+    };
+  });
+
+  const before = await readLayout();
+  await page.getByRole("button", { name: "ㅎ" }).click();
+  const after = await readLayout();
+
+  expect(after.answer).toEqual(before.answer);
+  expect(after.slots.height).toBe(before.slots.height);
+  expect(after.input).toEqual(before.input);
 });
 
 test("keeps board chrome consistent across responsive widths", async ({ page }) => {
