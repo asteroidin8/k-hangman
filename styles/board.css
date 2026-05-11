@@ -1,7 +1,7 @@
 .board {
   position: relative;
   display: grid;
-  grid-template-rows: minmax(2.5rem, auto) minmax(0, 1fr) clamp(78px, 9vw, 96px) clamp(230px, 28vw, 260px);
+  grid-template-rows: clamp(56px, 8vw, 80px) auto clamp(140px, 16vw, 168px) minmax(0, 1fr);
   background: var(--paper);
   border: 0;
   border-radius: 30px;

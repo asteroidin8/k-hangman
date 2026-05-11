@@ -24,7 +24,7 @@
   }
 
   .board {
-    grid-template-rows: minmax(2rem, auto) minmax(0, 1fr) 76px clamp(232px, 30vh, 252px);
+    grid-template-rows: 80px auto 168px minmax(0, 1fr);
   }
 
   .hangman-zone {
@@ -102,7 +102,7 @@
   }
 
   .input-row {
-    gap: clamp(12px, 3.4vw, 14px);
+    gap: clamp(28px, 4vh, 36px);
     margin-top: 0;
   }
 

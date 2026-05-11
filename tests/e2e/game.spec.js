@@ -38,6 +38,29 @@ test("keeps the board within the viewport at 375px", async ({ page }) => {
   expect(boardBox.y + boardBox.height).toBeLessThanOrEqual(812);
 });
 
+test("keeps the hangman zone matched to the svg height at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const boxes = await page.evaluate(() => {
+    const meaning = document.querySelector("#wordMeaning").getBoundingClientRect();
+    const hangman = document.querySelector(".hangman-zone").getBoundingClientRect();
+    const gallows = document.querySelector("#gallowsMount").getBoundingClientRect();
+    const answer = document.querySelector(".answer-row").getBoundingClientRect();
+
+    return {
+      meaningHeight: Math.round(meaning.height),
+      hangmanHeight: Math.round(hangman.height),
+      gallowsHeight: Math.round(gallows.height),
+      answerHeight: Math.round(answer.height),
+    };
+  });
+
+  expect(boxes.hangmanHeight).toBe(boxes.gallowsHeight);
+  expect(boxes.meaningHeight).toBeGreaterThanOrEqual(72);
+  expect(boxes.answerHeight).toBeGreaterThanOrEqual(160);
+});
+
 test("fills the keyboard height with taller jamo keys at 375px", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
@@ -60,9 +83,10 @@ test("fills the keyboard height with taller jamo keys at 375px", async ({ page }
   });
 
   expect(boxes.lastRowBottom).toBe(boxes.keyboardBottom);
-  expect(boxes.keyboardTop - boxes.wrongJamoBottom).toBeGreaterThanOrEqual(12);
+  expect(boxes.keyboardTop - boxes.wrongJamoBottom).toBeGreaterThanOrEqual(28);
   expect(boxes.inputBottom - boxes.keyboardBottom).toBe(14);
   expect(boxes.keyHeight).toBeGreaterThan(50);
+  expect(boxes.keyHeight).toBeLessThanOrEqual(76);
 });
 
 test("keeps board chrome consistent across responsive widths", async ({ page }) => {
