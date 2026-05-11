@@ -43,11 +43,16 @@ test("fills the keyboard height with taller jamo keys at 375px", async ({ page }
   await page.goto("/");
 
   const boxes = await page.evaluate(() => {
+    const input = document.querySelector(".input-row").getBoundingClientRect();
+    const wrongJamo = document.querySelector("#wrongJamoList").getBoundingClientRect();
     const keyboard = document.querySelector("#jamoKeyboard").getBoundingClientRect();
     const lastRow = document.querySelector(".jamo-key-row:last-child").getBoundingClientRect();
     const key = document.querySelector(".jamo-key").getBoundingClientRect();
 
     return {
+      inputBottom: Math.round(input.bottom),
+      wrongJamoBottom: Math.round(wrongJamo.bottom),
+      keyboardTop: Math.round(keyboard.top),
       keyboardBottom: Math.round(keyboard.bottom),
       lastRowBottom: Math.round(lastRow.bottom),
       keyHeight: Math.round(key.height),
@@ -55,6 +60,8 @@ test("fills the keyboard height with taller jamo keys at 375px", async ({ page }
   });
 
   expect(boxes.lastRowBottom).toBe(boxes.keyboardBottom);
+  expect(boxes.keyboardTop - boxes.wrongJamoBottom).toBeGreaterThanOrEqual(12);
+  expect(boxes.inputBottom - boxes.keyboardBottom).toBe(14);
   expect(boxes.keyHeight).toBeGreaterThan(50);
 });
 

@@ -23,6 +23,10 @@
     width: clamp(96px, 29vw, 128px);
   }
 
+  .board {
+    grid-template-rows: minmax(2rem, auto) minmax(0, 1fr) 76px clamp(232px, 30vh, 252px);
+  }
+
   .hangman-zone {
     min-height: 0;
     height: clamp(226px, 55vw, 312px);
@@ -98,9 +102,8 @@
   }
 
   .input-row {
-    gap: clamp(8px, 2.4vw, 10px);
+    gap: clamp(12px, 3.4vw, 14px);
     margin-top: 0;
-    margin-bottom: 0;
   }
 
   .ad-strip {
