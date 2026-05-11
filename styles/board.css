@@ -246,18 +246,6 @@
   width: min(100%, 360px);
 }
 
-.wrong-jamo-group {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 4px;
-  min-width: 0;
-}
-
-.wrong-jamo-label {
-  color: rgba(17, 17, 17, 0.52);
-}
-
 .wrong-jamo-values {
   min-width: 0;
   white-space: nowrap;

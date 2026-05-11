@@ -25,13 +25,8 @@ export function createBoardUI(el) {
   let parts = [];
   let deadFace = [];
 
-  function renderWrongJamoGroup(label = "", values = "") {
-    return `
-      <div class="wrong-jamo-group">
-        <span class="wrong-jamo-label">${label}</span>
-        <span class="wrong-jamo-values">${values}</span>
-      </div>
-    `;
+  function renderWrongJamoValues(values = "") {
+    return `<span class="wrong-jamo-values">${values}</span>`;
   }
 
   function sortJamoBy(order, guessedWrong) {
@@ -96,12 +91,12 @@ export function createBoardUI(el) {
 
   function renderWrongJamo(show, guessedWrong) {
     if (!show) {
-      el.wrongJamoList.innerHTML = `${renderWrongJamoGroup()}${renderWrongJamoGroup()}`;
+      el.wrongJamoList.innerHTML = `${renderWrongJamoValues()}${renderWrongJamoValues()}`;
       return;
     }
 
     if (guessedWrong.length === 0) {
-      el.wrongJamoList.innerHTML = `${renderWrongJamoGroup("자")}${renderWrongJamoGroup("모")}`;
+      el.wrongJamoList.innerHTML = `${renderWrongJamoValues()}${renderWrongJamoValues()}`;
       return;
     }
 
@@ -109,8 +104,8 @@ export function createBoardUI(el) {
     const vowels = sortJamoBy(JUNG, guessedWrong);
 
     el.wrongJamoList.innerHTML = [
-      renderWrongJamoGroup("자", consonants.join(" ")),
-      renderWrongJamoGroup("모", vowels.join(" "))
+      renderWrongJamoValues(consonants.join(" ")),
+      renderWrongJamoValues(vowels.join(" "))
     ].join("");
   }
 
