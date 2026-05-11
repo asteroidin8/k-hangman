@@ -248,3 +248,29 @@ test("returns from a direct info page entry with browser back", async ({ page })
   await expect(page).toHaveURL(/\/index\.html$/);
   await expect(page.getByRole("button", { name: "도움말" })).toBeVisible();
 });
+
+test("keeps footer page article content in natural rows", async ({ page }) => {
+  for (const path of ["/contact.html", "/privacy.html", "/terms.html"]) {
+    await page.goto(path);
+
+    const layout = await page.locator(".info-card").evaluate((article) => {
+      const style = window.getComputedStyle(article);
+      const children = [...article.children].map((child) => {
+        const rect = child.getBoundingClientRect();
+        return Math.round(rect.height);
+      });
+
+      return {
+        gridTemplateRows: style.gridTemplateRows,
+        children,
+      };
+    });
+
+    expect(layout.gridTemplateRows.split(" ").length).toBe(layout.children.length);
+    expect(layout.children.every((height) => height > 0)).toBe(true);
+
+    if (path === "/terms.html") {
+      expect(layout.children[1]).toBeLessThan(layout.children[0]);
+    }
+  }
+});

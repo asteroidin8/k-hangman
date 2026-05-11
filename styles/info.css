@@ -17,6 +17,8 @@
 }
 
 .board.info-card {
+  grid-template-rows: none;
+  grid-auto-rows: auto;
   padding: clamp(20px, 4vw, 28px);
 }
 
