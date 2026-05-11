@@ -37,6 +37,7 @@
   justify-content: space-between;
   gap: 12px;
   min-width: 0;
+  padding: 14px 16px 0;
 }
 
 .info-title {
