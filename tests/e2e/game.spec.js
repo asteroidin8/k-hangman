@@ -38,6 +38,116 @@ test("keeps the board within the viewport at 375px", async ({ page }) => {
   expect(boardBox.y + boardBox.height).toBeLessThanOrEqual(812);
 });
 
+test("keeps the hangman zone matched to the svg height at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const boxes = await page.evaluate(() => {
+    const meaning = document.querySelector("#wordMeaning").getBoundingClientRect();
+    const hangman = document.querySelector(".hangman-zone").getBoundingClientRect();
+    const gallows = document.querySelector("#gallowsMount").getBoundingClientRect();
+    const answer = document.querySelector(".answer-row").getBoundingClientRect();
+
+    return {
+      meaningHeight: Math.round(meaning.height),
+      hangmanHeight: Math.round(hangman.height),
+      gallowsHeight: Math.round(gallows.height),
+      answerHeight: Math.round(answer.height),
+    };
+  });
+
+  expect(boxes.hangmanHeight).toBe(boxes.gallowsHeight);
+  expect(boxes.meaningHeight).toBeGreaterThanOrEqual(72);
+  expect(boxes.answerHeight).toBeGreaterThanOrEqual(150);
+});
+
+test("scales board sections together as viewport height grows", async ({ page }) => {
+  const readLayout = async (height) => {
+    await page.setViewportSize({ width: 375, height });
+    await page.goto("/");
+    await page.locator(".jamo-key").first().waitFor();
+
+    return page.evaluate(() => {
+      const readHeight = (selector) => Math.round(document.querySelector(selector).getBoundingClientRect().height);
+
+      return {
+        meaning: readHeight("#wordMeaning"),
+        hangman: readHeight(".hangman-zone"),
+        answer: readHeight(".answer-row"),
+        input: readHeight(".input-row"),
+        key: readHeight(".jamo-key"),
+      };
+    });
+  };
+
+  const compact = await readLayout(812);
+  const roomy = await readLayout(932);
+
+  expect(roomy.meaning).toBeGreaterThan(compact.meaning);
+  expect(roomy.hangman).toBeGreaterThan(compact.hangman);
+  expect(roomy.answer).toBeGreaterThan(compact.answer);
+  expect(roomy.input).toBeGreaterThan(compact.input);
+  expect(roomy.key).toBeGreaterThan(compact.key);
+});
+
+test("fills the keyboard height with taller jamo keys at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const boxes = await page.evaluate(() => {
+    const input = document.querySelector(".input-row").getBoundingClientRect();
+    const wrongJamo = document.querySelector("#wrongJamoList").getBoundingClientRect();
+    const keyboard = document.querySelector("#jamoKeyboard").getBoundingClientRect();
+    const lastRow = document.querySelector(".jamo-key-row:last-child").getBoundingClientRect();
+    const key = document.querySelector(".jamo-key").getBoundingClientRect();
+
+    return {
+      inputBottom: Math.round(input.bottom),
+      wrongJamoBottom: Math.round(wrongJamo.bottom),
+      keyboardTop: Math.round(keyboard.top),
+      keyboardBottom: Math.round(keyboard.bottom),
+      lastRowBottom: Math.round(lastRow.bottom),
+      keyHeight: Math.round(key.height),
+    };
+  });
+
+  expect(boxes.lastRowBottom).toBe(boxes.keyboardBottom);
+  expect(boxes.keyboardTop - boxes.wrongJamoBottom).toBeGreaterThanOrEqual(20);
+  expect(boxes.inputBottom - boxes.keyboardBottom).toBe(14);
+  expect(boxes.keyHeight).toBeGreaterThanOrEqual(48);
+  expect(boxes.keyHeight).toBeLessThanOrEqual(76);
+});
+
+test("keeps answer layout stable after a jamo guess", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const readLayout = async () => page.evaluate(() => {
+    const read = (selector) => {
+      const rect = document.querySelector(selector).getBoundingClientRect();
+      return {
+        top: Math.round(rect.top),
+        bottom: Math.round(rect.bottom),
+        height: Math.round(rect.height),
+      };
+    };
+
+    return {
+      answer: read(".answer-row"),
+      slots: read(".answer-slots"),
+      input: read(".input-row"),
+    };
+  });
+
+  const before = await readLayout();
+  await page.getByRole("button", { name: "ㅎ" }).click();
+  const after = await readLayout();
+
+  expect(after.answer).toEqual(before.answer);
+  expect(after.slots.height).toBe(before.slots.height);
+  expect(after.input).toEqual(before.input);
+});
+
 test("keeps board chrome consistent across responsive widths", async ({ page }) => {
   const snapshots = [];
 
