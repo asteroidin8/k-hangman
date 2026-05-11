@@ -92,10 +92,6 @@
     gap: 1px;
   }
 
-  .jamo-keyboard {
-    grid-auto-rows: clamp(42px, 11.6vw, 48px);
-  }
-
   .jamo-key {
     width: min(46px, calc((100vw - 15px) / 10));
     font-size: clamp(1.42rem, 4.4vw, 1.62rem);

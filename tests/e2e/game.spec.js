@@ -38,6 +38,26 @@ test("keeps the board within the viewport at 375px", async ({ page }) => {
   expect(boardBox.y + boardBox.height).toBeLessThanOrEqual(812);
 });
 
+test("fills the keyboard height with taller jamo keys at 375px", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+
+  const boxes = await page.evaluate(() => {
+    const keyboard = document.querySelector("#jamoKeyboard").getBoundingClientRect();
+    const lastRow = document.querySelector(".jamo-key-row:last-child").getBoundingClientRect();
+    const key = document.querySelector(".jamo-key").getBoundingClientRect();
+
+    return {
+      keyboardBottom: Math.round(keyboard.bottom),
+      lastRowBottom: Math.round(lastRow.bottom),
+      keyHeight: Math.round(key.height),
+    };
+  });
+
+  expect(boxes.lastRowBottom).toBe(boxes.keyboardBottom);
+  expect(boxes.keyHeight).toBeGreaterThan(50);
+});
+
 test("keeps board chrome consistent across responsive widths", async ({ page }) => {
   const snapshots = [];
 
