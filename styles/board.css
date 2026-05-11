@@ -1,7 +1,7 @@
 .board {
   position: relative;
   display: grid;
-  grid-template-rows: minmax(0, 0.12fr) minmax(0, 0.38fr) minmax(0, 0.21fr) minmax(0, 0.29fr);
+  grid-template-rows: minmax(0, 0.12fr) minmax(0, 0.35fr) minmax(0, 0.22fr) minmax(0, 0.31fr);
   background: var(--paper);
   border: 0;
   border-radius: 30px;
