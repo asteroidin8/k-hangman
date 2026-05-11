@@ -50,7 +50,7 @@
 
 .word-meaning .message-text {
   color: rgba(17, 17, 17, 0.72);
-  font-size: clamp(1.82rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.95rem, 3vw, 2.35rem);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -96,7 +96,7 @@
   display: block;
   width: 100%;
   font-family: var(--title-font);
-  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  font-size: clamp(1.65rem, 2.2vw, 2rem);
   font-weight: 700;
   line-height: 1.05;
   color: var(--ink);
