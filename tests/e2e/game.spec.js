@@ -17,6 +17,15 @@ test("loads the game board and accepts a jamo guess", async ({ page }) => {
   await expect(page.getByRole("button", { name: "삭제" })).toHaveCount(0);
 });
 
+test("keeps hangman speech visible after a jamo click", async ({ page }) => {
+  await page.goto("/");
+
+  await page.locator(".jamo-key").first().click();
+
+  await expect(page.locator("#message")).toBeVisible();
+  await expect(page.locator("#messageText")).not.toBeEmpty();
+});
+
 test("keeps the first keyboard row on one line at 375px", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");

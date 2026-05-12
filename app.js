@@ -80,10 +80,12 @@ function handleDocumentClick(event) {
   const target = event.target;
   if (!(target instanceof Element)) return;
 
+  const path = event.composedPath();
+
   if (
     target.closest(".message") ||
     target.closest(".icon-btn") ||
-    target.closest(".jamo-keyboard") ||
+    path.includes(el.jamoKeyboard) ||
     target.closest(".modal") ||
     target.closest(".settings-modal")
   ) {
