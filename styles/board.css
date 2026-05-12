@@ -296,11 +296,34 @@
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
+  box-shadow: 0 3px 0 var(--ink);
+  transform: translateY(0);
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.jamo-key:not(:disabled):hover {
+  background: #fff6c7;
+}
+
+.jamo-key:not(:disabled):active {
+  box-shadow: 0 1px 0 var(--ink);
+  transform: translateY(2px);
+}
+
+.jamo-key:focus-visible {
+  outline: 3px solid #f2c94c;
+  outline-offset: 2px;
 }
 
 .jamo-key:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 .jamo-key.is-invalid {
