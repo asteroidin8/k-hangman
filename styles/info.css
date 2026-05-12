@@ -1,8 +1,8 @@
 .info-page {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 10px;
-  min-height: calc(100vh - 48px);
+  min-height: 100vh;
 }
 
 .info-card {
@@ -17,6 +17,7 @@
 .board.info-card {
   grid-template-rows: none;
   grid-auto-rows: auto;
+  height: auto;
   padding: clamp(20px, 4vw, 28px);
 }
 
@@ -27,17 +28,12 @@
 }
 
 .info-header {
-  position: sticky;
-  top: 20px;
-  z-index: 2;
   gap: 12px;
   min-width: 0;
 }
 
 .info-title {
   margin: 0;
-  font-size: clamp(2.25rem, 7vw, 2.7rem);
-  line-height: 1;
 }
 
 .info-back-btn {
@@ -64,6 +60,6 @@
 
 @supports (height: 100dvh) {
   .info-page {
-    min-height: calc(100dvh - 48px);
+    min-height: 100dvh;
   }
 }

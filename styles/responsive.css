@@ -3,7 +3,8 @@
     margin-bottom: 8px;
   }
 
-  .brand {
+  .brand,
+  .info-title {
     font-size: clamp(1.65rem, 4.8vw, 1.9rem);
   }
 
