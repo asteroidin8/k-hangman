@@ -46,11 +46,15 @@ input {
   width: min(100%, 760px);
 }
 
-.topbar {
+.topbar,
+.info-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px 0;
+}
+
+.topbar {
   margin-bottom: 10px;
 }
 
