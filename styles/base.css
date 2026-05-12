@@ -58,7 +58,8 @@ input {
   margin-bottom: 10px;
 }
 
-.brand {
+.brand,
+.info-title {
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
