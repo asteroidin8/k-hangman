@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://asteroidin8.github.io/k-hangman/</loc>
+    <loc>https://k-hangman.vercel.app/</loc>
   </url>
   <url>
-    <loc>https://asteroidin8.github.io/k-hangman/contact.html</loc>
+    <loc>https://k-hangman.vercel.app/contact.html</loc>
   </url>
   <url>
-    <loc>https://asteroidin8.github.io/k-hangman/privacy.html</loc>
+    <loc>https://k-hangman.vercel.app/privacy.html</loc>
   </url>
   <url>
-    <loc>https://asteroidin8.github.io/k-hangman/terms.html</loc>
+    <loc>https://k-hangman.vercel.app/terms.html</loc>
   </url>
 </urlset>
