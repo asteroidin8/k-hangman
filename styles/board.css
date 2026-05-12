@@ -306,16 +306,17 @@
 }
 
 .jamo-key:not(:disabled):hover {
-  background: #fff6c7;
+  background: #f1f3f5;
 }
 
 .jamo-key:not(:disabled):active {
+  background: #e4e7eb;
   box-shadow: 0 1px 0 var(--ink);
   transform: translateY(2px);
 }
 
 .jamo-key:focus-visible {
-  outline: 3px solid #f2c94c;
+  outline: 3px solid rgba(17, 17, 17, 0.4);
   outline-offset: 2px;
 }
 
