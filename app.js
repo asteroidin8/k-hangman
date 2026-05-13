@@ -120,11 +120,6 @@ function bindEvents() {
 
   bindClick(el.hintBtn, handleHintClick);
 
-  bindClick(el.shareBtn, async () => {
-    closeSettings();
-    await sharing.shareNative();
-  });
-
   bindClick(el.settingsBtn, () => {
     ui.hideMessage();
     settingsUI.setVisible(true);

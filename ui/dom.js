@@ -12,7 +12,6 @@ export function getDOM() {
 
     helpBtn: document.getElementById("helpBtn"),
     hintBtn: document.getElementById("hintBtn"),
-    shareBtn: document.getElementById("shareBtn"),
     settingsBtn: document.getElementById("settingsBtn"),
 
     settingsModal: document.getElementById("settingsModal"),
