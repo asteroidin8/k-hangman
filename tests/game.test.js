@@ -143,5 +143,5 @@ test("buildShareText includes status, progress, attempts, and URL", () => {
   state.progress.guessedCorrect.push("ㅎ");
   state.progress.attempts = 3;
 
-  assert.equal(game.buildShareText(), "[ 죽었다 ]\n\n■□\n\n시도 3\n\nhttp://localhost/");
+  assert.equal(game.buildShareText(), "한글 행맨 #115\n\n[ 죽었다 ]\n\n■□\n\n시도 3\n\nhttp://localhost/");
 });
