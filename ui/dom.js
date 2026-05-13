@@ -33,6 +33,7 @@ export function getDOM() {
     modalTitle: document.getElementById("modalTitle"),
     aliveCount: document.getElementById("aliveCount"),
     deadCount: document.getElementById("deadCount"),
+    sharePuzzle: document.getElementById("sharePuzzle"),
     shareStatus: document.getElementById("shareStatus"),
     shareSquares: document.getElementById("shareSquares"),
     shareAttempts: document.getElementById("shareAttempts"),

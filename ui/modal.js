@@ -1,8 +1,9 @@
 export function createModalUI(el) {
-  function update({ stats, statusTitle, squares, attempts }) {
+  function update({ stats, puzzleNumber, statusTitle, squares, attempts }) {
     el.modalTitle.textContent = statusTitle;
     el.aliveCount.textContent = String(stats.alive);
     el.deadCount.textContent = String(stats.dead);
+    el.sharePuzzle.textContent = `한글 행맨 #${puzzleNumber}`;
     el.shareStatus.textContent = `[ ${statusTitle} ]`;
     el.shareSquares.textContent = squares;
     el.shareAttempts.textContent = `시도 ${attempts}`;

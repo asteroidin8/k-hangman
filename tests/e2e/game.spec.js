@@ -21,6 +21,7 @@ test("shows sharing actions only inside the result modal", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.locator("#toolbar [aria-label='공유']")).toHaveCount(0);
+  await expect(page.locator("#statsModal #sharePuzzle")).toContainText("한글 행맨 #");
   await expect(page.locator("#statsModal #copyBtn")).toHaveCount(1);
   await expect(page.locator("#statsModal #shareModalBtn")).toHaveCount(1);
 });

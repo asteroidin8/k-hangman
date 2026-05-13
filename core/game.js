@@ -41,6 +41,8 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
   function buildShareText() {
     return [
+      `한글 행맨 #${state.progress.puzzleNumber}`,
+      "",
       `[ ${getStatusTitle()} ]`,
       "",
       buildProgressSquares(),
@@ -54,6 +56,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   function getModalData() {
     return {
       stats: state.stats,
+      puzzleNumber: state.progress.puzzleNumber,
       statusTitle: getStatusTitle(),
       squares: buildProgressSquares(),
       attempts: state.progress.attempts
