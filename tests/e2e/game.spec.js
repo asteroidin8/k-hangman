@@ -17,6 +17,14 @@ test("loads the game board and accepts a jamo guess", async ({ page }) => {
   await expect(page.getByRole("button", { name: "삭제" })).toHaveCount(0);
 });
 
+test("shows sharing actions only inside the result modal", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator("#toolbar [aria-label='공유']")).toHaveCount(0);
+  await expect(page.locator("#statsModal #copyBtn")).toHaveCount(1);
+  await expect(page.locator("#statsModal #shareModalBtn")).toHaveCount(1);
+});
+
 test("keeps hangman speech visible after a jamo click", async ({ page }) => {
   await page.goto("/");
 
