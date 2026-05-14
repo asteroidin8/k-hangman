@@ -30,6 +30,7 @@ export function createUI() {
       updateModal: modalUI.update,
       openModal: modalUI.open,
       openStatsModal: modalUI.openStats,
+      openHowToPlayModal: modalUI.openHowToPlay,
       closeModal: modalUI.close,
       setCopyButtonCopied: modalUI.setCopyButtonCopied,
     },

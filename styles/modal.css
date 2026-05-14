@@ -74,6 +74,66 @@
   text-align: center;
 }
 
+.how-to-play {
+  padding: 2px 4px 6px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.help-example {
+  display: block;
+  width: min(100%, 280px);
+  margin: 0 auto 16px;
+}
+
+.help-board {
+  fill: var(--paper);
+}
+
+.help-lines path {
+  stroke: rgba(17, 17, 17, 0.08);
+  stroke-width: 1;
+}
+
+.help-example path,
+.help-example circle,
+.help-example rect {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.help-example rect {
+  fill: var(--paper);
+}
+
+.help-example text {
+  fill: var(--ink);
+  font-family: var(--ui-font);
+  font-size: 12px;
+  font-weight: 700;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.help-example .help-meaning {
+  fill: rgba(17, 17, 17, 0.72);
+  font-size: 13px;
+}
+
+.how-to-play p {
+  margin: 0;
+  font-size: clamp(1rem, 2.4vw, 1.08rem);
+  line-height: 1.75;
+  word-break: keep-all;
+}
+
+.how-to-play p + p {
+  margin-top: 12px;
+}
+
 .share-line + .share-line {
   margin-top: 12px;
 }

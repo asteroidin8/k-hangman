@@ -41,6 +41,34 @@ test("opens local stats from the toolbar without share actions", async ({ page }
   await expect(page.locator("#shareModalBtn")).toBeHidden();
 });
 
+test("opens how to play from the toolbar without stats or share actions", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "도움말" }).click();
+
+  await expect(page.getByRole("dialog", { name: "도움말" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "행맨 보드 예시" })).toBeVisible();
+  await expect(page.locator("#howToPlay")).toContainText("행맨은 오늘의 단어를 한글 자모로 맞히는 게임입니다.");
+  await expect(page.locator("#howToPlay")).toContainText("추가 힌트를 얻는 방법을 찾아보세요.");
+  await expect(page.locator("#howToPlay")).not.toContainText("6");
+  await expect(page.locator("#aliveCount")).toBeHidden();
+  await expect(page.locator("#shareCard")).toBeHidden();
+  await expect(page.locator("#copyBtn")).toBeHidden();
+  await expect(page.locator("#shareModalBtn")).toBeHidden();
+});
+
+test("returns from how to play to stats with the right modal content", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "도움말" }).click();
+  await page.getByRole("button", { name: "닫기" }).click();
+  await page.getByRole("button", { name: "통계" }).click();
+
+  await expect(page.getByRole("dialog", { name: "통계" })).toBeVisible();
+  await expect(page.locator("#howToPlay")).toBeHidden();
+  await expect(page.locator("#aliveCount")).toBeVisible();
+});
+
 test("keeps hangman speech visible after a jamo click", async ({ page }) => {
   await page.goto("/");
 

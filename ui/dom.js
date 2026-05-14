@@ -38,6 +38,7 @@ export function getDOM() {
     averageAttempts: document.getElementById("averageAttempts"),
     bestAttempts: document.getElementById("bestAttempts"),
     currentStreak: document.getElementById("currentStreak"),
+    howToPlay: document.getElementById("howToPlay"),
     shareCard: document.getElementById("shareCard"),
     sharePuzzle: document.getElementById("sharePuzzle"),
     shareStatus: document.getElementById("shareStatus"),

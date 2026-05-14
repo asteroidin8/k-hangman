@@ -1,5 +1,5 @@
 import { WORDS } from "./core/words.js";
-import { BASE_DATE, TEXT } from "./core/config.js";
+import { BASE_DATE } from "./core/config.js";
 import { VALID_JAMO, getTodayString } from "./core/utils.js";
 import { createDailyPuzzle } from "./core/puzzle.js";
 import { createState } from "./core/state.js";
@@ -115,7 +115,8 @@ function bindEvents() {
 
   bindClick(el.helpBtn, () => {
     closeSettings();
-    ui.showMessage(TEXT.help);
+    ui.hideMessage();
+    ui.openHowToPlayModal();
   });
 
   bindClick(el.hintBtn, handleHintClick);
