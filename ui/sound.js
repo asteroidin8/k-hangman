@@ -1,4 +1,4 @@
-const MARKER_SOUND_MS = 180;
+const MARKER_SOUND_MS = 560;
 
 function createAudioContext() {
   const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -31,8 +31,10 @@ export function createSoundUI() {
 
     for (let i = 0; i < channel.length; i += 1) {
       const progress = i / channel.length;
-      const scratch = Math.random() * 2 - 1;
-      channel[i] = scratch * (1 - progress) * 0.38;
+      const grit = Math.random() * 2 - 1;
+      const tooth = Math.sin(progress * Math.PI * 86);
+      const pressure = Math.sin(progress * Math.PI);
+      channel[i] = (grit * 0.7 + tooth * 0.3) * pressure * 0.36;
     }
 
     const source = context.createBufferSource();
@@ -40,12 +42,13 @@ export function createSoundUI() {
     const gain = context.createGain();
 
     filter.type = "bandpass";
-    filter.frequency.setValueAtTime(900, now);
-    filter.frequency.exponentialRampToValueAtTime(260, now + duration);
-    filter.Q.setValueAtTime(1.4, now);
+    filter.frequency.setValueAtTime(1150, now);
+    filter.frequency.exponentialRampToValueAtTime(360, now + duration);
+    filter.Q.setValueAtTime(2.1, now);
 
     gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.12, now + 0.018);
+    gain.gain.exponentialRampToValueAtTime(0.09, now + 0.08);
+    gain.gain.setValueAtTime(0.09, now + duration * 0.76);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
     source.buffer = buffer;

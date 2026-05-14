@@ -180,7 +180,7 @@
 }
 
 .part.on {
-  animation: drawIn 0.25s ease forwards;
+  animation: drawIn 0.56s ease-out forwards;
 }
 
 .dead-face {
