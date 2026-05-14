@@ -49,8 +49,8 @@ test("opens how to play from the toolbar without stats or share actions", async 
   await expect(page.getByRole("dialog", { name: "도움말" })).toBeVisible();
   await expect(page.locator("#howToPlay")).toContainText("오늘의 단어를 한글 자모로 맞힙니다.");
   await expect(page.locator("#howToPlay")).toContainText("문제는 하루에 한 번 바뀝니다.");
-  await expect(page.locator("#howToPlay")).toContainText("힌트는 막힐 때 랜덤 자모를 알려줍니다.");
-  await expect(page.locator("#howToPlay")).toContainText("tip. 추가 힌트를 얻을 수 있습니다.");
+  await expect(page.locator("#howToPlay")).toContainText("힌트는 하나의 랜덤 자모를 알려줍니다.");
+  await expect(page.locator("#howToPlay")).toContainText("tip. 집착하면 더 줄지도?");
   await expect(page.locator("#howToPlay")).not.toContainText("6");
   await expect(page.locator("#aliveCount")).toBeHidden();
   await expect(page.locator("#shareCard")).toBeHidden();
