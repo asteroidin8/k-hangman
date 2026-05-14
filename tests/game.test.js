@@ -65,6 +65,9 @@ function createHarness(answerJamo = ["ㅎ", "ㅐ", "ㅇ"]) {
     renderAnswerSlots() {},
     renderWrongJamo() {},
     renderHangman() {},
+    playMarkerDraw() {
+      calls.markerDrawPlayed = (calls.markerDrawPlayed || 0) + 1;
+    },
     syncMeaning() {},
     renderJamoKeyboard(data) {
       calls.keyboardRenders.push(data);
@@ -118,6 +121,7 @@ test("guessJamo records a wrong jamo immediately and loses after max wrong guess
   assert.equal(state.progress.attempts, 6);
   assert.deepEqual(state.progress.guessedWrong, ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ"]);
   assert.equal(state.progress.wrongCount, 6);
+  assert.equal(calls.markerDrawPlayed, 6);
   assert.equal(state.progress.status, "lost");
   assert.equal(state.stats.alive, 0);
   assert.equal(state.stats.dead, 1);
@@ -127,7 +131,7 @@ test("guessJamo records a wrong jamo immediately and loses after max wrong guess
 });
 
 test("duplicate wrong guesses count as another wrong attempt", () => {
-  const { game, state } = createHarness(["ㅎ"]);
+  const { calls, game, state } = createHarness(["ㅎ"]);
   const validJamo = new Set(["ㄱ"]);
 
   game.guessJamo("ㄱ", validJamo);
@@ -136,6 +140,7 @@ test("duplicate wrong guesses count as another wrong attempt", () => {
   assert.equal(state.progress.attempts, 2);
   assert.deepEqual(state.progress.guessedWrong, ["ㄱ"]);
   assert.equal(state.progress.wrongCount, 2);
+  assert.equal(calls.markerDrawPlayed, 2);
 });
 
 test("invalid input renders invalid keyboard feedback", () => {
