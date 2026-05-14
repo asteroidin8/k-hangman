@@ -121,6 +121,10 @@
     width: min(100%, 350px);
   }
 
+  .how-to-play p {
+    font-size: 1rem;
+  }
+
   .ad-slot {
     min-height: 86px;
   }

@@ -30,7 +30,17 @@ export function createModalUI(el) {
     el.shareModalBtn.classList.toggle("hidden", !visible);
   }
 
+  function setHowToPlayVisible(visible) {
+    el.howToPlay.classList.toggle("hidden", !visible);
+  }
+
+  function setStatsVisible(visible) {
+    el.statsModal.querySelector(".stats").classList.toggle("hidden", !visible);
+  }
+
   function open() {
+    setStatsVisible(true);
+    setHowToPlayVisible(false);
     setShareVisible(true);
     el.toolbar.classList.add("hidden");
     el.statsModal.classList.remove("hidden");
@@ -39,6 +49,18 @@ export function createModalUI(el) {
 
   function openStats() {
     el.modalTitle.textContent = "통계";
+    setStatsVisible(true);
+    setHowToPlayVisible(false);
+    setShareVisible(false);
+    el.toolbar.classList.add("hidden");
+    el.statsModal.classList.remove("hidden");
+    el.statsModal.setAttribute("aria-hidden", "false");
+  }
+
+  function openHowToPlay() {
+    el.modalTitle.textContent = "도움말";
+    setStatsVisible(false);
+    setHowToPlayVisible(true);
     setShareVisible(false);
     el.toolbar.classList.add("hidden");
     el.statsModal.classList.remove("hidden");
@@ -60,6 +82,7 @@ export function createModalUI(el) {
     update,
     open,
     openStats,
+    openHowToPlay,
     close,
     setCopyButtonCopied
   };

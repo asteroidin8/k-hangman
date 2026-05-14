@@ -16,7 +16,6 @@ export const TEXT = {
   bonusHint: "이번만 더 준다",
   win: "끝",
   lose: "끝났어 내일 와",
-  help: "맞히면 열려\n틀리면 그려져",
   copied: "복사됨",
   denied: "안 돼",
   aliveTitle: "살았다",
