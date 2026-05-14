@@ -169,6 +169,7 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
 
   function handleWrong(isRepeatedWrong = false) {
     state.progress.wrongCount += 1;
+    ui.playMarkerDraw();
 
     if (!isRepeatedWrong) {
       ui.showMessage(TEXT.miss);

@@ -3,6 +3,7 @@ import { getDOM } from "./dom.js";
 import { createMessageUI } from "./message.js";
 import { createModalUI } from "./modal.js";
 import { createSettingsUI } from "./settings.js";
+import { createSoundUI } from "./sound.js";
 
 export function createUI() {
   const el = getDOM();
@@ -10,6 +11,7 @@ export function createUI() {
   const boardUI = createBoardUI(el);
   const modalUI = createModalUI(el);
   const settingsUI = createSettingsUI(el);
+  const soundUI = createSoundUI();
 
   return {
     el,
@@ -26,6 +28,7 @@ export function createUI() {
       renderAnswerSlots: boardUI.renderAnswerSlots,
       renderWrongJamo: boardUI.renderWrongJamo,
       renderHangman: boardUI.renderHangman,
+      playMarkerDraw: soundUI.playMarkerDraw,
       setRestMode: boardUI.setRestMode,
       updateModal: modalUI.update,
       openModal: modalUI.open,
