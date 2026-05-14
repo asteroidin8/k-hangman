@@ -90,10 +90,20 @@ test("createState migrates missing settings and bonus hint fields", () => {
   const state = createState("2026-04-25", 115);
 
   assert.equal(state.progress.bonusHintUsed, false);
+  assert.deepEqual(state.stats, {
+    alive: 1,
+    dead: 2,
+    lastFinishedDate: "2026-04-24",
+    totalAttempts: 0,
+    bestAttempts: null,
+    currentStreak: 0,
+    maxStreak: 0
+  });
   assert.deepEqual(state.settings, {
     showWrongJamo: true,
     showWordMeaning: false
   });
   assert.equal(JSON.parse(store.get(STORAGE_PROGRESS)).bonusHintUsed, false);
   assert.equal(JSON.parse(store.get(STORAGE_SETTINGS)).showWordMeaning, false);
+  assert.equal(JSON.parse(store.get(STORAGE_STATS)).maxStreak, 0);
 });

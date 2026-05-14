@@ -26,6 +26,21 @@ test("shows sharing actions only inside the result modal", async ({ page }) => {
   await expect(page.locator("#statsModal #shareModalBtn")).toHaveCount(1);
 });
 
+test("opens local stats from the toolbar without share actions", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "통계" }).click();
+
+  await expect(page.getByRole("dialog", { name: "통계" })).toBeVisible();
+  await expect(page.locator("#aliveCount")).toContainText("0");
+  await expect(page.locator("#deadCount")).toContainText("0");
+  await expect(page.locator("#winRate")).toContainText("0%");
+  await expect(page.locator("#averageAttempts")).toContainText("-");
+  await expect(page.locator("#shareCard")).toBeHidden();
+  await expect(page.locator("#copyBtn")).toBeHidden();
+  await expect(page.locator("#shareModalBtn")).toBeHidden();
+});
+
 test("keeps hangman speech visible after a jamo click", async ({ page }) => {
   await page.goto("/");
 

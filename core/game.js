@@ -92,8 +92,21 @@ export function createGame(state, ui, answerJamo, answerMeaning) {
   function updateStatsOnce(finalStatus) {
     if (state.stats.lastFinishedDate === state.progress.date) return;
 
-    if (finalStatus === "won") state.stats.alive += 1;
-    if (finalStatus === "lost") state.stats.dead += 1;
+    if (finalStatus === "won") {
+      state.stats.alive += 1;
+      state.stats.totalAttempts += state.progress.attempts;
+      state.stats.bestAttempts =
+        state.stats.bestAttempts === null
+          ? state.progress.attempts
+          : Math.min(state.stats.bestAttempts, state.progress.attempts);
+      state.stats.currentStreak += 1;
+      state.stats.maxStreak = Math.max(state.stats.maxStreak, state.stats.currentStreak);
+    }
+
+    if (finalStatus === "lost") {
+      state.stats.dead += 1;
+      state.stats.currentStreak = 0;
+    }
 
     state.stats.lastFinishedDate = state.progress.date;
     state.saveStats();

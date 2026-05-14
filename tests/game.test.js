@@ -42,7 +42,11 @@ function createHarness(answerJamo = ["ㅎ", "ㅐ", "ㅇ"]) {
     stats: {
       alive: 0,
       dead: 0,
-      lastFinishedDate: null
+      lastFinishedDate: null,
+      totalAttempts: 0,
+      bestAttempts: null,
+      currentStreak: 0,
+      maxStreak: 0
     },
     settings: {
       showWrongJamo: false,
@@ -96,6 +100,10 @@ test("guessJamo records a correct jamo immediately and wins when solved", () => 
   assert.equal(state.progress.status, "won");
   assert.equal(state.stats.alive, 1);
   assert.equal(state.stats.dead, 0);
+  assert.equal(state.stats.totalAttempts, 1);
+  assert.equal(state.stats.bestAttempts, 1);
+  assert.equal(state.stats.currentStreak, 1);
+  assert.equal(state.stats.maxStreak, 1);
   assert.equal(calls.modalOpened, 1);
 });
 
@@ -113,6 +121,8 @@ test("guessJamo records a wrong jamo immediately and loses after max wrong guess
   assert.equal(state.progress.status, "lost");
   assert.equal(state.stats.alive, 0);
   assert.equal(state.stats.dead, 1);
+  assert.equal(state.stats.totalAttempts, 0);
+  assert.equal(state.stats.currentStreak, 0);
   assert.equal(calls.modalOpened, 1);
 });
 
