@@ -29,6 +29,7 @@ export function createUI() {
       setRestMode: boardUI.setRestMode,
       updateModal: modalUI.update,
       openModal: modalUI.open,
+      openStatsModal: modalUI.openStats,
       closeModal: modalUI.close,
       setCopyButtonCopied: modalUI.setCopyButtonCopied,
     },

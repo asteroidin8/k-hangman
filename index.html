@@ -84,6 +84,16 @@
           </svg>
         </button>
 
+        <button class="icon-btn" id="statsBtn" type="button" aria-label="통계">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19V5"></path>
+            <path d="M4 19h16"></path>
+            <path d="M8 16v-5"></path>
+            <path d="M12 16V8"></path>
+            <path d="M16 16v-3"></path>
+          </svg>
+        </button>
+
         <button class="icon-btn" id="settingsBtn" type="button" aria-label="설정">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="3"></circle>
@@ -152,9 +162,25 @@
           <div class="stat-label">죽음</div>
           <div class="stat-value" id="deadCount">0</div>
         </div>
+        <div class="stat">
+          <div class="stat-label">승률</div>
+          <div class="stat-value" id="winRate">0%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">평균 시도</div>
+          <div class="stat-value" id="averageAttempts">-</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">최고 기록</div>
+          <div class="stat-value" id="bestAttempts">-</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">연속 생존</div>
+          <div class="stat-value" id="currentStreak">0</div>
+        </div>
       </div>
 
-      <div class="share-card">
+      <div class="share-card" id="shareCard">
         <div class="share-line title-font" id="sharePuzzle">한글 행맨 #1</div>
         <div class="share-line title-font" id="shareStatus">[ 살았다 ]</div>
         <div class="share-line share-squares" id="shareSquares">■■□□</div>

@@ -12,6 +12,7 @@ export function getDOM() {
 
     helpBtn: document.getElementById("helpBtn"),
     hintBtn: document.getElementById("hintBtn"),
+    statsBtn: document.getElementById("statsBtn"),
     settingsBtn: document.getElementById("settingsBtn"),
 
     settingsModal: document.getElementById("settingsModal"),
@@ -33,6 +34,11 @@ export function getDOM() {
     modalTitle: document.getElementById("modalTitle"),
     aliveCount: document.getElementById("aliveCount"),
     deadCount: document.getElementById("deadCount"),
+    winRate: document.getElementById("winRate"),
+    averageAttempts: document.getElementById("averageAttempts"),
+    bestAttempts: document.getElementById("bestAttempts"),
+    currentStreak: document.getElementById("currentStreak"),
+    shareCard: document.getElementById("shareCard"),
     sharePuzzle: document.getElementById("sharePuzzle"),
     shareStatus: document.getElementById("shareStatus"),
     shareSquares: document.getElementById("shareSquares"),

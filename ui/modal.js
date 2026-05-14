@@ -1,15 +1,45 @@
 export function createModalUI(el) {
+  function formatWinRate(stats) {
+    const total = stats.alive + stats.dead;
+    if (!total) return "0%";
+    return `${Math.round((stats.alive / total) * 100)}%`;
+  }
+
+  function formatAverageAttempts(stats) {
+    if (!stats.alive) return "-";
+    return (stats.totalAttempts / stats.alive).toFixed(1);
+  }
+
   function update({ stats, puzzleNumber, statusTitle, squares, attempts }) {
     el.modalTitle.textContent = statusTitle;
     el.aliveCount.textContent = String(stats.alive);
     el.deadCount.textContent = String(stats.dead);
+    el.winRate.textContent = formatWinRate(stats);
+    el.averageAttempts.textContent = formatAverageAttempts(stats);
+    el.bestAttempts.textContent = stats.bestAttempts === null ? "-" : String(stats.bestAttempts);
+    el.currentStreak.textContent = String(stats.currentStreak);
     el.sharePuzzle.textContent = `한글 행맨 #${puzzleNumber}`;
     el.shareStatus.textContent = `[ ${statusTitle} ]`;
     el.shareSquares.textContent = squares;
     el.shareAttempts.textContent = `시도 ${attempts}`;
   }
 
+  function setShareVisible(visible) {
+    el.shareCard.classList.toggle("hidden", !visible);
+    el.copyBtn.classList.toggle("hidden", !visible);
+    el.shareModalBtn.classList.toggle("hidden", !visible);
+  }
+
   function open() {
+    setShareVisible(true);
+    el.toolbar.classList.add("hidden");
+    el.statsModal.classList.remove("hidden");
+    el.statsModal.setAttribute("aria-hidden", "false");
+  }
+
+  function openStats() {
+    el.modalTitle.textContent = "통계";
+    setShareVisible(false);
     el.toolbar.classList.add("hidden");
     el.statsModal.classList.remove("hidden");
     el.statsModal.setAttribute("aria-hidden", "false");
@@ -29,6 +59,7 @@ export function createModalUI(el) {
   return {
     update,
     open,
+    openStats,
     close,
     setCopyButtonCopied
   };

@@ -1,6 +1,32 @@
 import { STORAGE_PROGRESS, STORAGE_SETTINGS, STORAGE_STATS } from "./config.js";
 import { loadJSON, saveJSON } from "./storage.js";
 
+function createDefaultStats() {
+  return {
+    alive: 0,
+    dead: 0,
+    lastFinishedDate: null,
+    totalAttempts: 0,
+    bestAttempts: null,
+    currentStreak: 0,
+    maxStreak: 0
+  };
+}
+
+function migrateStats(stats) {
+  const defaults = createDefaultStats();
+  let changed = false;
+
+  for (const [key, value] of Object.entries(defaults)) {
+    if (!(key in stats)) {
+      stats[key] = value;
+      changed = true;
+    }
+  }
+
+  return changed;
+}
+
 function createDefaultProgress(today, puzzleNumber) {
   return {
     date: today,
@@ -17,11 +43,7 @@ function createDefaultProgress(today, puzzleNumber) {
 }
 
 export function createState(today, puzzleNumber) {
-  const stats = loadJSON(STORAGE_STATS, {
-    alive: 0,
-    dead: 0,
-    lastFinishedDate: null
-  });
+  const stats = loadJSON(STORAGE_STATS, createDefaultStats());
 
   const settings = loadJSON(STORAGE_SETTINGS, {
     showWrongJamo: false,
@@ -41,6 +63,10 @@ export function createState(today, puzzleNumber) {
   if (typeof settings.showWordMeaning !== "boolean") {
     settings.showWordMeaning = false;
     saveJSON(STORAGE_SETTINGS, settings);
+  }
+
+  if (migrateStats(stats)) {
+    saveJSON(STORAGE_STATS, stats);
   }
 
   return {

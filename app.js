@@ -120,6 +120,12 @@ function bindEvents() {
 
   bindClick(el.hintBtn, handleHintClick);
 
+  bindClick(el.statsBtn, () => {
+    closeSettings();
+    ui.updateModal(game.getModalData());
+    ui.openStatsModal();
+  });
+
   bindClick(el.settingsBtn, () => {
     ui.hideMessage();
     settingsUI.setVisible(true);
